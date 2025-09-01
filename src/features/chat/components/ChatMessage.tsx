@@ -20,10 +20,10 @@ export default function ChatMessage({ message, onAction }: ChatMessageProps) {
           </svg>
         </div>
       )}
-      <div className={`${isIA ? 'message-ai rounded-tl-none' : 'message-user rounded-tr-none'} max-w-[80%] p-4 rounded-lg shadow bg-[#1e0b36] text-white`}>
+      <div className={`${isIA ? 'message-ai rounded-tl-none' : 'message-user rounded-tr-none'} max-w-[80%] p-4 rounded-lg shadow theme-card theme-text-primary`}>
         {message.content}
         {message.metadata && (
-          <div className="mt-2 text-xs text-gray-400">
+          <div className="mt-2 text-xs theme-text-secondary">
             {message.metadata.responseTime && (
               <span className="mr-2">⏱️ {message.metadata.responseTime}ms</span>
             )}

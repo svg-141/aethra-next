@@ -27,17 +27,17 @@ export default function PostCard({ post, onLike, onComment, onShare }: PostCardP
   };
 
   return (
-    <div className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-6 border border-purple-900/60 mb-6 hover:border-purple-700/60 transition-all">
+    <div className="cuadro rounded-2xl p-6 mb-6 animate-theme-hover">
       <div className="flex items-start">
-        <div className="w-10 h-10 bg-gradient-to-br from-purple-900/40 to-pink-900/30 rounded-full flex-shrink-0 flex items-center justify-center border-2 border-purple-500/40 overflow-hidden mr-4">
+        <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center border-2 overflow-hidden mr-4" style={{ background: 'var(--gradient-primary)', borderColor: 'var(--color-primary)', opacity: '0.8' }}>
           <img src={post.author.avatar} alt={`Avatar de ${post.author.name}`} className="w-full h-full object-cover" />
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
             {post.tags.map((tag, i) => (
-              <span key={i} className="text-xs bg-purple-900/30 text-purple-200 px-2 py-1 rounded-full">{tag}</span>
+              <span key={i} className="text-xs px-2 py-1 rounded-full" style={{ background: 'var(--color-surface-hover)', color: 'var(--color-primary)' }}>{tag}</span>
             ))}
-            <span className="text-xs text-gray-400">{formatTime(post.createdAt)}</span>
+            <span className="text-xs text-theme-secondary">{formatTime(post.createdAt)}</span>
             {post.isPinned && (
               <span className="text-xs bg-yellow-900/30 text-yellow-200 px-2 py-1 rounded-full">
                 📌 Fijado
@@ -50,23 +50,23 @@ export default function PostCard({ post, onLike, onComment, onShare }: PostCardP
             )}
           </div>
           <div className="flex items-center gap-2 mb-2">
-            <h4 className="font-bold text-white">{post.title}</h4>
-            <span className="text-xs text-gray-400">por {post.author.name}</span>
-            <span className="text-xs bg-purple-900/50 text-purple-200 px-2 py-1 rounded-full">
+            <h4 className="font-bold text-theme-primary">{post.title}</h4>
+            <span className="text-xs text-theme-secondary">por {post.author.name}</span>
+            <span className="text-xs px-2 py-1 rounded-full" style={{ background: 'var(--color-surface-light)', color: 'var(--color-primary)' }}>
               Nivel {post.author.level}
             </span>
           </div>
-          <p className="text-sm text-gray-300 mb-3">{post.content}</p>
-          <div className="flex items-center gap-4 text-xs text-gray-400">
+          <p className="text-sm text-theme-secondary mb-3">{post.content}</p>
+          <div className="flex items-center gap-4 text-xs text-theme-secondary">
             <button 
               onClick={handleLike}
-              className="flex items-center gap-1 hover:text-purple-300 transition-colors"
+              className="flex items-center gap-1 hover:text-theme-primary transition-colors animate-theme-hover"
             >
               <i className="fas fa-heart"></i> {post.likes} me gusta
             </button>
             <button 
               onClick={handleComment}
-              className="flex items-center gap-1 hover:text-purple-300 transition-colors"
+              className="flex items-center gap-1 hover:text-theme-primary transition-colors animate-theme-hover"
             >
               <i className="fas fa-comment"></i> {post.comments} comentarios
             </button>
@@ -75,7 +75,7 @@ export default function PostCard({ post, onLike, onComment, onShare }: PostCardP
             </span>
             <button 
               onClick={handleShare}
-              className="flex items-center gap-1 hover:text-purple-300 transition-colors"
+              className="flex items-center gap-1 hover:text-theme-primary transition-colors animate-theme-hover"
             >
               <i className="fas fa-share"></i> Compartir
             </button>

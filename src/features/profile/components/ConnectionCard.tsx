@@ -44,7 +44,7 @@ export default function ConnectionCard({ connection, onDisconnect, onReconnect, 
   };
 
   return (
-    <div className="flex items-center justify-between p-4 bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-lg border border-purple-900/60 mb-4 hover:border-purple-700/60 transition-all">
+    <div className="flex items-center justify-between p-4 cuadro rounded-lg mb-4 animate-theme-hover">
       <div className="flex items-center gap-3">
         <div className={`w-10 h-10 ${connection.color} rounded-lg flex items-center justify-center text-white`}>
           <span className="text-lg">{connection.icon}</span>
@@ -52,7 +52,7 @@ export default function ConnectionCard({ connection, onDisconnect, onReconnect, 
         
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <div className="text-sm font-medium text-white">{connection.name}</div>
+            <div className="text-sm font-medium text-theme-primary">{connection.name}</div>
             <span className={`text-xs ${getStatusColor(connection.status)}`}>
               <i className={`${getStatusIcon(connection.status)} mr-1`}></i>
               {connection.status === 'connected' && 'Conectado'}
@@ -62,19 +62,19 @@ export default function ConnectionCard({ connection, onDisconnect, onReconnect, 
             </span>
           </div>
           
-          <div className="text-xs text-gray-400">
+          <div className="text-xs text-theme-secondary">
             Conectado desde {formatDate(connection.connectedAt)}
           </div>
           
           {connection.lastSync && (
-            <div className="text-xs text-gray-500">
+            <div className="text-xs text-theme-secondary">
               Última sincronización: {formatDate(connection.lastSync)}
             </div>
           )}
           
           {/* Connection data */}
           {connection.data && (
-            <div className="mt-2 text-xs text-gray-400">
+            <div className="mt-2 text-xs text-theme-secondary">
               {connection.data.username && (
                 <span className="mr-3">@{connection.data.username}</span>
               )}
@@ -99,7 +99,7 @@ export default function ConnectionCard({ connection, onDisconnect, onReconnect, 
         {connection.status === 'error' && onReconnect && (
           <button
             onClick={handleReconnect}
-            className="p-2 text-yellow-400 hover:text-yellow-300 transition-colors"
+            className="p-2 text-yellow-400 hover:text-theme-primary transition-colors animate-theme-hover"
             title="Reconectar"
           >
             <i className="fas fa-redo"></i>
@@ -109,7 +109,7 @@ export default function ConnectionCard({ connection, onDisconnect, onReconnect, 
         {onManage && (
           <button
             onClick={handleManage}
-            className="p-2 text-blue-400 hover:text-blue-300 transition-colors"
+            className="p-2 text-theme-primary hover:text-theme-secondary transition-colors animate-theme-hover"
             title="Gestionar conexión"
           >
             <i className="fas fa-cog"></i>
@@ -118,7 +118,7 @@ export default function ConnectionCard({ connection, onDisconnect, onReconnect, 
         
         <button
           onClick={handleDisconnect}
-          className="p-2 text-red-400 hover:text-red-300 transition-colors"
+          className="p-2 text-red-400 hover:text-red-300 transition-colors animate-theme-hover"
           title="Desconectar"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

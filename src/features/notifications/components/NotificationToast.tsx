@@ -46,15 +46,15 @@ export default function NotificationToast({ notification, onClose, onAction }: N
   const getPriorityStyles = () => {
     switch (notification.priority) {
       case 'urgent':
-        return 'border-red-500/50 bg-red-500/10';
+        return 'theme-border shadow-lg';
       case 'high':
-        return 'border-orange-500/50 bg-orange-500/10';
+        return 'theme-border shadow-md';
       case 'medium':
-        return 'border-blue-500/50 bg-blue-500/10';
+        return 'theme-border shadow-sm';
       case 'low':
-        return 'border-gray-500/50 bg-gray-500/10';
+        return 'theme-border';
       default:
-        return 'border-purple-500/50 bg-purple-500/10';
+        return 'theme-border';
     }
   };
 
@@ -66,72 +66,77 @@ export default function NotificationToast({ notification, onClose, onAction }: N
 
   return (
     <div
-      className={`fixed top-4 right-4 w-80 bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-xl border shadow-2xl z-50 transition-all duration-300 ${getPriorityStyles()} ${getAnimationClass()}`}
+      className={`fixed theme-card p-0 ${getPriorityStyles()} ${getAnimationClass()}`}
+      style={{ 
+        top: '20px', 
+        right: '20px', 
+        width: '350px',
+        zIndex: 1080
+      }}
       role="alert"
       aria-live="assertive"
     >
-      <div className="p-4">
-        {/* Header */}
-        <div className="flex items-start justify-between mb-2">
-          <div className="flex items-center gap-2">
-            <div className={`text-lg ${NOTIFICATION_TYPES[notification.type].color}`}>
-              <i className={NOTIFICATION_TYPES[notification.type].icon}></i>
-            </div>
-            <h4 className="text-sm font-semibold text-white truncate">
-              {notification.title}
-            </h4>
+      <div className="flex items-center justify-between p-3 theme-bg-surface theme-border-b">
+        <div className="flex items-center gap-2">
+          <div className={`text-lg ${NOTIFICATION_TYPES[notification.type].color}`}>
+            <i className={`${NOTIFICATION_TYPES[notification.type].icon} icon-theme`}></i>
           </div>
-          
-          <div className="flex items-center gap-2">
-            {/* Prioridad */}
-            <span className={`px-2 py-1 text-xs rounded-full border ${
-              NOTIFICATION_PRIORITIES[notification.priority].bgColor
-            } ${NOTIFICATION_PRIORITIES[notification.priority].color}`}>
-              {NOTIFICATION_PRIORITIES[notification.priority].label}
-            </span>
-            
-            {/* Botón cerrar */}
-            <button
-              onClick={handleClose}
-              className="text-gray-400 hover:text-white transition-colors"
-              aria-label="Cerrar notificación"
-            >
-              <i className="fas fa-times text-sm"></i>
-            </button>
-          </div>
+          <strong className="theme-text-primary font-semibold">
+            {notification.title}
+          </strong>
         </div>
+        
+        <div className="flex items-center gap-2">
+          <span className={`theme-badge px-2 py-1 text-xs rounded-full ${
+            NOTIFICATION_PRIORITIES[notification.priority].bgColor
+          } ${NOTIFICATION_PRIORITIES[notification.priority].color}`}>
+            {NOTIFICATION_PRIORITIES[notification.priority].label}
+          </span>
+          
+          <button
+            type="button"
+            className="icon-muted hover:icon-error transition-colors"
+            onClick={handleClose}
+            aria-label="Cerrar notificación"
+          >
+            <i className="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
 
-        {/* Mensaje */}
-        <p className="text-sm text-gray-300 mb-3 line-clamp-2">
+      <div className="p-3 theme-bg-surface">
+        <p className="theme-text-secondary mb-3 text-sm">
           {notification.message}
         </p>
 
-        {/* Acciones */}
-        <div className="flex items-center justify-between">
-          <div className="flex gap-2">
+        <div className="flex justify-between items-center">
+          <div>
             {notification.actionText && (
               <button
                 onClick={handleAction}
-                className="px-3 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs rounded-lg font-medium hover:from-purple-500 hover:to-pink-500 transition-all"
+                className="theme-button px-3 py-1 text-sm rounded-lg"
               >
                 {notification.actionText}
               </button>
             )}
           </div>
           
-          <span className="text-xs text-gray-400">
+          <small className="theme-text-muted flex items-center">
+            <i className="far fa-clock icon-muted mr-1"></i>
             Ahora
-          </span>
+          </small>
         </div>
       </div>
 
       {/* Barra de progreso */}
-      <div className="h-1 bg-gray-700 rounded-b-xl overflow-hidden">
+      <div className="absolute bottom-0 left-0 w-full h-1" style={{ background: 'var(--color-surface)' }}>
         <div 
-          className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 ease-linear"
+          className="h-full transition-all"
           style={{
             width: isVisible ? '0%' : '100%',
-            transitionDuration: `${NOTIFICATION_DEFAULTS.autoHide}ms`
+            transitionDuration: `${NOTIFICATION_DEFAULTS.autoHide}ms`,
+            background: 'var(--gradient-primary)',
+            transition: 'width linear'
           }}
         />
       </div>

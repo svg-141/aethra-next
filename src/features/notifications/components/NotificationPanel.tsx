@@ -31,7 +31,7 @@ export function NotificationPanel({ onClose }: NotificationPanelProps) {
 
   const handleTypeChange = (type: string) => {
     setSelectedType(type);
-    updateFilters({ type: type === 'all' ? undefined : type as any });
+    updateFilters({ type: type === 'all' ? undefined : type as 'achievement' | 'friend' | 'chat' | 'system' | 'security' });
   };
 
   const handleNotificationClick = async (notification: Notification) => {
@@ -65,16 +65,20 @@ export function NotificationPanel({ onClose }: NotificationPanelProps) {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <h3 className="text-lg font-semibold text-white">Notificaciones</h3>
+          <h3 className="text-lg font-semibold theme-text-primary">Notificaciones</h3>
           {unreadCount > 0 && (
-            <span className="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded-full border border-red-500/30">
+            <span className="theme-badge px-2 py-1 text-xs rounded-full" style={{ 
+              background: 'var(--color-error)', 
+              color: 'var(--color-text)', 
+              border: '1px solid var(--color-error)' 
+            }}>
               {unreadCount} nueva{unreadCount !== 1 ? 's' : ''}
             </span>
           )}
         </div>
         <button
           onClick={onClose}
-          className="text-gray-400 hover:text-white transition-colors"
+          className="icon-theme hover:icon-error transition-colors"
         >
           <i className="fas fa-times"></i>
         </button>
@@ -84,31 +88,34 @@ export function NotificationPanel({ onClose }: NotificationPanelProps) {
       <div className="flex flex-wrap gap-2 mb-4">
         <button
           onClick={() => handleFilterChange('all')}
-          className={`px-3 py-1 text-xs rounded-full transition-all ${
+          className={`theme-badge px-3 py-1 text-xs rounded-full transition-all ${
             activeFilter === 'all'
-              ? 'bg-purple-600 text-white'
-              : 'bg-purple-600/20 text-purple-300 hover:bg-purple-600/30'
+              ? 'theme-button'
+              : 'hover:theme-bg-hover'
           }`}
+          style={activeFilter === 'all' ? { background: 'var(--gradient-primary)' } : {}}
         >
           Todas
         </button>
         <button
           onClick={() => handleFilterChange('unread')}
-          className={`px-3 py-1 text-xs rounded-full transition-all ${
+          className={`theme-badge px-3 py-1 text-xs rounded-full transition-all ${
             activeFilter === 'unread'
-              ? 'bg-purple-600 text-white'
-              : 'bg-purple-600/20 text-purple-300 hover:bg-purple-600/30'
+              ? 'theme-button'
+              : 'hover:theme-bg-hover'
           }`}
+          style={activeFilter === 'unread' ? { background: 'var(--gradient-primary)' } : {}}
         >
           No leídas
         </button>
         <button
           onClick={() => handleFilterChange('read')}
-          className={`px-3 py-1 text-xs rounded-full transition-all ${
+          className={`theme-badge px-3 py-1 text-xs rounded-full transition-all ${
             activeFilter === 'read'
-              ? 'bg-purple-600 text-white'
-              : 'bg-purple-600/20 text-purple-300 hover:bg-purple-600/30'
+              ? 'theme-button'
+              : 'hover:theme-bg-hover'
           }`}
+          style={activeFilter === 'read' ? { background: 'var(--gradient-primary)' } : {}}
         >
           Leídas
         </button>
@@ -119,7 +126,7 @@ export function NotificationPanel({ onClose }: NotificationPanelProps) {
         <select
           value={selectedType}
           onChange={(e) => handleTypeChange(e.target.value)}
-          className="w-full bg-[#0f0720] text-white rounded-lg px-3 py-2 text-sm border border-purple-900/50 focus:outline-none focus:ring-2 focus:ring-purple-600"
+          className="select-theme w-full px-3 py-2 text-sm"
         >
           <option value="all">Todos los tipos</option>
           {Object.entries(NOTIFICATION_TYPES).map(([type, config]) => (
@@ -132,75 +139,79 @@ export function NotificationPanel({ onClose }: NotificationPanelProps) {
       <div className="flex gap-2 mb-4">
         <button
           onClick={markAllAsRead}
-          className="flex-1 px-3 py-2 bg-purple-600/20 text-purple-300 rounded-lg text-sm hover:bg-purple-600/30 transition-all"
+          className="theme-button flex-1 px-3 py-2 rounded-lg text-sm transition-all disabled:opacity-50"
           disabled={unreadCount === 0}
         >
-          <i className="fas fa-check-double mr-2"></i>
+          <i className="fas fa-check-double icon-theme mr-2"></i>
           Marcar todas como leídas
         </button>
         <button
           onClick={clearAll}
-          className="px-3 py-2 bg-red-600/20 text-red-400 rounded-lg text-sm hover:bg-red-600/30 transition-all"
+          className="px-3 py-2 rounded-lg text-sm transition-all disabled:opacity-50" 
+          style={{ 
+            background: 'rgba(239, 68, 68, 0.2)', 
+            color: 'var(--color-error)' 
+          }}
           disabled={notifications.length === 0}
         >
-          <i className="fas fa-trash"></i>
+          <i className="fas fa-trash icon-error"></i>
         </button>
       </div>
 
       {/* Lista de notificaciones */}
-      <div className="max-h-96 overflow-y-auto space-y-2">
+      <div className="max-h-96 overflow-y-auto space-y-2 scrollbar-theme">
         {filteredNotifications.length === 0 ? (
-          <div className="text-center py-8 text-gray-400">
-            <i className="fas fa-bell-slash text-3xl mb-2"></i>
+          <div className="text-center py-8 theme-text-secondary">
+            <i className="fas fa-bell-slash text-3xl mb-2 icon-muted"></i>
             <p>No hay notificaciones</p>
           </div>
         ) : (
           filteredNotifications.map((notification) => (
             <div
               key={notification.id}
-              className={`p-3 rounded-lg border transition-all cursor-pointer ${
+              className={`theme-card p-3 border transition-all cursor-pointer ${
                 notification.read
-                  ? 'bg-[#0f0720] border-gray-700/50 opacity-75'
-                  : 'bg-purple-600/10 border-purple-600/30'
-              } hover:border-purple-500/50`}
+                  ? 'opacity-75'
+                  : 'theme-border-hover'
+              } hover:card-hover group`}
               onClick={() => handleNotificationClick(notification)}
             >
               <div className="flex items-start gap-3">
                 {/* Icono */}
                 <div className={`text-lg ${NOTIFICATION_TYPES[notification.type].color}`}>
-                  <i className={NOTIFICATION_TYPES[notification.type].icon}></i>
+                  <i className={`${NOTIFICATION_TYPES[notification.type].icon} icon-theme`}></i>
                 </div>
 
                 {/* Contenido */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between mb-1">
                     <h4 className={`text-sm font-medium truncate ${
-                      notification.read ? 'text-gray-300' : 'text-white'
+                      notification.read ? 'theme-text-muted' : 'theme-text-primary'
                     }`}>
                       {notification.title}
                     </h4>
                     <div className="flex items-center gap-2">
                       {/* Prioridad */}
-                      <span className={`px-2 py-1 text-xs rounded-full border ${
+                      <span className={`theme-badge px-2 py-1 text-xs rounded-full ${
                         NOTIFICATION_PRIORITIES[notification.priority].bgColor
                       } ${NOTIFICATION_PRIORITIES[notification.priority].color}`}>
                         {NOTIFICATION_PRIORITIES[notification.priority].label}
                       </span>
                       
                       {/* Tiempo */}
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs theme-text-muted">
                         {formatTime(notification.timestamp)}
                       </span>
                     </div>
                   </div>
                   
-                  <p className="text-sm text-gray-300 line-clamp-2">
+                  <p className="text-sm theme-text-secondary line-clamp-2">
                     {notification.message}
                   </p>
 
                   {/* Acción */}
                   {notification.actionText && (
-                    <button className="mt-2 text-xs text-purple-400 hover:text-purple-300 transition-colors">
+                    <button className="mt-2 text-xs icon-primary hover:icon-secondary transition-colors">
                       {notification.actionText} →
                     </button>
                   )}
@@ -212,7 +223,7 @@ export function NotificationPanel({ onClose }: NotificationPanelProps) {
                     e.stopPropagation();
                     deleteNotification(notification.id);
                   }}
-                  className="text-gray-400 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
+                  className="icon-muted hover:icon-error transition-colors opacity-0 group-hover:opacity-100"
                 >
                   <i className="fas fa-times text-xs"></i>
                 </button>
@@ -223,10 +234,10 @@ export function NotificationPanel({ onClose }: NotificationPanelProps) {
       </div>
 
       {/* Footer */}
-      <div className="mt-4 pt-4 border-t border-purple-900/50 text-center">
+      <div className="mt-4 pt-4 border-t theme-border text-center">
         <button
           onClick={() => window.open('/notifications', '_blank')}
-          className="text-sm text-purple-400 hover:text-purple-300 transition-colors"
+          className="text-sm icon-primary hover:icon-secondary transition-colors"
         >
           Ver todas las notificaciones
         </button>

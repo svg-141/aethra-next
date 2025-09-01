@@ -18,19 +18,19 @@ export default function HeroSection({
   };
 
   return (
-    <div className={`relative h-96 rounded-2xl overflow-hidden ${className || ''}`}>
-      <img src={image} alt={title} className="w-full h-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+    <div className={`position-relative rounded-4 overflow-hidden shadow-theme-lg animate-theme-hover ${className || ''}`} style={{ height: '400px' }}>
+      <img src={image} alt={title} className="w-100 h-100 object-fit-cover" />
+      <div className="position-absolute top-0 start-0 w-100 h-100" style={{ background: 'var(--gradient-hero)' }}></div>
       
-      <div className="absolute bottom-0 left-0 p-8 w-full">
+      <div className="position-absolute bottom-0 start-0 w-100 p-4 p-md-5">
         {children}
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">{title}</h1>
-        {subtitle && <p className="text-lg text-purple-300 max-w-2xl mb-4">{subtitle}</p>}
+        <h1 className="display-4 fw-bold text-theme-primary mb-3 glow-text">{title}</h1>
+        {subtitle && <p className="lead text-theme-secondary mb-4" style={{ maxWidth: '600px' }}>{subtitle}</p>}
         
         {actionLabel && onAction && (
           <button
             onClick={handleAction}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-500 hover:to-pink-500 transition-all duration-300 transform hover:scale-105"
+            className="btn btn-gaming btn-lg d-inline-flex align-items-center gap-2"
           >
             {actionIcon && <i className={actionIcon}></i>}
             {actionLabel}
@@ -39,8 +39,8 @@ export default function HeroSection({
       </div>
       
       {badge && (
-        <div className="absolute top-4 right-4">
-          <span className={`px-3 py-1 text-sm font-medium ${badgeColor || 'bg-purple-500/20 text-purple-300 border-purple-500/30'} rounded-full border`}>
+        <div className="position-absolute top-0 end-0 m-4">
+          <span className={`badge badge-gaming fs-6 ${badgeColor || ''}`}>
             {badge}
           </span>
         </div>

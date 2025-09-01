@@ -11,9 +11,9 @@ export default function SidebarGuide({ sections, updates, downloadLabel, onDownl
   };
 
   return (
-    <div className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-6 border border-purple-900/60 sticky-sidebar">
-      <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-        <i className="fas fa-list-ul text-purple-300"></i>
+    <div className="cuadro rounded-2xl p-6 sticky-sidebar">
+      <h3 className="text-lg font-bold text-theme-primary mb-4 flex items-center gap-2">
+        <i className="fas fa-list-ul text-theme-primary"></i>
         Índice
       </h3>
       <ul className="space-y-3">
@@ -21,10 +21,10 @@ export default function SidebarGuide({ sections, updates, downloadLabel, onDownl
           <li key={section.id}>
             <button
               onClick={() => handleSectionClick(section.id)}
-              className={`w-full text-left index-link transition-all flex items-center gap-2 px-3 py-2 rounded-lg ${
+              className={`w-full text-left index-link transition-all flex items-center gap-2 px-3 py-2 rounded-lg animate-theme-hover ${
                 section.isActive 
-                  ? 'text-white bg-purple-600/30' 
-                  : 'text-gray-400 hover:text-white hover:bg-purple-900/30'
+                  ? 'text-theme-primary bg-theme-surface-hover' 
+                  : 'text-theme-secondary hover:text-theme-primary hover:bg-theme-surface-hover'
               }`}
             >
               {section.icon && <i className={section.icon + ' text-xs'}></i>}
@@ -35,14 +35,14 @@ export default function SidebarGuide({ sections, updates, downloadLabel, onDownl
       </ul>
       
       {updates && (
-        <div className="mt-8 pt-6 border-t border-purple-900/50">
-          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <i className="fas fa-history text-purple-300"></i>
+        <div className="mt-8 pt-6 border-t border-theme">
+          <h3 className="text-lg font-bold text-theme-primary mb-4 flex items-center gap-2">
+            <i className="fas fa-history text-theme-primary"></i>
             Actualizaciones
           </h3>
           <div className="space-y-2">
-            <p className="text-sm text-gray-400">
-              <span className="text-purple-300">Última actualización:</span> {updates.last}
+            <p className="text-sm text-theme-secondary">
+              <span className="text-theme-primary">Última actualización:</span> {updates.last}
             </p>
             {updates.next && (
               <p className="text-sm text-gray-400">
@@ -59,14 +59,14 @@ export default function SidebarGuide({ sections, updates, downloadLabel, onDownl
       )}
       
       {downloadLabel && (
-        <div className="mt-8 pt-6 border-t border-purple-900/50">
-          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-            <i className="fas fa-download text-purple-300"></i>
+        <div className="mt-8 pt-6 border-t border-theme">
+          <h3 className="text-lg font-bold text-theme-primary mb-4 flex items-center gap-2">
+            <i className="fas fa-download text-theme-primary"></i>
             Descargar Guía
           </h3>
           <button 
             onClick={handleDownload}
-            className="w-full px-4 py-2 bg-purple-600/50 hover:bg-purple-600 text-white rounded-lg transition-all flex items-center justify-center gap-2"
+            className="w-full px-4 py-2 text-theme-primary rounded-lg transition-all flex items-center justify-center gap-2 animate-theme-hover animate-theme-glow" style={{ background: 'var(--gradient-primary)' }}
           >
             <i className="fas fa-file-pdf"></i>
             {downloadLabel}

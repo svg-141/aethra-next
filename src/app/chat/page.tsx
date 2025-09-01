@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { ChatMessage, CommentSection, GAMES, getGameByKey, ChatMessageType } from '../../features/chat';
-import { TooltipGuide } from '../../features/tooltips';
 import { useNotifications } from '../../features/notifications';
 
 export default function ChatPage() {
@@ -171,21 +170,21 @@ export default function ChatPage() {
   };
 
   return (
-    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen bg-gradient-to-b from-[#0f0720] to-[#1a0933]">
+    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen" style={{ background: 'var(--gradient-background)' }}>
       <div className="max-w-6xl mx-auto">
         {/* Header del Chat */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-900/40 to-pink-900/30 rounded-full flex items-center justify-center border-2 border-purple-500/40 mr-4">
+            <div className="w-12 h-12 rounded-full flex items-center justify-center border-2 mr-4" style={{ background: 'var(--gradient-primary)', borderColor: 'var(--color-primary)', opacity: '0.8' }}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">Asistente Estratégico Aethra</h2>
+              <h2 className="text-xl font-bold text-theme-primary">Asistente Estratégico Aethra</h2>
               <div className="flex items-center">
                 <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                <span className="text-xs text-gray-400">Especialista en meta de juegos</span>
+                <span className="text-xs text-theme-secondary">Especialista en meta de juegos</span>
               </div>
             </div>
           </div>
@@ -196,17 +195,17 @@ export default function ChatPage() {
           {/* Columna lateral - Selector de juegos y ejemplos */}
           <div className="lg:col-span-1 space-y-6">
             {/* Selector de juegos */}
-            <div className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-4 border border-purple-900/60" data-tooltip="game-selector">
-              <h3 className="text-sm font-semibold text-purple-300 mb-3">SELECCIONA TU JUEGO</h3>
+            <div className="cuadro rounded-2xl p-4">
+              <h3 className="text-sm font-semibold text-theme-primary mb-3">SELECCIONA TU JUEGO</h3>
               <div className="grid grid-cols-2 gap-3">
                 {GAMES.map(game => (
                   <button
                     key={game.key}
                     onClick={() => handleSelectGame(game.key)}
-                    className={`p-3 rounded-lg border transition-all text-center ${
+                    className={`p-3 rounded-lg border transition-all text-center cuadro ${
                       selectedGame === game.key
-                        ? 'bg-purple-600/30 border-purple-500 text-white'
-                        : 'bg-[#0f0720] border-purple-900/50 text-gray-300 hover:border-purple-500/50 hover:text-white'
+                        ? 'border-theme-hover text-theme-primary animate-theme-glow'
+                        : 'text-theme-secondary hover:border-theme-hover hover:text-theme-primary'
                     }`}
                   >
                     <img src={game.icon} alt={game.name} className="w-8 h-8 mx-auto mb-2 rounded" />
@@ -217,14 +216,14 @@ export default function ChatPage() {
             </div>
 
             {/* Ejemplos de consultas */}
-            <div className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-4 border border-purple-900/60" data-tooltip="examples">
-              <h3 className="text-sm font-semibold text-purple-300 mb-3">EJEMPLOS DE CONSULTAS</h3>
+            <div className="cuadro rounded-2xl p-4">
+              <h3 className="text-sm font-semibold text-theme-primary mb-3">EJEMPLOS DE CONSULTAS</h3>
               <div className="space-y-2">
                 {activeGame.examples.map((example, index) => (
                   <button
                     key={index}
                     onClick={() => setInput(example)}
-                    className="w-full text-left p-2 text-xs text-gray-300 hover:text-white hover:bg-purple-600/20 rounded transition-all"
+                    className="w-full text-left p-2 text-xs text-theme-secondary hover:text-theme-primary rounded transition-all animate-theme-hover"
                   >
                     {example}
                   </button>
@@ -233,15 +232,15 @@ export default function ChatPage() {
             </div>
 
             {/* Tip del día */}
-            <div className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-4 border border-purple-900/60">
-              <h3 className="text-sm font-semibold text-purple-300 mb-2">TIP ESTRATÉGICO</h3>
-              <p className="text-xs text-gray-300">{activeGame.tip}</p>
+            <div className="cuadro rounded-2xl p-4">
+              <h3 className="text-sm font-semibold text-theme-primary mb-2">TIP ESTRATÉGICO</h3>
+              <p className="text-xs text-theme-secondary">{activeGame.tip}</p>
             </div>
           </div>
 
           {/* Columna central - Consulta estratégica */}
           <div className="lg:col-span-3">
-            <div className="chat-container h-[calc(110vh-140px)] bg-[#0f0720] rounded-2xl border border-purple-900/60 overflow-hidden flex flex-col">
+            <div className="chat-container h-[calc(110vh-140px)] rounded-2xl overflow-hidden flex flex-col">
               {/* Área de mensajes */}
               <div className="flex-1 p-4 overflow-y-auto space-y-4 scrollbar-morado">
                 {messages.map((message) => (
@@ -263,7 +262,7 @@ export default function ChatPage() {
               
               {/* Formulario de entrada */}
               <form onSubmit={handleSend} className="flex items-center gap-3 p-4 border-t border-purple-900/40 bg-[#1a0933]">
-                <div className="flex-1" data-tooltip="chat-input">
+                <div className="flex-1">
                   <input
                     type="text"
                     className="w-full bg-[#0f0720] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600 border border-purple-900/50"
@@ -316,8 +315,6 @@ export default function ChatPage() {
         </div>
       </div>
 
-      {/* Tooltips del chat */}
-      <TooltipGuide section="chat" />
     </section>
   );
 } 

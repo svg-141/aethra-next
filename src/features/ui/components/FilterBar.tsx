@@ -40,7 +40,7 @@ export default function FilterBar({
       case 'pills':
         return 'flex flex-wrap justify-center gap-2';
       case 'tabs':
-        return 'flex border-b border-purple-900/50';
+        return 'flex border-b theme-border';
       default:
         return 'flex flex-wrap justify-center gap-3';
     }
@@ -58,32 +58,32 @@ export default function FilterBar({
   };
 
   const getOptionClasses = (option: FilterOption) => {
-    const baseClasses = `font-medium flex items-center gap-2 transition-all ${getSizeClasses()}`;
+    const baseClasses = `theme-button font-medium flex items-center gap-2 transition-all ${getSizeClasses()}`;
     const isOptionSelected = isSelected(option.value);
     const isDisabled = option.disabled;
 
     if (isDisabled) {
-      return `${baseClasses} opacity-50 cursor-not-allowed bg-gray-900/30 text-gray-500`;
+      return `${baseClasses} opacity-50 cursor-not-allowed theme-bg-muted theme-text-muted`;
     }
 
     switch (variant) {
       case 'pills':
         return `${baseClasses} rounded-full ${
           isOptionSelected 
-            ? 'bg-purple-600 text-white' 
-            : 'bg-purple-900/30 text-purple-300 hover:bg-purple-900/50'
+            ? 'theme-bg-primary theme-text-primary' 
+            : 'theme-bg-surface theme-text-secondary hover:theme-bg-hover'
         }`;
       case 'tabs':
         return `${baseClasses} border-b-2 ${
           isOptionSelected 
-            ? 'border-purple-500 text-white' 
-            : 'border-transparent text-gray-300 hover:text-white'
+            ? 'theme-border-primary theme-text-primary' 
+            : 'border-transparent theme-text-secondary hover:theme-text-primary'
         }`;
       default:
         return `${baseClasses} rounded-full ${
           isOptionSelected 
-            ? 'bg-purple-900/70 text-white' 
-            : 'bg-purple-900/30 text-purple-300 hover:bg-purple-900/50'
+            ? 'theme-bg-primary theme-text-primary' 
+            : 'theme-bg-surface theme-text-secondary hover:theme-bg-hover'
         }`;
     }
   };
@@ -97,10 +97,10 @@ export default function FilterBar({
           onClick={() => !option.disabled && handleOptionClick(option.value)}
           disabled={option.disabled}
         >
-          {option.icon && <i className={option.icon}></i>}
+          {option.icon && <i className={`${option.icon} icon-theme`}></i>}
           <span>{option.label}</span>
           {showCounts && option.count !== undefined && (
-            <span className="ml-1 px-2 py-0.5 bg-purple-900/50 text-xs rounded-full">
+            <span className="ml-1 px-2 py-0.5 theme-badge text-xs rounded-full">
               {option.count}
             </span>
           )}

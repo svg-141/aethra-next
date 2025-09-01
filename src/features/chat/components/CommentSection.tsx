@@ -113,23 +113,33 @@ export default function CommentSection({
   };
 
   return (
-    <div className={`mt-8 pt-8 border-t border-purple-900/50 ${className}`}>
+    <div className={`mt-8 pt-8 border-t theme-border ${className}`}>
       {/* Votación de utilidad */}
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-bold text-white">{title}</h3>
+        <h3 className="text-lg font-bold theme-text-primary">{title}</h3>
         <div className="flex items-center gap-4">
           <button
             onClick={() => handleVote('up')}
-            className="flex items-center gap-2 px-4 py-2 bg-green-600/20 text-green-300 rounded-lg border border-green-600/30 hover:bg-green-600/30 transition-all"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg theme-border transition-all hover:scale-105"
+            style={{ 
+              backgroundColor: 'rgba(34, 197, 94, 0.2)', 
+              color: 'var(--color-success)', 
+              borderColor: 'rgba(34, 197, 94, 0.3)' 
+            }}
           >
-            <i className="fas fa-thumbs-up"></i>
+            <i className="fas fa-thumbs-up icon-success"></i>
             <span>{usefulVotes.up}</span>
           </button>
           <button
             onClick={() => handleVote('down')}
-            className="flex items-center gap-2 px-4 py-2 bg-red-600/20 text-red-300 rounded-lg border border-red-600/30 hover:bg-red-600/30 transition-all"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg theme-border transition-all hover:scale-105"
+            style={{ 
+              backgroundColor: 'rgba(239, 68, 68, 0.2)', 
+              color: 'var(--color-error)', 
+              borderColor: 'rgba(239, 68, 68, 0.3)' 
+            }}
           >
-            <i className="fas fa-thumbs-down"></i>
+            <i className="fas fa-thumbs-down icon-error"></i>
             <span>{usefulVotes.down}</span>
           </button>
         </div>
@@ -137,27 +147,34 @@ export default function CommentSection({
 
       {/* Formulario de comentarios */}
       <div className="mb-6">
-        <h4 className="text-lg font-bold text-white mb-4">Comentarios</h4>
+        <h4 className="text-lg font-bold theme-text-primary mb-4">Comentarios</h4>
         <form onSubmit={handleSubmit} className="space-y-4">
           <textarea
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             rows={3}
-            className="w-full bg-[#0f0720] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600 border border-purple-900/50 resize-none"
+            className="input-theme w-full rounded-lg px-4 py-3 resize-none"
             placeholder="Comparte tu experiencia o pregunta..."
             disabled={isSubmitting}
           />
           {newComment.length > 0 && newComment.length < 10 && (
-            <div className="text-sm text-red-400">Mínimo 10 caracteres</div>
+            <div className="text-sm icon-error">Mínimo 10 caracteres</div>
           )}
           <div className="flex justify-between items-center">
-            <div className="text-xs text-gray-400">{newComment.length}/500</div>
+            <div className="text-xs theme-text-secondary">{newComment.length}/500</div>
             <button
               type="submit"
               disabled={isSubmitting || newComment.length < 10}
-              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-500 hover:to-pink-500 transition-all disabled:opacity-50"
+              className="theme-button px-4 py-2 rounded-lg font-semibold transition-all disabled:opacity-50"
             >
-              {isSubmitting ? 'Publicando...' : 'Comentar'}
+              {isSubmitting ? (
+                <>
+                  <i className="fas fa-spinner icon-animate-spin mr-2"></i>
+                  Publicando...
+                </>
+              ) : (
+                'Comentar'
+              )}
             </button>
           </div>
         </form>
@@ -166,24 +183,24 @@ export default function CommentSection({
       {/* Lista de comentarios */}
       <div className="space-y-4">
         {comments.map(comment => (
-          <div key={comment.id} className="bg-[#1e0b36] rounded-xl p-4 border border-purple-900/50">
+          <div key={comment.id} className="theme-card rounded-xl p-4 card-hover">
             <div className="flex items-start gap-3">
-              <img src={comment.avatar} alt={comment.author} className="w-10 h-10 rounded-full" />
+              <img src={comment.avatar} alt={comment.author} className="w-10 h-10 rounded-full theme-border" />
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="font-semibold text-white">{comment.author}</span>
-                  <span className="text-xs text-gray-400">{comment.time}</span>
+                  <span className="font-semibold theme-text-primary">{comment.author}</span>
+                  <span className="text-xs theme-text-muted">{comment.time}</span>
                 </div>
-                <p className="text-gray-300 text-sm mb-2">{comment.content}</p>
+                <p className="theme-text-secondary text-sm mb-2">{comment.content}</p>
                 <div className="flex items-center gap-4">
                   <button 
                     onClick={() => handleCommentLike(comment.id)}
-                    className="flex items-center gap-1 text-xs text-gray-400 hover:text-purple-300 transition-colors"
+                    className="flex items-center gap-1 text-xs theme-text-secondary hover:theme-text-primary transition-colors hover:scale-105"
                   >
-                    <i className="fas fa-thumbs-up"></i>
+                    <i className="fas fa-thumbs-up icon-theme"></i>
                     <span>{comment.likes}</span>
                   </button>
-                  <button className="text-xs text-gray-400 hover:text-purple-300 transition-colors">
+                  <button className="text-xs theme-text-secondary hover:theme-text-primary transition-colors hover:scale-105">
                     Responder
                   </button>
                 </div>

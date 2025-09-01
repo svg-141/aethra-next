@@ -1,0 +1,417 @@
+/**
+ * Core theme variables - Optimized and streamlined
+ * Contains only essential theme variables and animations
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Enhanced CSS Variables for Complete Theming System */
+:root {
+  /* Primary Colors */
+  --color-primary: #8B5CF6;
+  --color-primary-light: #A78BFA;
+  --color-primary-dark: #7C3AED;
+  --color-primary-50: #F5F3FF;
+  --color-primary-100: #EDE9FE;
+  --color-primary-200: #DDD6FE;
+  --color-primary-300: #C4B5FD;
+  --color-primary-400: #A78BFA;
+  --color-primary-500: #8B5CF6;
+  --color-primary-600: #7C3AED;
+  --color-primary-700: #6D28D9;
+  --color-primary-800: #5B21B6;
+  --color-primary-900: #4C1D95;
+
+  /* Secondary Colors */
+  --color-secondary: #EC4899;
+  --color-secondary-light: #F472B6;
+  --color-secondary-dark: #DB2777;
+  --color-secondary-50: #FDF2F8;
+  --color-secondary-100: #FCE7F3;
+  --color-secondary-200: #FBCFE8;
+  --color-secondary-300: #F9A8D4;
+  --color-secondary-400: #F472B6;
+  --color-secondary-500: #EC4899;
+  --color-secondary-600: #DB2777;
+  --color-secondary-700: #BE185D;
+  --color-secondary-800: #9D174D;
+  --color-secondary-900: #831843;
+
+  /* Accent Colors */
+  --color-accent: #F59E0B;
+  --color-accent-light: #FBBF24;
+  --color-accent-dark: #D97706;
+
+  /* Background Colors */
+  --color-background: #0F0720;
+  --color-background-light: #1A0933;
+  --color-background-dark: #0C051A;
+  --color-surface: #1A0933;
+  --color-surface-light: #2A0845;
+  --color-surface-dark: #140829;
+  --color-surface-hover: #2F0A57;
+
+  /* Text Colors */
+  --color-text: #FFFFFF;
+  --color-text-light: #F8FAFC;
+  --color-text-muted: #E2E8F0;
+  --color-text-secondary: #9CA3AF;
+  --color-text-tertiary: #6B7280;
+  --color-text-disabled: #4B5563;
+
+  /* Border Colors */
+  --color-border: #374151;
+  --color-border-light: #4B5563;
+  --color-border-muted: #6B7280;
+  --color-border-hover: #8B5CF6;
+
+  /* Status Colors */
+  --color-success: #10B981;
+  --color-success-light: #34D399;
+  --color-success-dark: #059669;
+  --color-warning: #F59E0B;
+  --color-warning-light: #FBBF24;
+  --color-warning-dark: #D97706;
+  --color-error: #EF4444;
+  --color-error-light: #F87171;
+  --color-error-dark: #DC2626;
+  --color-info: #3B82F6;
+  --color-info-light: #60A5FA;
+  --color-info-dark: #2563EB;
+
+  /* Game-specific Colors */
+  --color-game-card: #1E0B36;
+  --color-game-card-hover: #2A0845;
+  --color-game-badge: #7C3AED;
+  --color-game-popular: #F59E0B;
+  --color-game-new: #10B981;
+
+  /* Component-specific Colors */
+  --color-navbar: rgba(0, 0, 0, 0.3);
+  --color-navbar-blur: rgba(15, 7, 32, 0.8);
+  --color-card-bg: #1E0B36;
+  --color-card-border: rgba(139, 92, 246, 0.3);
+  --color-input-bg: #1E0B36;
+  --color-input-border: rgba(139, 92, 246, 0.5);
+  --color-button-hover: rgba(139, 92, 246, 0.2);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  --gradient-secondary: linear-gradient(to right, var(--color-primary-600), var(--color-primary-700));
+  --gradient-background: linear-gradient(to bottom, var(--color-background), var(--color-surface));
+  --gradient-card: linear-gradient(to bottom right, var(--color-surface), var(--color-surface-dark));
+  --gradient-hover: linear-gradient(to right, var(--color-primary-light), var(--color-secondary-light));
+  --gradient-hero: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3), transparent);
+
+  /* Animation & Transitions */
+  --animation-duration: 0.3s;
+  --animation-duration-fast: 0.15s;
+  --animation-duration-slow: 0.5s;
+  --animation-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Typography */
+  --font-size-base: 16px;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(139, 92, 246, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(139, 92, 246, 0.1), 0 2px 4px -1px rgba(139, 92, 246, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(139, 92, 246, 0.1), 0 4px 6px -2px rgba(139, 92, 246, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(139, 92, 246, 0.04);
+  --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.3);
+  --shadow-glow-lg: 0 0 40px rgba(139, 92, 246, 0.4);
+
+  /* Z-index Scale */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+}
+
+/* Enhanced Base Styles */
+body {
+  font-size: var(--font-size-base);
+  background: var(--gradient-background);
+  color: var(--color-text);
+  line-height: var(--line-height-normal);
+  transition: all var(--animation-duration) var(--animation-ease);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base component classes for theming */
+.theme-card {
+  background: var(--gradient-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-xl);
+  transition: all var(--animation-duration) var(--animation-ease);
+}
+
+.theme-card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+.theme-button {
+  background: var(--gradient-primary);
+  color: var(--color-text);
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: 600;
+  transition: all var(--animation-duration) var(--animation-ease);
+  cursor: pointer;
+}
+
+.theme-button:hover {
+  background: var(--gradient-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.theme-button:active {
+  transform: translateY(0);
+}
+
+.theme-input {
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  transition: all var(--animation-duration) var(--animation-ease);
+}
+
+.theme-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  background: var(--color-surface-light);
+}
+
+.theme-badge {
+  background: rgba(139, 92, 246, 0.2);
+  color: var(--color-primary-300);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+/* Core Animations - Only essential ones */
+@keyframes theme-pulse {
+  0%, 100% { box-shadow: 0 0 5px var(--color-primary); }
+  50% { box-shadow: 0 0 20px var(--color-primary), 0 0 30px var(--color-primary); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--color-primary);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--color-primary), 0 0 30px var(--color-primary);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+/* Enhanced Utility Classes */
+.animate-theme { animation: theme-pulse 2s infinite; }
+.animate-theme-hover { transition: all var(--animation-duration) var(--animation-ease); }
+.animate-theme-glow { animation: theme-pulse 3s ease-in-out infinite; }
+.animate-fade-in { animation: fade-in 0.3s ease-out; }
+.animate-slide-in-right { animation: slide-in-right 0.3s ease-out; }
+.animate-pulse-glow { animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-bounce { animation: bounce 1s infinite; }
+
+/* Enhanced Theme Text Classes */
+.text-theme-primary { color: var(--color-text); }
+.text-theme-secondary { color: var(--color-text-secondary); }
+.text-theme-muted { color: var(--color-text-tertiary); }
+
+/* Enhanced Theme Background Classes */
+.bg-theme-surface { background: var(--color-surface); }
+.bg-theme-surface-light { background: var(--color-surface-light); }
+.bg-theme-surface-hover { background: var(--color-surface-hover); }
+
+/* Enhanced Theme Border Classes */
+.border-theme { border-color: var(--color-border); }
+.border-theme-hover { border-color: var(--color-border-hover); }
+
+/* Shadow Theme Classes */
+.shadow-theme-sm { box-shadow: var(--shadow-sm); }
+.shadow-theme-md { box-shadow: var(--shadow-md); }
+.shadow-theme-lg { box-shadow: var(--shadow-lg); }
+.shadow-theme-xl { box-shadow: var(--shadow-xl); }
+.shadow-theme-glow { box-shadow: var(--shadow-glow); }
+
+/* Enhanced Glow Effects */
+.glow-text {
+  text-shadow: 0 0 10px var(--color-primary), 0 0 20px var(--color-primary), 0 0 30px var(--color-primary);
+  transition: text-shadow var(--animation-duration) var(--animation-ease);
+}
+
+.glow-text-subtle {
+  text-shadow: 0 0 5px var(--color-primary);
+}
+
+.glow-border {
+  box-shadow: var(--shadow-glow-lg);
+  transition: box-shadow var(--animation-duration) var(--animation-ease);
+}
+
+.glow-border-subtle {
+  box-shadow: var(--shadow-glow);
+}
+
+.glow-hover:hover {
+  box-shadow: var(--shadow-glow-lg);
+}
+
+/* Game-specific glow effects */
+.glow-game-card {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+.glow-game-card:hover {
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+}
+
+/* Enhanced Theme-aware Scrollbar */
+.scrollbar-theme::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-theme::-webkit-scrollbar-track {
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+}
+
+.scrollbar-theme::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  transition: background var(--animation-duration) var(--animation-ease);
+}
+
+.scrollbar-theme::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-light);
+}
+
+.scrollbar-theme::-webkit-scrollbar-corner {
+  background: var(--color-surface);
+}
+
+/* Legacy support */
+.scrollbar-morado::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-morado::-webkit-scrollbar-track {
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+}
+
+.scrollbar-morado::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+}
+
+.scrollbar-morado::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-light);
+}
+
+/* Accessibility */
+.high-contrast {
+  --color-text: #000000;
+  --color-background: #FFFFFF;
+  --color-surface: #F3F4F6;
+  --color-border: #000000;
+}
+
+.no-animations * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.compact-mode {
+  --font-size-base: 14px;
+}
+
+/* Responsive optimizations */
+@media (max-width: 640px) {
+  .animate-theme-hover:hover {
+    transform: none;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .animate-theme-hover:hover {
+    transform: none;
+  }
+}

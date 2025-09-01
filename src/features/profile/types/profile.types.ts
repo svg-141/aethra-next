@@ -67,7 +67,7 @@ export interface Connection {
   connectedAt: Date;
   lastSync: Date;
   isActive: boolean;
-  data?: any;
+  data?: Record<string, unknown>;
 }
 
 export type ConnectionType = 
@@ -173,7 +173,7 @@ export interface ProfileStats {
   topAchievements: Achievement[];
   recentActivity: Array<{
     type: 'achievement' | 'match' | 'connection' | 'subscription';
-    data: any;
+    data: Record<string, unknown>;
     timestamp: Date;
   }>;
 }

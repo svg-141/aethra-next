@@ -68,21 +68,21 @@ export default function NotificationBell() {
 
   const getNotificationColor = () => {
     if (unreadCount === 0) {
-      return 'text-gray-400';
+      return 'icon-muted';
     }
 
     // Mostrar color según la prioridad más alta
     const urgentNotification = notifications.find(n => !n.read && n.priority === 'urgent');
     if (urgentNotification) {
-      return 'text-red-400';
+      return 'icon-error';
     }
 
     const highNotification = notifications.find(n => !n.read && n.priority === 'high');
     if (highNotification) {
-      return 'text-orange-400';
+      return 'icon-warning';
     }
 
-    return 'text-purple-400';
+    return 'icon-primary';
   };
 
   return (
@@ -90,32 +90,37 @@ export default function NotificationBell() {
       {/* Botón de notificaciones */}
       <button
         onClick={handleToggle}
-        className={`relative p-2 rounded-lg transition-all duration-300 ${
+        className={`theme-button relative p-2 rounded-lg transition-all duration-300 ${
           isOpen 
-            ? 'bg-purple-600/30 text-purple-300' 
-            : 'text-gray-400 hover:text-white hover:bg-purple-600/20'
+            ? 'theme-bg-hover' 
+            : 'theme-bg-surface hover:theme-bg-hover'
         } ${isAnimating ? 'animate-pulse' : ''}`}
         data-tooltip="notifications"
         aria-label={`${unreadCount} notificaciones no leídas`}
       >
-        <i className={`${getNotificationIcon()} text-lg ${getNotificationColor()}`}></i>
+        <i className={`${getNotificationIcon()} text-lg ${getNotificationColor()} ${unreadCount > 0 ? 'icon-glow-subtle' : ''}`}></i>
         
         {/* Badge de notificaciones no leídas */}
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold animate-bounce">
+          <span className="absolute -top-1 -right-1 theme-badge text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold animate-bounce" style={{
+            background: 'var(--gradient-primary)',
+            color: 'var(--color-text)'
+          }}>
             {unreadCount > 99 ? '99+' : unreadCount}
           </span>
         )}
 
         {/* Indicador de estado */}
-        <div className={`absolute -bottom-1 -right-1 w-2 h-2 rounded-full ${
-          unreadCount > 0 ? 'bg-green-400 animate-pulse' : 'bg-gray-500'
-        }`}></div>
+        <div className={`absolute -bottom-1 -right-1 w-2 h-2 rounded-full transition-colors ${
+          unreadCount > 0 ? 'animate-pulse' : ''
+        }`} style={{
+          backgroundColor: unreadCount > 0 ? 'var(--color-success)' : 'var(--color-text-tertiary)'
+        }}></div>
       </button>
 
       {/* Panel de notificaciones */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-96 bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-xl border border-purple-900/60 shadow-2xl z-50">
+        <div className="absolute right-0 mt-2 w-96 theme-card shadow-2xl z-50 animate-fade-in">
           <NotificationPanel onClose={() => setIsOpen(false)} />
         </div>
       )}

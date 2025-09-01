@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { CommentSection } from '../../features/chat';
-import { TooltipGuide } from '../../features/tooltips';
 import { PostCard, PostForm, SidebarCommunity, Post, PostCategory, PostFilter } from '../../features/community';
 import { POST_CATEGORIES, DEFAULT_FILTERS, SAMPLE_COMMUNITY_STATS } from '../../features/community/constants/community-constants';
 
@@ -154,12 +153,12 @@ export default function CommunityPage() {
   }));
 
   return (
-    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen bg-gradient-to-b from-[#0f0720] to-[#1a0933]">
+    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen" style={{ background: 'var(--gradient-background)' }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white mb-4" data-tooltip="community-title">Comunidad Aethra</h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <h1 className="text-4xl font-bold theme-text-primary mb-4 glow-text">Comunidad Aethra</h1>
+          <p className="text-lg theme-text-secondary max-w-2xl mx-auto">
             Conecta con otros jugadores, comparte estrategias y resuelve dudas sobre tus juegos favoritos
           </p>
         </div>
@@ -171,10 +170,9 @@ export default function CommunityPage() {
             <div className="mb-8 text-center">
               <button
                 onClick={() => setShowPostForm(!showPostForm)}
-                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-500 hover:to-pink-500 transition-all"
-                data-tooltip="post-form"
+                className="theme-button px-6 py-3 rounded-lg font-semibold transition-all"
               >
-                <i className="fas fa-plus mr-2"></i>
+                <i className="fas fa-plus icon-theme mr-2"></i>
                 Crear Post
               </button>
             </div>
@@ -226,7 +224,7 @@ export default function CommunityPage() {
                 ]}
                 initialVotes={{ up: 156, down: 3 }}
                 title="¿Cómo está funcionando la comunidad?"
-                className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-6 border border-purple-900/60"
+                className="theme-card p-6 card-hover"
               />
             </div>
           </div>
@@ -244,8 +242,6 @@ export default function CommunityPage() {
         </div>
       </div>
 
-      {/* Tooltips de la comunidad */}
-      <TooltipGuide section="community" />
     </section>
   );
 } 

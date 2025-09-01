@@ -27,66 +27,69 @@ export default function GameCard({ game, onClick, onFavorite, onShare, details }
 
   return (
     <div 
-      className="game-card group cursor-pointer relative bg-gradient-to-br from-[#1e0b36] to-[#2a0845] rounded-2xl p-8 text-center border border-purple-900/50 hover:border-purple-500/30 transition-all duration-500 hover:shadow-[0_0_30px_#6d28d9] hover:-translate-y-2" 
+      className="cuadro h-100 cursor-pointer animate-theme-hover rounded-3 p-4"
       onClick={handleClick}
     >
-      <div className="absolute inset-0 rounded-2xl overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-purple-900/30 to-transparent"></div>
-      </div>
-      
-      <div className="relative z-10">
+      <div className="text-center position-relative">
         {/* Badges */}
-        <div className="absolute top-4 right-4 flex gap-2">
+        <div className="position-absolute top-0 end-0 m-3 d-flex gap-2">
           {game.isNew && (
-            <span className="px-2 py-1 text-xs font-medium bg-green-500/20 text-green-300 rounded-full border border-green-500/30">
+            <span className="px-2 py-1 text-green-300 text-xs rounded-full" style={{ background: 'rgba(34, 197, 94, 0.2)' }}>
               🆕 Nuevo
             </span>
           )}
           {game.isPopular && (
-            <span className="px-2 py-1 text-xs font-medium bg-orange-500/20 text-orange-300 rounded-full border border-orange-500/30">
+            <span className="px-2 py-1 text-yellow-300 text-xs rounded-full" style={{ background: 'rgba(251, 191, 36, 0.2)' }}>
               🔥 Popular
             </span>
           )}
         </div>
 
-        <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-purple-900/40 to-pink-900/30 rounded-full flex items-center justify-center border border-purple-500/30 group-hover:border-pink-400/50 group-hover:shadow-[0_0_25px_#ec4899] transition-all">
-          <img src={game.image} alt={game.name} className="w-14 h-14 object-contain group-hover:scale-110 transition-transform" />
+        <div className="d-flex justify-content-center mb-4">
+          <div className="rounded-circle d-flex align-items-center justify-content-center border border-theme shadow-theme-glow" 
+               style={{ 
+                 width: '80px', 
+                 height: '80px', 
+                 background: 'var(--gradient-primary)'
+               }}>
+            <img src={game.image} alt={game.name} className="img-fluid" style={{width: '50px', height: '50px', objectFit: 'contain'}} />
+          </div>
         </div>
         
-        <h3 className="text-white font-bold text-2xl mb-1">{game.name}</h3>
+        <h3 className="h4 text-theme-primary fw-bold mb-3 glow-text">{game.name}</h3>
         
-        <div className="flex items-center justify-center gap-2 mb-3">
-          <span className="inline-block px-3 py-1 text-xs font-medium bg-purple-900/50 text-purple-200 rounded-full">
+        <div className="d-flex justify-content-center gap-2 mb-3 flex-wrap">
+          <span className="px-2 py-1 text-theme-primary text-xs rounded-full" style={{ background: 'var(--color-surface-light)' }}>
             {game.type.toUpperCase()}
           </span>
           {game.badge && (
-            <span className={`inline-block px-3 py-1 text-xs font-medium bg-purple-900/30 rounded-full ${game.badgeColor || 'text-purple-300'}`}>
+            <span className={`px-2 py-1 text-theme-primary text-xs rounded-full ${game.badgeColor || ''}`} style={{ background: 'var(--color-surface-hover)' }}>
               {game.badge}
             </span>
           )}
         </div>
         
-        <p className="text-sm text-gray-300 mt-3 leading-relaxed mb-4">{game.description}</p>
+        <p className="text-theme-secondary small mb-4">{game.description}</p>
         
         {/* Game details */}
-        <div className="space-y-2 mb-4 text-xs text-gray-400">
-          <div className="flex items-center justify-center gap-2">
-            <span className="flex items-center gap-1">
-              <i className="fas fa-star text-yellow-400"></i>
+        <div className="mb-4">
+          <div className="d-flex justify-content-center gap-3 mb-2 text-theme-secondary small">
+            <span className="d-flex align-items-center gap-1">
+              <i className="fas fa-star text-warning"></i>
               {game.rating}
             </span>
-            <span className="flex items-center gap-1">
+            <span className="d-flex align-items-center gap-1">
               <i className="fas fa-users"></i>
-              {formatPlayerCount(game.playerCount)} jugadores
+              {formatPlayerCount(game.playerCount)}
             </span>
           </div>
           
-          <div className="flex items-center justify-center gap-2">
-            <span className="flex items-center gap-1">
+          <div className="d-flex justify-content-center gap-3 text-theme-secondary small">
+            <span className="d-flex align-items-center gap-1">
               <i className="fas fa-calendar"></i>
               {new Date(game.releaseDate).getFullYear()}
             </span>
-            <span className="flex items-center gap-1">
+            <span className="d-flex align-items-center gap-1">
               <i className="fas fa-gamepad"></i>
               {game.platform.join(', ')}
             </span>
@@ -94,33 +97,37 @@ export default function GameCard({ game, onClick, onFavorite, onShare, details }
         </div>
         
         {/* Genres */}
-        <div className="flex flex-wrap gap-1 justify-center mb-4">
+        <div className="d-flex flex-wrap gap-1 justify-content-center mb-4">
           {game.genre.slice(0, 3).map((genre, index) => (
-            <span key={index} className="px-2 py-1 text-xs bg-purple-900/30 text-purple-200 rounded-full">
+            <span key={index} className="px-2 py-1 text-theme-secondary text-xs rounded-full" style={{ background: 'var(--color-surface)' }}>
               {genre}
             </span>
           ))}
         </div>
         
         {/* Action buttons */}
-        <div className="flex items-center justify-center gap-3">
+        <div className="d-flex justify-content-center gap-2 mt-auto">
           <button
             onClick={handleFavorite}
-            className="p-2 text-gray-400 hover:text-red-400 transition-colors"
+            className="px-2 py-1 text-red-400 border border-red-400 rounded hover:bg-red-400 hover:text-white transition-all animate-theme-hover text-sm"
             title="Agregar a favoritos"
           >
             <i className="fas fa-heart"></i>
           </button>
           <button
             onClick={handleShare}
-            className="p-2 text-gray-400 hover:text-blue-400 transition-colors"
+            className="px-2 py-1 text-theme-primary border rounded transition-all animate-theme-hover text-sm" style={{ borderColor: 'var(--color-primary)' }}
             title="Compartir"
           >
             <i className="fas fa-share"></i>
           </button>
         </div>
         
-        {details}
+        {details && (
+          <div className="mt-3">
+            {details}
+          </div>
+        )}
       </div>
     </div>
   );

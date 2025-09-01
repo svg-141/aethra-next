@@ -39,14 +39,14 @@ export default function AchievementCard({ achievement, onView, onShare }: Achiev
   };
 
   return (
-    <div className={`flex items-center gap-3 p-3 ${achievement.color} rounded-lg border ${getRarityBorder(achievement.rarity)} hover:bg-purple-900/30 transition-all cursor-pointer`} onClick={handleView}>
+    <div className={`flex items-center gap-3 p-3 ${achievement.color} rounded-lg border ${getRarityBorder(achievement.rarity)} cuadro transition-all cursor-pointer animate-theme-hover`} onClick={handleView}>
       <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg ${achievement.color}`}>
         {achievement.icon}
       </div>
       
       <div className="flex-1">
         <div className="flex items-center gap-2 mb-1">
-          <div className="text-sm font-medium text-white">{achievement.title}</div>
+          <div className="text-sm font-medium text-theme-primary">{achievement.title}</div>
           <span className={`text-xs ${getRarityColor(achievement.rarity)} font-medium`}>
             {achievement.rarity.toUpperCase()}
           </span>
@@ -57,10 +57,10 @@ export default function AchievementCard({ achievement, onView, onShare }: Achiev
           )}
         </div>
         
-        <div className="text-xs text-gray-400 mb-1">{achievement.description}</div>
+        <div className="text-xs text-theme-secondary mb-1">{achievement.description}</div>
         
         <div className="flex items-center justify-between">
-          <div className="text-xs text-gray-500">
+          <div className="text-xs text-theme-secondary">
             {achievement.isUnlocked ? formatDate(achievement.date) : 'No desbloqueado'}
           </div>
           
@@ -73,11 +73,14 @@ export default function AchievementCard({ achievement, onView, onShare }: Achiev
               <div className="flex items-center gap-1">
                 <div className="w-16 h-1 bg-gray-600 rounded-full overflow-hidden">
                   <div 
-                    className="h-full bg-purple-500 rounded-full transition-all"
-                    style={{ width: `${(achievement.progress / achievement.maxProgress) * 100}%` }}
+                    className="h-full rounded-full transition-all"
+                    style={{ 
+                      width: `${(achievement.progress / achievement.maxProgress) * 100}%`,
+                      background: 'var(--gradient-primary)'
+                    }}
                   ></div>
                 </div>
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-theme-secondary">
                   {achievement.progress}/{achievement.maxProgress}
                 </span>
               </div>
@@ -89,7 +92,7 @@ export default function AchievementCard({ achievement, onView, onShare }: Achiev
                   e.stopPropagation();
                   handleShare();
                 }}
-                className="text-xs text-gray-400 hover:text-purple-300 transition-colors"
+                className="text-xs text-theme-secondary hover:text-theme-primary transition-colors animate-theme-hover"
                 title="Compartir logro"
               >
                 <i className="fas fa-share"></i>

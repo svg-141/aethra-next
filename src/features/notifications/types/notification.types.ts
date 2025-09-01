@@ -20,7 +20,7 @@ export interface Notification {
   actionUrl?: string;
   actionText?: string;
   icon?: string;
-  data?: Record<string, any>;
+  data?: Record<string, string | number | boolean | null>;
   expiresAt?: Date;
 }
 

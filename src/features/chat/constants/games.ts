@@ -4,7 +4,7 @@ export const GAMES: Game[] = [
   {
     key: 'valorant',
     name: 'Valorant',
-    icon: '/assets/img/games/valorant.png',
+    icon: '/assets/icons/valorant.svg',
     category: 'fps',
     description: 'FPS táctico 5v5 con agentes únicos',
     examples: [
@@ -18,7 +18,7 @@ export const GAMES: Game[] = [
   {
     key: 'lol',
     name: 'League of Legends',
-    icon: '/assets/img/games/lol.png',
+    icon: '/assets/icons/lol.svg',
     category: 'moba',
     description: 'MOBA 5v5 con más de 150 campeones',
     examples: [
@@ -32,7 +32,7 @@ export const GAMES: Game[] = [
   {
     key: 'dota2',
     name: 'Dota 2',
-    icon: '/assets/img/games/dota2.png',
+    icon: '/assets/icons/dota2.svg',
     category: 'moba',
     description: 'MOBA complejo con más de 120 héroes',
     examples: [
@@ -46,7 +46,7 @@ export const GAMES: Game[] = [
   {
     key: 'cs2',
     name: 'Counter-Strike 2',
-    icon: '/assets/img/games/cs2.png',
+    icon: '/assets/icons/csgo.svg',
     category: 'fps',
     description: 'FPS táctico de terroristas vs contra-terroristas',
     examples: [
@@ -60,7 +60,7 @@ export const GAMES: Game[] = [
   {
     key: 'starcraft2',
     name: 'Starcraft 2',
-    icon: '/assets/img/games/starcraft2.png',
+    icon: '/assets/icons/starcraft2.svg',
     category: 'rts',
     description: 'RTS con tres razas únicas',
     examples: [
@@ -74,7 +74,7 @@ export const GAMES: Game[] = [
   {
     key: 'overwatch2',
     name: 'Overwatch 2',
-    icon: '/assets/img/games/overwatch2.png',
+    icon: '/assets/icons/overwatch.svg',
     category: 'fps',
     description: 'FPS hero shooter 5v5',
     examples: [

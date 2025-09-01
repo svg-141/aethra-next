@@ -1,21 +1,35 @@
 "use client";
 
-import { useState } from 'react';
-import { useTheme, Theme } from '../hooks/useTheme';
+import { useState, useCallback, useMemo, memo } from 'react';
+import { useThemeContext } from '../context/ThemeContext';
+import { Theme } from '../hooks/useTheme';
 import { useTooltips } from '../features/tooltips';
 
-export default function ThemeSelector() {
-  const { currentTheme, userPreferences, availableThemes, setTheme, updatePreferences, resetToDefault } = useTheme();
+function ThemeSelector() {
+  const { currentTheme, userPreferences, availableThemes, setTheme, updatePreferences, resetToDefault, isLoading } = useThemeContext();
   const { preferences: tooltipPreferences, updatePreferences: updateTooltipPreferences, resetTooltips } = useTooltips();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'themes' | 'accessibility' | 'display' | 'help'>('themes');
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center gap-2 px-3 py-2 theme-bg-surface rounded-lg border theme-border">
+        <i className="fas fa-spinner fa-spin theme-text-secondary"></i>
+        <span className="hidden sm:inline theme-text-secondary">Cargando...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
       {/* Botón para abrir selector */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-purple-600/20 to-pink-600/20 text-purple-300 rounded-lg border border-purple-600/30 hover:from-purple-600/30 hover:to-pink-600/30 transition-all"
+        className="flex items-center gap-2 px-3 py-2 theme-button-hover rounded-lg border theme-border hover:border-purple-500 transition-all"
+        style={{
+          background: `rgba(${parseInt(currentTheme.colors.primary.slice(1, 3), 16)}, ${parseInt(currentTheme.colors.primary.slice(3, 5), 16)}, ${parseInt(currentTheme.colors.primary.slice(5, 7), 16)}, 0.2)`,
+          color: currentTheme.colors.primary
+        }}
         data-tooltip="themes"
       >
         <i className="fas fa-palette"></i>
@@ -24,27 +38,30 @@ export default function ThemeSelector() {
 
       {/* Panel de personalización */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-xl border border-purple-900/60 shadow-2xl z-50">
+        <div className="absolute right-0 mt-2 w-80 sm:w-96 theme-card shadow-2xl z-50 max-h-[80vh] flex flex-col animate-fade-in">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-purple-900/50">
-            <h3 className="text-lg font-bold text-white">Personalización</h3>
+          <div className="flex items-center justify-between p-4 border-b theme-border">
+            <h3 className="text-lg font-bold theme-text-primary">Personalización</h3>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="theme-text-secondary hover:theme-text-primary transition-colors p-2 hover:theme-bg-hover rounded"
             >
               <i className="fas fa-times"></i>
             </button>
           </div>
 
           {/* Tabs */}
-          <div className="flex border-b border-purple-900/50">
+          <div className="flex border-b theme-border">
             <button
               onClick={() => setActiveTab('themes')}
               className={`flex-1 px-4 py-2 text-sm font-medium transition-colors ${
                 activeTab === 'themes'
-                  ? 'text-purple-300 border-b-2 border-purple-500'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'border-b-2 theme-text-primary'
+                  : 'theme-text-secondary hover:theme-text-primary'
               }`}
+              style={{
+                borderBottomColor: activeTab === 'themes' ? currentTheme.colors.primary : 'transparent'
+              }}
             >
               Temas
             </button>
@@ -52,9 +69,12 @@ export default function ThemeSelector() {
               onClick={() => setActiveTab('accessibility')}
               className={`flex-1 px-4 py-2 text-sm font-medium transition-colors ${
                 activeTab === 'accessibility'
-                  ? 'text-purple-300 border-b-2 border-purple-500'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'border-b-2 theme-text-primary'
+                  : 'theme-text-secondary hover:theme-text-primary'
               }`}
+              style={{
+                borderBottomColor: activeTab === 'accessibility' ? currentTheme.colors.primary : 'transparent'
+              }}
             >
               Accesibilidad
             </button>
@@ -62,9 +82,12 @@ export default function ThemeSelector() {
               onClick={() => setActiveTab('display')}
               className={`flex-1 px-4 py-2 text-sm font-medium transition-colors ${
                 activeTab === 'display'
-                  ? 'text-purple-300 border-b-2 border-purple-500'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'border-b-2 theme-text-primary'
+                  : 'theme-text-secondary hover:theme-text-primary'
               }`}
+              style={{
+                borderBottomColor: activeTab === 'display' ? currentTheme.colors.primary : 'transparent'
+              }}
             >
               Pantalla
             </button>
@@ -72,20 +95,26 @@ export default function ThemeSelector() {
               onClick={() => setActiveTab('help')}
               className={`flex-1 px-4 py-2 text-sm font-medium transition-colors ${
                 activeTab === 'help'
-                  ? 'text-purple-300 border-b-2 border-purple-500'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'border-b-2 theme-text-primary'
+                  : 'theme-text-secondary hover:theme-text-primary'
               }`}
+              style={{
+                borderBottomColor: activeTab === 'help' ? currentTheme.colors.primary : 'transparent'
+              }}
             >
               Ayuda
             </button>
           </div>
 
           {/* Contenido de tabs */}
-          <div className="p-4 max-h-96 overflow-y-auto">
+          <div className="p-4 overflow-y-auto flex-1 scrollbar-theme">
             {/* Tab: Temas */}
             {activeTab === 'themes' && (
               <div className="space-y-4">
-                <div className="grid grid-cols-1 gap-3">
+                <div className="text-xs theme-text-secondary mb-3">
+                  Selecciona el tema que mejor se adapte a tu estilo de juego
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {availableThemes.map((theme) => (
                     <ThemeCard
                       key={theme.id}
@@ -139,11 +168,11 @@ export default function ThemeSelector() {
             {activeTab === 'display' && (
               <div className="space-y-4">
                 <div>
-                  <label className="text-sm text-white mb-2 block">Tamaño de fuente</label>
+                  <label className="text-sm theme-text-primary mb-2 block">Tamaño de fuente</label>
                   <select
                     value={userPreferences.fontSize}
-                    onChange={(e) => updatePreferences({ fontSize: e.target.value as any })}
-                    className="w-full bg-[#1e0b36] text-white rounded px-3 py-2 text-sm border border-purple-900/50 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                    onChange={(e) => updatePreferences({ fontSize: e.target.value as 'small' | 'medium' | 'large' })}
+                    className="select-theme w-full px-3 py-2 text-sm"
                   >
                     <option value="small">Pequeño</option>
                     <option value="medium">Mediano</option>
@@ -152,12 +181,12 @@ export default function ThemeSelector() {
                 </div>
 
                 <label className="flex items-center justify-between">
-                  <span className="text-sm text-white">Modo compacto</span>
+                  <span className="text-sm theme-text-primary">Modo compacto</span>
                   <input
                     type="checkbox"
                     checked={userPreferences.compactMode}
                     onChange={(e) => updatePreferences({ compactMode: e.target.checked })}
-                    className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                    className="input-theme w-4 h-4 rounded"
                   />
                 </label>
               </div>
@@ -200,17 +229,17 @@ export default function ThemeSelector() {
                   </label>
                 </div>
 
-                <div className="pt-3 border-t border-purple-900/50">
+                <div className="pt-3 border-t theme-border">
                   <button
                     onClick={resetTooltips}
-                    className="w-full px-3 py-2 bg-purple-600/20 text-purple-300 rounded-lg border border-purple-600/30 hover:bg-purple-600/30 transition-all text-sm"
+                    className="theme-button w-full px-3 py-2 rounded-lg text-sm"
                   >
-                    <i className="fas fa-redo mr-2"></i>
+                    <i className="fas fa-redo icon-theme mr-2"></i>
                     Repetir tooltips de ayuda
                   </button>
                 </div>
 
-                <div className="text-xs text-gray-400">
+                <div className="text-xs theme-text-muted">
                   <p>Los tooltips te guían por las funcionalidades de la plataforma. Puedes activarlos o desactivarlos según prefieras.</p>
                 </div>
               </div>
@@ -218,15 +247,17 @@ export default function ThemeSelector() {
           </div>
 
           {/* Footer */}
-          <div className="p-4 border-t border-purple-900/50 flex justify-between">
+          <div className="p-4 border-t theme-border flex justify-between items-center">
             <button
               onClick={resetToDefault}
-              className="text-sm text-gray-400 hover:text-white transition-colors"
+              className="text-sm theme-text-secondary hover:theme-text-primary transition-colors px-3 py-1 rounded hover:theme-bg-hover"
             >
+              <i className="fas fa-undo mr-2"></i>
               Restablecer
             </button>
-            <div className="text-xs text-gray-500">
-              Tema: {currentTheme.name}
+            <div className="text-xs theme-text-muted flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: currentTheme.colors.primary }}></div>
+              {currentTheme.name}
             </div>
           </div>
         </div>
@@ -235,22 +266,27 @@ export default function ThemeSelector() {
   );
 }
 
-// Componente para mostrar una tarjeta de tema
+// Optimized ThemeCard component with memo
 interface ThemeCardProps {
   theme: Theme;
   isActive: boolean;
   onSelect: () => void;
 }
 
-function ThemeCard({ theme, isActive, onSelect }: ThemeCardProps) {
+const ThemeCard = memo(function ThemeCard({ theme, isActive, onSelect }: ThemeCardProps) {
+  const handleClick = useCallback(() => {
+    if (!isActive) {
+      onSelect();
+    }
+  }, [isActive, onSelect]);
   return (
     <div
-      className={`p-3 rounded-lg border cursor-pointer transition-all ${
+      className={`p-3 rounded-lg border cursor-pointer transition-all transform hover:scale-105 ${
         isActive
-          ? 'border-purple-500 bg-purple-500/20'
-          : 'border-purple-900/50 bg-[#1e0b36] hover:border-purple-500/50'
+          ? 'border-purple-500 bg-purple-500/20 shadow-lg shadow-purple-500/20'
+          : 'border-purple-900/50 bg-[#1e0b36] hover:border-purple-500/50 hover:bg-purple-500/10'
       }`}
-      onClick={onSelect}
+      onClick={handleClick}
     >
       <div className="flex items-center gap-3">
         {/* Preview del tema */}
@@ -274,4 +310,7 @@ function ThemeCard({ theme, isActive, onSelect }: ThemeCardProps) {
       </div>
     </div>
   );
-} 
+});
+
+// Export default with memo
+export default memo(ThemeSelector); 

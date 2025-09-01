@@ -1,0 +1,614 @@
+// Bootstrap + Aethra Theme Integration
+// This file combines Bootstrap 5 with our custom theme system
+
+// Import Bootstrap functions first
+@import "~bootstrap/scss/functions";
+
+// Override Bootstrap variables with our theme system
+:root {
+  // Bootstrap color overrides using CSS variables
+  --bs-primary: var(--color-primary);
+  --bs-secondary: var(--color-secondary);
+  --bs-success: var(--color-success);
+  --bs-warning: var(--color-warning);
+  --bs-danger: var(--color-error);
+  --bs-info: var(--color-info);
+  --bs-light: var(--color-text-muted);
+  --bs-dark: var(--color-background);
+  
+  // Bootstrap semantic colors
+  --bs-body-bg: var(--color-background);
+  --bs-body-color: var(--color-text);
+  --bs-emphasis-color: var(--color-text);
+  --bs-secondary-color: var(--color-text-secondary);
+  --bs-tertiary-color: var(--color-text-tertiary);
+  
+  // Border and surface colors
+  --bs-border-color: var(--color-border);
+  --bs-secondary-bg: var(--color-surface);
+  --bs-tertiary-bg: var(--color-surface-light);
+  
+  // Form controls
+  --bs-form-control-bg: var(--color-input-bg);
+  --bs-form-control-border-color: var(--color-input-border);
+  --bs-form-control-focus-border-color: var(--color-primary);
+  --bs-form-control-color: var(--color-text);
+  
+  // Cards
+  --bs-card-bg: var(--color-surface);
+  --bs-card-border-color: var(--color-card-border);
+  --bs-card-cap-bg: var(--color-surface-light);
+  
+  // Dropdowns
+  --bs-dropdown-bg: var(--color-surface);
+  --bs-dropdown-border-color: var(--color-border);
+  --bs-dropdown-link-color: var(--color-text);
+  --bs-dropdown-link-hover-color: var(--color-text);
+  --bs-dropdown-link-hover-bg: var(--color-surface-hover);
+  
+  // Navbar
+  --bs-navbar-color: var(--color-text);
+  --bs-navbar-hover-color: var(--color-primary);
+  --bs-navbar-brand-color: var(--color-text);
+  --bs-navbar-brand-hover-color: var(--color-primary);
+  
+  // Modal
+  --bs-modal-bg: var(--color-surface);
+  --bs-modal-border-color: var(--color-border);
+  --bs-modal-header-border-color: var(--color-border);
+  --bs-modal-footer-border-color: var(--color-border);
+  
+  // Offcanvas
+  --bs-offcanvas-bg: var(--color-surface);
+  --bs-offcanvas-border-color: var(--color-border);
+  
+  // Custom Bootstrap gradients using our theme
+  --bs-gradient-primary: var(--gradient-primary);
+  --bs-gradient-secondary: var(--gradient-secondary);
+  
+  // Custom shadows
+  --bs-box-shadow: var(--shadow-md);
+  --bs-box-shadow-sm: var(--shadow-sm);
+  --bs-box-shadow-lg: var(--shadow-lg);
+  
+  // Border radius from our theme
+  --bs-border-radius: var(--radius-md);
+  --bs-border-radius-sm: var(--radius-sm);
+  --bs-border-radius-lg: var(--radius-lg);
+  --bs-border-radius-xl: var(--radius-xl);
+  --bs-border-radius-2xl: var(--radius-2xl);
+  
+  // Animation variables
+  --bs-transition: all var(--animation-duration) var(--animation-ease);
+}
+
+// Import Bootstrap with our custom variables
+@import "~bootstrap/scss/bootstrap";
+
+// Custom Bootstrap component overrides
+.btn-primary {
+  background: var(--gradient-primary) !important;
+  border: none !important;
+  color: var(--color-text) !important;
+  
+  &:hover, &:focus, &:active {
+    background: var(--gradient-hover) !important;
+    box-shadow: var(--shadow-glow) !important;
+    transform: translateY(-1px);
+  }
+}
+
+.btn-outline-primary {
+  background: transparent !important;
+  border: 2px solid var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  
+  &:hover, &:focus, &:active {
+    background: var(--gradient-primary) !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-text) !important;
+  }
+}
+
+.btn-secondary {
+  background: var(--gradient-secondary) !important;
+  border: none !important;
+  color: var(--color-text) !important;
+  
+  &:hover, &:focus, &:active {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+}
+
+// Gaming-specific button variants
+.btn-gaming {
+  background: var(--gradient-primary) !important;
+  border: none !important;
+  color: var(--color-text) !important;
+  font-weight: 600 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+  
+  &:hover, &:focus, &:active {
+    background: var(--gradient-hover) !important;
+    box-shadow: var(--shadow-glow) !important;
+    transform: translateY(-2px) scale(1.05);
+  }
+}
+
+.btn-neon {
+  background: transparent !important;
+  border: 2px solid var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  box-shadow: 0 0 10px var(--color-primary) !important;
+  
+  &:hover, &:focus, &:active {
+    background: var(--color-primary) !important;
+    color: var(--color-background) !important;
+    box-shadow: 0 0 20px var(--color-primary), 0 0 30px var(--color-primary) !important;
+  }
+}
+
+// Enhanced Card styles
+.card {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-card-border) !important;
+  transition: all var(--animation-duration) var(--animation-ease) !important;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow) !important;
+    border-color: var(--color-primary) !important;
+  }
+}
+
+.card-gaming {
+  background: var(--gradient-card) !important;
+  border: 1px solid var(--color-card-border) !important;
+  border-radius: var(--radius-2xl) !important;
+  overflow: hidden !important;
+  
+  &:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-glow-lg) !important;
+    border-color: var(--color-primary) !important;
+  }
+  
+  .card-header {
+    background: var(--color-surface-light) !important;
+    border-bottom: 1px solid var(--color-border) !important;
+  }
+}
+
+// Enhanced Form controls
+.form-control, .form-select, .form-check-input {
+  background-color: var(--color-input-bg) !important;
+  border-color: var(--color-input-border) !important;
+  color: var(--color-text) !important;
+  
+  &:focus {
+    background-color: var(--color-surface-light) !important;
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 0.25rem rgba(139, 92, 246, 0.25) !important;
+  }
+  
+  &::placeholder {
+    color: var(--color-text-tertiary) !important;
+  }
+}
+
+// Gaming-specific form styles
+.form-control-gaming {
+  background: var(--color-input-bg) !important;
+  border: 2px solid var(--color-input-border) !important;
+  border-radius: var(--radius-lg) !important;
+  color: var(--color-text) !important;
+  transition: all var(--animation-duration) var(--animation-ease) !important;
+  
+  &:focus {
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25), 0 0 10px var(--color-primary) !important;
+    transform: scale(1.02);
+  }
+}
+
+// Enhanced Navbar
+.navbar {
+  background: var(--color-navbar) !important;
+  backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+  
+  .navbar-brand {
+    color: var(--color-text) !important;
+    font-weight: 800 !important;
+    text-shadow: var(--shadow-glow) !important;
+    
+    &:hover {
+      color: var(--color-primary) !important;
+      transform: scale(1.05);
+    }
+  }
+  
+  .nav-link {
+    color: var(--color-text-secondary) !important;
+    transition: all var(--animation-duration) var(--animation-ease) !important;
+    border-radius: var(--radius-md) !important;
+    margin: 0 0.25rem !important;
+    
+    &:hover, &.active {
+      color: var(--color-primary) !important;
+      background: var(--color-surface-hover) !important;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// Enhanced Modal
+.modal-content {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-xl) !important;
+  
+  .modal-header {
+    border-bottom: 1px solid var(--color-border) !important;
+    background: var(--color-surface-light) !important;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0 !important;
+    
+    .modal-title {
+      color: var(--color-text) !important;
+      font-weight: 700 !important;
+    }
+    
+    .btn-close {
+      filter: invert(1);
+      opacity: 0.7;
+      
+      &:hover {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+  }
+  
+  .modal-footer {
+    border-top: 1px solid var(--color-border) !important;
+    background: var(--color-surface-light) !important;
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl) !important;
+  }
+}
+
+// Enhanced Dropdown
+.dropdown-menu {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-lg) !important;
+  
+  .dropdown-item {
+    color: var(--color-text) !important;
+    transition: all var(--animation-duration-fast) var(--animation-ease) !important;
+    
+    &:hover, &:focus, &:active {
+      background: var(--color-surface-hover) !important;
+      color: var(--color-primary) !important;
+    }
+  }
+  
+  .dropdown-divider {
+    border-color: var(--color-border) !important;
+  }
+}
+
+// Enhanced Badge
+.badge {
+  background: var(--color-primary) !important;
+  color: var(--color-text) !important;
+  border-radius: var(--radius-2xl) !important;
+  
+  &.bg-secondary {
+    background: var(--color-secondary) !important;
+  }
+  
+  &.bg-success {
+    background: var(--color-success) !important;
+  }
+  
+  &.bg-warning {
+    background: var(--color-warning) !important;
+  }
+  
+  &.bg-danger {
+    background: var(--color-error) !important;
+  }
+}
+
+// Gaming badge variants
+.badge-gaming {
+  background: var(--gradient-primary) !important;
+  color: var(--color-text) !important;
+  border: 1px solid var(--color-primary) !important;
+  box-shadow: 0 0 5px var(--color-primary) !important;
+  animation: pulse-glow 2s infinite;
+}
+
+.badge-neon {
+  background: transparent !important;
+  border: 1px solid var(--color-primary) !important;
+  color: var(--color-primary) !important;
+  box-shadow: 0 0 10px var(--color-primary) !important;
+}
+
+// Enhanced Alert
+.alert {
+  border-radius: var(--radius-lg) !important;
+  border-width: 1px !important;
+  
+  &.alert-primary {
+    background: rgba(139, 92, 246, 0.1) !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-primary) !important;
+  }
+  
+  &.alert-success {
+    background: rgba(16, 185, 129, 0.1) !important;
+    border-color: var(--color-success) !important;
+    color: var(--color-success) !important;
+  }
+  
+  &.alert-warning {
+    background: rgba(245, 158, 11, 0.1) !important;
+    border-color: var(--color-warning) !important;
+    color: var(--color-warning) !important;
+  }
+  
+  &.alert-danger {
+    background: rgba(239, 68, 68, 0.1) !important;
+    border-color: var(--color-error) !important;
+    color: var(--color-error) !important;
+  }
+}
+
+// Enhanced Progress
+.progress {
+  background: var(--color-surface) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  
+  .progress-bar {
+    background: var(--gradient-primary) !important;
+    border-radius: var(--radius-xl) !important;
+    transition: width 0.6s ease !important;
+  }
+}
+
+// Gaming progress bar
+.progress-gaming {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-xl) !important;
+  overflow: hidden !important;
+  
+  .progress-bar {
+    background: var(--gradient-primary) !important;
+    box-shadow: 0 0 10px var(--color-primary) !important;
+    position: relative !important;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(45deg, transparent 33%, rgba(255,255,255,.1) 33%, rgba(255,255,255,.1) 66%, transparent 66%);
+      background-size: 20px 20px;
+      animation: move 2s linear infinite;
+    }
+  }
+}
+
+@keyframes move {
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 20px; }
+}
+
+// Enhanced List Group
+.list-group-item {
+  background: var(--color-surface) !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-text) !important;
+  
+  &:hover {
+    background: var(--color-surface-hover) !important;
+  }
+  
+  &.active {
+    background: var(--gradient-primary) !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-text) !important;
+  }
+}
+
+// Enhanced Pagination
+.pagination {
+  .page-link {
+    background: var(--color-surface) !important;
+    border-color: var(--color-border) !important;
+    color: var(--color-text-secondary) !important;
+    
+    &:hover {
+      background: var(--color-surface-hover) !important;
+      border-color: var(--color-primary) !important;
+      color: var(--color-primary) !important;
+    }
+  }
+  
+  .page-item.active .page-link {
+    background: var(--gradient-primary) !important;
+    border-color: var(--color-primary) !important;
+    color: var(--color-text) !important;
+  }
+}
+
+// Enhanced Accordion
+.accordion {
+  .accordion-item {
+    background: var(--color-surface) !important;
+    border-color: var(--color-border) !important;
+    
+    .accordion-header button {
+      background: var(--color-surface-light) !important;
+      color: var(--color-text) !important;
+      border-bottom: 1px solid var(--color-border) !important;
+      
+      &:focus {
+        box-shadow: 0 0 0 0.25rem rgba(139, 92, 246, 0.25) !important;
+      }
+      
+      &:not(.collapsed) {
+        background: var(--color-surface-hover) !important;
+        color: var(--color-primary) !important;
+      }
+    }
+    
+    .accordion-body {
+      color: var(--color-text-secondary) !important;
+    }
+  }
+}
+
+// Enhanced Tooltip
+.tooltip {
+  .tooltip-inner {
+    background: var(--color-surface) !important;
+    color: var(--color-text) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-lg) !important;
+  }
+  
+  .tooltip-arrow::before {
+    border-color: var(--color-border) transparent !important;
+  }
+}
+
+// Enhanced Popover
+.popover {
+  background: var(--color-surface) !important;
+  border-color: var(--color-border) !important;
+  box-shadow: var(--shadow-lg) !important;
+  
+  .popover-header {
+    background: var(--color-surface-light) !important;
+    border-bottom-color: var(--color-border) !important;
+    color: var(--color-text) !important;
+  }
+  
+  .popover-body {
+    color: var(--color-text-secondary) !important;
+  }
+}
+
+// Utility classes for theme integration
+.bg-theme-surface { background: var(--color-surface) !important; }
+.bg-theme-surface-light { background: var(--color-surface-light) !important; }
+.bg-theme-surface-hover { background: var(--color-surface-hover) !important; }
+
+.text-theme-primary { color: var(--color-text) !important; }
+.text-theme-secondary { color: var(--color-text-secondary) !important; }
+.text-theme-muted { color: var(--color-text-muted) !important; }
+.text-theme-tertiary { color: var(--color-text-tertiary) !important; }
+
+.border-theme { border-color: var(--color-border) !important; }
+.border-theme-hover { border-color: var(--color-border-hover) !important; }
+
+.shadow-theme-sm { box-shadow: var(--shadow-sm) !important; }
+.shadow-theme-md { box-shadow: var(--shadow-md) !important; }
+.shadow-theme-lg { box-shadow: var(--shadow-lg) !important; }
+.shadow-theme-glow { box-shadow: var(--shadow-glow) !important; }
+
+// Animation utilities
+.animate-theme-hover {
+  transition: all var(--animation-duration) var(--animation-ease) !important;
+  
+  &:hover {
+    transform: translateY(-2px) scale(1.02);
+  }
+}
+
+.animate-theme-glow-pulse {
+  animation: pulse-glow 2s infinite;
+}
+
+// Responsive utilities for mobile gaming
+@media (max-width: 768px) {
+  .btn {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+  
+  .card-gaming:hover {
+    transform: translateY(-2px) !important;
+  }
+  
+  .animate-theme-hover:hover {
+    transform: translateY(-1px) !important;
+  }
+}
+
+// High contrast mode support
+.high-contrast {
+  .btn, .card, .form-control, .form-select {
+    border-width: 2px !important;
+  }
+  
+  .btn-primary {
+    background: var(--color-primary) !important;
+    color: var(--color-background) !important;
+  }
+  
+  .card {
+    border-color: var(--color-text) !important;
+  }
+}
+
+// No animations mode
+.no-animations {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+// Compact mode
+.compact-mode {
+  .btn {
+    padding: 0.25rem 0.75rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  .card {
+    padding: 0.75rem !important;
+  }
+  
+  .form-control, .form-select {
+    padding: 0.375rem 0.75rem !important;
+  }
+}

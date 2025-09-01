@@ -55,11 +55,11 @@ export default function SubscriptionCard({ subscription, onManage, onUpgrade, on
   };
 
   return (
-    <div className={`bg-gradient-to-br ${getPlanColor(subscription.plan)} rounded-2xl p-6 border border-pink-500/40 hover:shadow-[0_0_20px_#ec489940] transition-all mb-6`}>
+    <div className={`cuadro bg-gradient-to-br ${getPlanColor(subscription.plan)} rounded-2xl p-6 mb-6 animate-theme-hover animate-theme-glow`} style={{ borderColor: 'var(--color-secondary)' }}>
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h3 className="text-lg font-bold text-white mb-1 capitalize">{subscription.plan}</h3>
-          <p className="text-sm text-gray-300">Desbloquea todo el potencial</p>
+          <h3 className="text-lg font-bold text-theme-primary mb-1 capitalize">{subscription.plan}</h3>
+          <p className="text-sm text-theme-secondary">Desbloquea todo el potencial</p>
         </div>
         <span className={`px-2 py-1 text-xs font-bold rounded-full border ${getStatusColor(subscription.status)}`}>
           {getStatusLabel(subscription.status)}
@@ -67,7 +67,7 @@ export default function SubscriptionCard({ subscription, onManage, onUpgrade, on
       </div>
 
       {/* Subscription details */}
-      <div className="mb-4 text-xs text-gray-300">
+      <div className="mb-4 text-xs text-theme-secondary">
         <div className="flex items-center justify-between mb-2">
           <span>Inicio:</span>
           <span>{formatDate(subscription.startDate)}</span>
@@ -92,7 +92,7 @@ export default function SubscriptionCard({ subscription, onManage, onUpgrade, on
 
       <ul className="space-y-2 mb-6">
         {subscription.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-gray-300">
+          <li key={i} className="flex items-center gap-2 text-sm text-theme-secondary">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
             </svg>
@@ -103,10 +103,10 @@ export default function SubscriptionCard({ subscription, onManage, onUpgrade, on
 
       <div className="flex justify-between items-center mb-4">
         <div>
-          <span className="text-2xl font-bold text-white">
+          <span className="text-2xl font-bold text-theme-primary">
             {subscription.price.toFixed(2)} {subscription.currency}
           </span>
-          <span className="text-sm text-gray-400">
+          <span className="text-sm text-theme-secondary">
             /{subscription.billingCycle === 'monthly' ? 'mes' : 'año'}
           </span>
         </div>
@@ -114,7 +114,8 @@ export default function SubscriptionCard({ subscription, onManage, onUpgrade, on
 
       <div className="flex gap-2">
         <button
-          className="flex-1 px-4 py-2 bg-white/90 text-purple-900 rounded-lg font-semibold hover:bg-white transition-all flex items-center justify-center gap-2"
+          className="flex-1 px-4 py-2 text-theme-primary rounded-lg font-semibold transition-all flex items-center justify-center gap-2 animate-theme-hover"
+          style={{ background: 'var(--color-surface-light)' }}
           onClick={handleManage}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -126,7 +127,8 @@ export default function SubscriptionCard({ subscription, onManage, onUpgrade, on
 
         {onUpgrade && subscription.plan !== 'premium' && (
           <button
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-all"
+            className="px-4 py-2 text-theme-primary rounded-lg font-semibold transition-all animate-theme-hover animate-theme-glow"
+            style={{ background: 'var(--gradient-primary)' }}
             onClick={handleUpgrade}
           >
             <i className="fas fa-arrow-up mr-2"></i>

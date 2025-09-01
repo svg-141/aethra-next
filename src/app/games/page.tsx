@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { CommentSection } from '../../features/chat';
-import { TooltipGuide } from '../../features/tooltips';
 import { GuideCard, GameCard, Guide, Game } from '../../features/games';
 import { SUPPORTED_GAMES, SAMPLE_GUIDES, GUIDE_TYPES, DEFAULT_GUIDE_FILTERS } from '../../features/games/constants/games-constants';
 
@@ -45,20 +44,20 @@ export default function GamesPage() {
   };
 
   return (
-    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen bg-gradient-to-b from-[#0f0720] to-[#1a0933]">
+    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen" style={{ background: 'var(--gradient-background)' }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white mb-4" data-tooltip="guides-title">Guías Estratégicas</h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl font-bold theme-text-primary mb-4 glow-text">Guías Estratégicas</h1>
+          <p className="text-base sm:text-lg theme-text-secondary max-w-2xl mx-auto">
             Aprende de los mejores jugadores con guías detalladas, análisis de meta y estrategias probadas
           </p>
         </div>
 
         {/* Juegos soportados */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-white mb-6 text-center">Juegos Soportados</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <h2 className="text-xl sm:text-2xl font-bold theme-text-primary mb-6 text-center">Juegos Soportados</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {SUPPORTED_GAMES.map(game => (
               <GameCard 
                 key={game.id} 
@@ -68,8 +67,9 @@ export default function GamesPage() {
                 onShare={handleGameShare}
                 details={
                   selectedGame === game.name && (
-                    <div className="mt-4 p-3 bg-purple-900/30 rounded-lg">
-                      <p className="text-xs text-purple-300">
+                    <div className="mt-4 p-3 rounded-lg theme-border theme-card">
+                      <p className="text-xs theme-text-primary">
+                        <i className="fas fa-check icon-success mr-2"></i>
                         Seleccionado - Mostrando guías de {game.name}
                       </p>
                     </div>
@@ -81,15 +81,16 @@ export default function GamesPage() {
         </div>
 
         {/* Filtros por tipo de guía */}
-        <div className="mb-8" data-tooltip="guides-filter">
+        <div className="mb-8">
           <div className="flex flex-wrap gap-3 justify-center">
             <button
               onClick={() => setActiveFilter('all')}
-              className={`px-4 py-2 rounded-lg transition-all ${
+              className={`theme-button px-4 py-2 rounded-lg transition-all ${
                 activeFilter === 'all'
-                  ? 'bg-purple-600 text-white'
-                  : 'bg-purple-600/20 text-purple-300 hover:bg-purple-600/30'
+                  ? 'theme-text-primary'
+                  : 'theme-text-secondary hover:theme-text-primary'
               }`}
+              style={activeFilter === 'all' ? { background: 'var(--gradient-primary)' } : {}}
             >
               Todas las guías ({SAMPLE_GUIDES.length})
             </button>
@@ -97,20 +98,21 @@ export default function GamesPage() {
               <button
                 key={type.key}
                 onClick={() => setActiveFilter(type.key)}
-                className={`px-4 py-2 rounded-lg transition-all ${
+                className={`theme-button px-4 py-2 rounded-lg transition-all ${
                   activeFilter === type.key
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-purple-600/20 text-purple-300 hover:bg-purple-600/30'
+                    ? 'theme-text-primary'
+                    : 'theme-text-secondary hover:theme-text-primary'
                 }`}
+                style={activeFilter === type.key ? { background: 'var(--gradient-primary)' } : {}}
               >
-                {type.icon} {type.label} ({SAMPLE_GUIDES.filter(g => g.type === type.key).length})
+                <span className="icon-theme">{type.icon}</span> {type.label} ({SAMPLE_GUIDES.filter(g => g.type === type.key).length})
               </button>
             ))}
           </div>
         </div>
 
         {/* Grid de guías */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredGuides
             .filter(guide => activeFilter === 'all' || guide.type === activeFilter)
             .map(guide => (
@@ -128,8 +130,8 @@ export default function GamesPage() {
         {filteredGuides.filter(guide => activeFilter === 'all' || guide.type === activeFilter).length === 0 && (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">📚</div>
-            <h3 className="text-xl font-bold text-white mb-2">No se encontraron guías</h3>
-            <p className="text-gray-400">
+            <h3 className="text-xl font-bold theme-text-primary mb-2">No se encontraron guías</h3>
+            <p className="theme-text-secondary">
               {selectedGame 
                 ? `No hay guías disponibles para ${selectedGame} con el filtro seleccionado.`
                 : 'No hay guías disponibles con el filtro seleccionado.'
@@ -164,13 +166,11 @@ export default function GamesPage() {
             ]}
             initialVotes={{ up: 234, down: 5 }}
             title="¿Cómo te están ayudando las guías?"
-            className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-6 border border-purple-900/60"
+            className="theme-card p-6 card-guide"
           />
         </div>
       </div>
 
-      {/* Tooltips de las guías */}
-      <TooltipGuide section="guides" />
     </section>
   );
 } 

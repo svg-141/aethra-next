@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { CommentSection } from '../../features/chat';
-import { TooltipGuide } from '../../features/tooltips';
 import { UserCard, AchievementCard, ConnectionCard, SubscriptionCard } from '../../features/profile';
 import { SAMPLE_USER, SAMPLE_USER_STATS, SAMPLE_ACHIEVEMENTS, SAMPLE_CONNECTIONS, SAMPLE_SUBSCRIPTION } from '../../features/profile/constants/profile-constants';
 
@@ -60,41 +59,41 @@ export default function ProfilePage() {
   };
 
   return (
-    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen bg-gradient-to-b from-[#0f0720] to-[#1a0933]">
+    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen" style={{ background: 'var(--gradient-background)' }}>
       <div className="max-w-6xl mx-auto">
         {/* Header del perfil */}
-        <div className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-8 border border-purple-900/60 mb-8">
+        <div className="card-profile p-8 mb-8">
           <div className="flex items-center gap-6">
-            <img src={SAMPLE_USER.avatar} alt={SAMPLE_USER.name} className="w-24 h-24 rounded-full border-4 border-purple-500/50" />
+            <img src={SAMPLE_USER.avatar} alt={SAMPLE_USER.name} className="w-24 h-24 rounded-full border-4" style={{ borderColor: 'var(--color-primary)' }} />
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <h1 className="text-3xl font-bold text-white">{SAMPLE_USER.name}</h1>
-                <span className="px-3 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm rounded-full">
+                <h1 className="text-3xl font-bold theme-text-primary glow-text">{SAMPLE_USER.name}</h1>
+                <span className="theme-badge px-3 py-1 text-sm rounded-full" style={{ background: 'var(--gradient-primary)' }}>
                   Nivel {SAMPLE_USER.level}
                 </span>
                 {SAMPLE_USER.isVerified && (
-                  <span className="text-blue-400" title="Usuario verificado">
+                  <span className="icon-info" title="Usuario verificado">
                     <i className="fas fa-check-circle text-lg"></i>
                   </span>
                 )}
               </div>
-              <p className="text-gray-300 mb-4">@{SAMPLE_USER.username} • Miembro desde {new Date(SAMPLE_USER.joinDate).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' })}</p>
+              <p className="theme-text-secondary mb-4">@{SAMPLE_USER.username} • Miembro desde {new Date(SAMPLE_USER.joinDate).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' })}</p>
               <div className="flex items-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
-                  <i className="fas fa-star text-yellow-400"></i>
-                  <span className="text-white">4.8/5</span>
+                  <i className="fas fa-star icon-accent"></i>
+                  <span className="theme-text-primary">4.8/5</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <i className="fas fa-trophy text-purple-400"></i>
-                  <span className="text-white">{SAMPLE_USER_STATS.achievements} logros</span>
+                  <i className="fas fa-trophy icon-primary"></i>
+                  <span className="theme-text-primary">{SAMPLE_USER_STATS.achievements} logros</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <i className="fas fa-gamepad text-green-400"></i>
-                  <span className="text-white">{SAMPLE_USER_STATS.totalMatches} partidas</span>
+                  <i className="fas fa-gamepad icon-success"></i>
+                  <span className="theme-text-primary">{SAMPLE_USER_STATS.totalMatches} partidas</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <i className={`w-2 h-2 rounded-full ${SAMPLE_USER.isOnline ? 'bg-green-400' : 'bg-gray-400'}`}></i>
-                  <span className="text-white">{SAMPLE_USER.isOnline ? 'En línea' : 'Desconectado'}</span>
+                  <span className="theme-text-primary">{SAMPLE_USER.isOnline ? 'En línea' : 'Desconectado'}</span>
                 </div>
               </div>
             </div>
@@ -102,51 +101,53 @@ export default function ProfilePage() {
         </div>
 
         {/* Tabs de navegación */}
-        <div className="flex items-center gap-1 bg-[#1a0933] rounded-xl p-1 mb-8">
+        <div className="flex items-center gap-1 theme-card rounded-xl p-1 mb-8">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+            className={`theme-button flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
               activeTab === 'overview'
-                ? 'bg-purple-600 text-white'
-                : 'text-gray-300 hover:text-white'
+                ? 'theme-text-primary'
+                : 'theme-text-secondary hover:theme-text-primary'
             }`}
-            data-tooltip="profile-stats"
+            style={activeTab === 'overview' ? { background: 'var(--gradient-primary)' } : {}}
           >
-            <i className="fas fa-chart-bar mr-2"></i>
+            <i className="fas fa-chart-bar icon-theme mr-2"></i>
             Estadísticas
           </button>
           <button
             onClick={() => setActiveTab('achievements')}
-            className={`flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+            className={`theme-button flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
               activeTab === 'achievements'
-                ? 'bg-purple-600 text-white'
-                : 'text-gray-300 hover:text-white'
+                ? 'theme-text-primary'
+                : 'theme-text-secondary hover:theme-text-primary'
             }`}
-            data-tooltip="achievements"
+            style={activeTab === 'achievements' ? { background: 'var(--gradient-primary)' } : {}}
           >
-            <i className="fas fa-trophy mr-2"></i>
+            <i className="fas fa-trophy icon-theme mr-2"></i>
             Logros
           </button>
           <button
             onClick={() => setActiveTab('connections')}
-            className={`flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+            className={`theme-button flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
               activeTab === 'connections'
-                ? 'bg-purple-600 text-white'
-                : 'text-gray-300 hover:text-white'
+                ? 'theme-text-primary'
+                : 'theme-text-secondary hover:theme-text-primary'
             }`}
+            style={activeTab === 'connections' ? { background: 'var(--gradient-primary)' } : {}}
           >
-            <i className="fas fa-link mr-2"></i>
+            <i className="fas fa-link icon-theme mr-2"></i>
             Conexiones
           </button>
           <button
             onClick={() => setActiveTab('subscription')}
-            className={`flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+            className={`theme-button flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
               activeTab === 'subscription'
-                ? 'bg-purple-600 text-white'
-                : 'text-gray-300 hover:text-white'
+                ? 'theme-text-primary'
+                : 'theme-text-secondary hover:theme-text-primary'
             }`}
+            style={activeTab === 'subscription' ? { background: 'var(--gradient-primary)' } : {}}
           >
-            <i className="fas fa-crown mr-2"></i>
+            <i className="fas fa-crown icon-theme mr-2"></i>
             Suscripción
           </button>
         </div>
@@ -163,19 +164,19 @@ export default function ProfilePage() {
             />
 
             {/* Estadísticas por juego */}
-            <div className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-6 border border-purple-900/60">
-              <h3 className="text-xl font-bold text-white mb-6">Estadísticas por Juego</h3>
+            <div className="theme-card p-6 card-hover">
+              <h3 className="text-xl font-bold theme-text-primary mb-6">Estadísticas por Juego</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {SAMPLE_USER.preferences.gaming.favoriteGames.map((game, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-[#0f0720] rounded-lg">
-                    <span className="text-white font-medium">{game}</span>
+                  <div key={index} className="flex items-center justify-between p-3 rounded-lg theme-bg-surface">
+                    <span className="theme-text-primary font-medium">{game}</span>
                     <div className="text-right">
-                      <div className="text-sm text-purple-300">
+                      <div className="text-sm theme-text-primary">
                         {game === 'Valorant' && 'Diamond 2'}
                         {game === 'CS2' && 'MG2'}
                         {game === 'League of Legends' && 'Platinum 1'}
                       </div>
-                      <div className="text-xs text-gray-400">
+                      <div className="text-xs theme-text-secondary">
                         {game === 'Valorant' && '72.3% WR'}
                         {game === 'CS2' && '58.9% WR'}
                         {game === 'League of Legends' && '65.8% WR'}
@@ -190,8 +191,8 @@ export default function ProfilePage() {
 
         {activeTab === 'achievements' && (
           <div className="space-y-6">
-            <div className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-6 border border-purple-900/60">
-              <h3 className="text-xl font-bold text-white mb-6">Logros Desbloqueados</h3>
+            <div className="theme-card p-6 card-hover">
+              <h3 className="text-xl font-bold theme-text-primary mb-6">Logros Desbloqueados</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {SAMPLE_ACHIEVEMENTS.filter(ach => ach.isUnlocked).map(achievement => (
                   <AchievementCard 
@@ -204,8 +205,8 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-6 border border-purple-900/60">
-              <h3 className="text-xl font-bold text-white mb-6">Logros Pendientes</h3>
+            <div className="theme-card p-6 card-hover">
+              <h3 className="text-xl font-bold theme-text-primary mb-6">Logros Pendientes</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {SAMPLE_ACHIEVEMENTS.filter(ach => !ach.isUnlocked).map(achievement => (
                   <AchievementCard 
@@ -222,8 +223,8 @@ export default function ProfilePage() {
 
         {activeTab === 'connections' && (
           <div className="space-y-6">
-            <div className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-6 border border-purple-900/60">
-              <h3 className="text-xl font-bold text-white mb-6">Conexiones de Plataforma</h3>
+            <div className="theme-card p-6 card-hover">
+              <h3 className="text-xl font-bold theme-text-primary mb-6">Conexiones de Plataforma</h3>
               <div className="space-y-4">
                 {SAMPLE_CONNECTIONS.map(connection => (
                   <ConnectionCard 
@@ -276,13 +277,11 @@ export default function ProfilePage() {
             ]}
             initialVotes={{ up: 89, down: 2 }}
             title="¿Cómo te gusta tu perfil?"
-            className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-6 border border-purple-900/60"
+            className="theme-card p-6 card-hover"
           />
         </div>
       </div>
 
-      {/* Tooltips del perfil */}
-      <TooltipGuide section="profile" />
     </section>
   );
 } 

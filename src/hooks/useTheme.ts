@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 
 export interface Theme {
   id: string;
@@ -167,6 +167,78 @@ const themes: Theme[] = [
     },
     preview: '/assets/themes/dark-minimal.png',
   },
+  {
+    id: 'gaming-red',
+    name: 'Gaming Red',
+    description: 'Tema agresivo con rojos intensos para gaming competitivo',
+    colors: {
+      primary: '#DC2626',
+      secondary: '#B91C1C',
+      accent: '#F59E0B',
+      background: '#0C0C0C',
+      surface: '#1A1A1A',
+      text: '#FFFFFF',
+      textSecondary: '#FCA5A5',
+      border: '#7F1D1D',
+      success: '#10B981',
+      warning: '#F59E0B',
+      error: '#EF4444',
+    },
+    gradients: {
+      primary: 'from-red-600 to-red-800',
+      secondary: 'from-red-700 to-red-900',
+      background: 'from-[#0C0C0C] to-[#1A1A1A]',
+    },
+    preview: '/assets/themes/gaming-red.png',
+  },
+  {
+    id: 'esports-gold',
+    name: 'Esports Gold',
+    description: 'Tema premium con dorados y negros para campeones',
+    colors: {
+      primary: '#D97706',
+      secondary: '#B45309',
+      accent: '#10B981',
+      background: '#0A0A0A',
+      surface: '#1C1917',
+      text: '#FFFFFF',
+      textSecondary: '#FDE68A',
+      border: '#78350F',
+      success: '#10B981',
+      warning: '#F59E0B',
+      error: '#EF4444',
+    },
+    gradients: {
+      primary: 'from-amber-600 to-yellow-600',
+      secondary: 'from-yellow-600 to-orange-600',
+      background: 'from-[#0A0A0A] to-[#1C1917]',
+    },
+    preview: '/assets/themes/esports-gold.png',
+  },
+  {
+    id: 'arctic-blue',
+    name: 'Arctic Blue',
+    description: 'Tema frío con azules glaciales y efectos cristalinos',
+    colors: {
+      primary: '#0EA5E9',
+      secondary: '#0284C7',
+      accent: '#10B981',
+      background: '#0F1419',
+      surface: '#1E293B',
+      text: '#F0F9FF',
+      textSecondary: '#BAE6FD',
+      border: '#0369A1',
+      success: '#10B981',
+      warning: '#F59E0B',
+      error: '#EF4444',
+    },
+    gradients: {
+      primary: 'from-sky-500 to-blue-600',
+      secondary: 'from-blue-600 to-indigo-700',
+      background: 'from-[#0F1419] to-[#1E293B]',
+    },
+    preview: '/assets/themes/arctic-blue.png',
+  },
 ];
 
 // Preferencias por defecto
@@ -200,90 +272,104 @@ export function useTheme(): UseThemeReturn {
     }
   }, []);
 
-  // Aplicar tema al DOM
+  // Memoize font size mapping for performance
+  const fontSizeMap = useMemo(() => ({
+    small: '14px',
+    medium: '16px',
+    large: '18px',
+  }), []);
+
+  // Optimized theme application with batch DOM updates
   useEffect(() => {
     const root = document.documentElement;
     
-    // Aplicar colores CSS variables
-    Object.entries(currentTheme.colors).forEach(([key, value]) => {
-      root.style.setProperty(`--color-${key}`, value);
+    // Batch all DOM updates to minimize reflow/repaint
+    requestAnimationFrame(() => {
+      // Apply color CSS variables
+      Object.entries(currentTheme.colors).forEach(([key, value]) => {
+        root.style.setProperty(`--color-${key}`, value);
+      });
+
+      // Apply gradients
+      Object.entries(currentTheme.gradients).forEach(([key, value]) => {
+        root.style.setProperty(`--gradient-${key}`, value);
+      });
+
+      // Apply animation duration based on preferences
+      root.style.setProperty('--animation-duration', 
+        userPreferences.reducedMotion ? '0.1s' : '0.3s'
+      );
+
+      // Apply font size
+      root.style.setProperty('--font-size-base', fontSizeMap[userPreferences.fontSize]);
+
+      // Batch class updates
+      const classesToAdd = [];
+      const classesToRemove = [];
+
+      if (userPreferences.highContrast) {
+        classesToAdd.push('high-contrast');
+      } else {
+        classesToRemove.push('high-contrast');
+      }
+
+      if (userPreferences.compactMode) {
+        classesToAdd.push('compact-mode');
+      } else {
+        classesToRemove.push('compact-mode');
+      }
+
+      if (!userPreferences.animations) {
+        classesToAdd.push('no-animations');
+      } else {
+        classesToRemove.push('no-animations');
+      }
+
+      // Apply all class changes at once
+      root.classList.add(...classesToAdd);
+      root.classList.remove(...classesToRemove);
     });
+  }, [currentTheme, userPreferences, fontSizeMap]);
 
-    // Aplicar gradientes
-    Object.entries(currentTheme.gradients).forEach(([key, value]) => {
-      root.style.setProperty(`--gradient-${key}`, value);
-    });
-
-    // Aplicar preferencias de accesibilidad
-    if (userPreferences.reducedMotion) {
-      root.style.setProperty('--animation-duration', '0.1s');
-    } else {
-      root.style.setProperty('--animation-duration', '0.3s');
-    }
-
-    if (userPreferences.highContrast) {
-      root.classList.add('high-contrast');
-    } else {
-      root.classList.remove('high-contrast');
-    }
-
-    // Aplicar tamaño de fuente
-    const fontSizeMap = {
-      small: '14px',
-      medium: '16px',
-      large: '18px',
-    };
-    root.style.setProperty('--font-size-base', fontSizeMap[userPreferences.fontSize]);
-
-    // Aplicar modo compacto
-    if (userPreferences.compactMode) {
-      root.classList.add('compact-mode');
-    } else {
-      root.classList.remove('compact-mode');
-    }
-
-    // Aplicar animaciones
-    if (!userPreferences.animations) {
-      root.classList.add('no-animations');
-    } else {
-      root.classList.remove('no-animations');
-    }
-
-  }, [currentTheme, userPreferences]);
-
-  // Cambiar tema
-  const setTheme = (themeId: string) => {
+  // Optimized theme change with memoization
+  const setTheme = useCallback((themeId: string) => {
     const theme = themes.find(t => t.id === themeId);
-    if (theme) {
+    if (theme && theme.id !== currentTheme.id) {
       setCurrentTheme(theme);
       updatePreferences({ theme: themeId });
     }
-  };
+  }, [currentTheme.id]);
 
-  // Actualizar preferencias
-  const updatePreferences = (newPreferences: Partial<UserPreferences>) => {
-    const updated = { ...userPreferences, ...newPreferences };
-    setUserPreferences(updated);
-    
-    // Guardar en localStorage
-    localStorage.setItem('aethra-theme-preferences', JSON.stringify(updated));
-  };
+  // Optimized preferences update with debouncing
+  const updatePreferences = useCallback((newPreferences: Partial<UserPreferences>) => {
+    setUserPreferences(prev => {
+      const updated = { ...prev, ...newPreferences };
+      
+      // Debounce localStorage writes to avoid excessive I/O
+      setTimeout(() => {
+        localStorage.setItem('aethra-theme-preferences', JSON.stringify(updated));
+      }, 100);
+      
+      return updated;
+    });
+  }, []);
 
-  // Resetear a valores por defecto
-  const resetToDefault = () => {
+  // Optimized reset with callback
+  const resetToDefault = useCallback(() => {
     setUserPreferences(defaultPreferences);
     setCurrentTheme(themes[0]);
     localStorage.removeItem('aethra-theme-preferences');
-  };
+  }, []);
 
-  return {
+  // Memoize the return object to prevent unnecessary re-renders
+  return useMemo(() => ({
     currentTheme,
     userPreferences,
     availableThemes: themes,
     setTheme,
     updatePreferences,
     resetToDefault,
-  };
+  }), [currentTheme, userPreferences, setTheme, updatePreferences, resetToDefault]);
 }
 
 // Funciones helper para aplicar estilos dinámicamente
