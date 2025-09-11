@@ -51,6 +51,12 @@ export interface Comment {
   likes: number;
   section?: string;
   replies?: Comment[];
+  createdAt?: Date;
+  updatedAt?: Date;
+  parentId?: number;
+  isEdited?: boolean;
+  isDeleted?: boolean;
+  userId?: string;
 }
 
 export interface CommentSectionProps {

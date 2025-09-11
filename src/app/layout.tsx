@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import '../styles/theme-core.css';
 import '../styles/bootstrap-theme.css';
 import { ThemeProvider } from '../context/ThemeContext';
+import { AuthProvider } from '../features/auth';
 import ClientLayout from '../components/ClientLayout';
 
 const geistSans = Geist({
@@ -18,6 +19,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Aethra - Tu Asistente Gaming IA",
   description: "Plataforma de inteligencia artificial especializada en gaming, estrategias y análisis de juegos",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+  themeColor: "#8B5CF6",
+  authors: [{ name: "Aethra Team" }],
+  keywords: ["gaming", "AI", "esports", "estrategias", "valorant", "league of legends", "cs2", "dota2"],
+  robots: "index, follow",
+  openGraph: {
+    title: "Aethra - Tu Asistente Gaming IA",
+    description: "Plataforma de inteligencia artificial especializada en gaming, estrategias y análisis de juegos",
+    type: "website",
+    locale: "es_ES",
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -37,9 +49,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           crossOrigin="anonymous"
         />
       </head>
-      <body className={`min-h-screen scrollbar-theme ${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`min-h-screen scrollbar-theme antialiased ${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider>
-          <ClientLayout>{children}</ClientLayout>
+          <AuthProvider>
+            <ClientLayout>{children}</ClientLayout>
+          </AuthProvider>
         </ThemeProvider>
         <script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

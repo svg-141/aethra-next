@@ -210,12 +210,32 @@ body {
   border: 1px solid var(--color-card-border);
   border-radius: var(--radius-xl);
   transition: all var(--animation-duration) var(--animation-ease);
+  backdrop-filter: blur(8px);
 }
 
 .theme-card:hover {
   border-color: var(--color-border-hover);
   box-shadow: var(--shadow-glow);
   transform: translateY(-2px);
+}
+
+.theme-section {
+  background: var(--gradient-background);
+  color: var(--color-text);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  transition: all var(--animation-duration) var(--animation-ease);
+}
+
+.theme-section-hover {
+  background: var(--gradient-card);
+  border: 1px solid var(--color-border);
+  transition: all var(--animation-duration) var(--animation-ease);
+}
+
+.theme-section-hover:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-md);
 }
 
 .theme-button {
@@ -291,6 +311,129 @@ body {
 
 .theme-border-hover {
   border-color: var(--color-border-hover);
+}
+
+/* Enhanced theme utilities */
+.cuadro {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--animation-duration) var(--animation-ease);
+  backdrop-filter: blur(4px);
+}
+
+.cuadro:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-surface-hover);
+}
+
+.chat-container {
+  background: var(--gradient-card);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(10px);
+}
+
+.animate-theme-glow {
+  box-shadow: var(--shadow-glow);
+  animation: pulse-glow 2s infinite;
+}
+
+.animate-theme-hover {
+  transition: all var(--animation-duration) var(--animation-ease);
+}
+
+.animate-theme-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Theme-aware form elements */
+.theme-form-container {
+  background: var(--gradient-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  backdrop-filter: blur(8px);
+}
+
+.theme-form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.theme-form-label {
+  color: var(--color-text);
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  display: block;
+}
+
+.theme-form-helper {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+}
+
+/* Theme-aware navigation */
+.theme-nav {
+  background: var(--color-navbar-blur);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.theme-nav-item {
+  color: var(--color-text);
+  transition: all var(--animation-duration) var(--animation-ease);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+}
+
+.theme-nav-item:hover {
+  background: var(--color-button-hover);
+  color: var(--color-primary);
+}
+
+.theme-nav-item.active {
+  background: var(--gradient-primary);
+  color: var(--color-text);
+}
+
+/* Theme-aware status indicators */
+.theme-status-online {
+  color: var(--color-success);
+}
+
+.theme-status-offline {
+  color: var(--color-error);
+}
+
+.theme-status-away {
+  color: var(--color-warning);
+}
+
+/* Theme-aware loading states */
+.theme-loading {
+  color: var(--color-primary);
+  animation: spin 2s linear infinite;
+}
+
+.theme-skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface) 25%,
+    var(--color-surface-light) 50%,
+    var(--color-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: loading-shimmer 2s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 /* Enhanced Theme-aware Scrollbar */
@@ -767,6 +910,13 @@ body {
 
 /* Enhanced Responsive utilities */
 @media (max-width: 640px) {
+  :root {
+    --font-size-base: 14px;
+    --spacing-md: 0.75rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.25rem;
+  }
+  
   .compact-mode .p-6 {
     padding: 0.75rem !important;
   }
@@ -796,9 +946,58 @@ body {
   .animate-float {
     animation: none;
   }
+  
+  /* Mobile-specific component adjustments */
+  .chat-container {
+    height: calc(100vh - 200px) !important;
+  }
+  
+  .mobile-full-width {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  .mobile-padding {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .mobile-text-sm {
+    font-size: 0.875rem !important;
+  }
+  
+  .mobile-hidden {
+    display: none !important;
+  }
+  
+  /* Mobile navigation improvements */
+  .mobile-nav-item {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
+  
+  /* Mobile form improvements */
+  .mobile-form-input {
+    padding: 0.75rem !important;
+    font-size: 1rem !important; /* Prevent zoom on iOS */
+  }
+  
+  /* Mobile button improvements */
+  .mobile-button {
+    min-height: 44px !important;
+    min-width: 44px !important;
+    padding: 0.75rem 1rem !important;
+  }
 }
 
 @media (max-width: 768px) {
+  :root {
+    --font-size-base: 15px;
+    --spacing-lg: 1.25rem;
+    --spacing-xl: 1.5rem;
+  }
+  
   /* Tablet optimizations */
   .sticky-sidebar {
     position: static;
@@ -808,6 +1007,40 @@ body {
   /* Grid adjustments */
   .grid-cols-3 {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  
+  /* Tablet-specific layouts */
+  .tablet-stack {
+    flex-direction: column !important;
+  }
+  
+  .tablet-full-width {
+    width: 100% !important;
+  }
+  
+  /* Tablet text adjustments */
+  .tablet-text-base {
+    font-size: 1rem !important;
+  }
+  
+  .tablet-padding {
+    padding: 1rem !important;
+  }
+  
+  /* Improve touch targets for tablets */
+  .tablet-button {
+    min-height: 48px !important;
+    min-width: 48px !important;
+    padding: 1rem 1.25rem !important;
+  }
+  
+  /* Chat improvements for tablet */
+  .chat-container {
+    height: calc(100vh - 180px) !important;
   }
 }
 

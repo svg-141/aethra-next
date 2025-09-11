@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChatMessage, CommentSection, GAMES, getGameByKey, ChatMessageType } from '../../features/chat';
 import { useNotifications } from '../../features/notifications';
+import { ChatService } from '../../features/chat/services/chatService';
+import { useAuth } from '../../features/auth';
 
 export default function ChatPage() {
   // Estado para el juego seleccionado
@@ -10,17 +12,11 @@ export default function ChatPage() {
   const activeGame = getGameByKey(selectedGame) || GAMES[0];
 
   // Estado para mensajes y input controlado
-  const [messages, setMessages] = useState<ChatMessageType[]>([
-    { 
-      id: '1',
-      type: 'ia', 
-      content: <p>¡Hola! Soy Aethra, tu IA estratégica para <b>{activeGame.name}</b>. Pregúntame sobre builds, meta, counters o cambios recientes.</p>,
-      timestamp: new Date(),
-      game: activeGame.key
-    },
-  ]);
+  const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [chatStats, setChatStats] = useState({ totalMessages: 0, responseTime: 0 });
 
   // Ref para scroll automático
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
@@ -30,94 +26,98 @@ export default function ChatPage() {
 
   // Hook de notificaciones
   const { addNotification } = useNotifications();
+  
+  // Hook de autenticación
+  const { user, isAuthenticated } = useAuth();
 
-  // Función para generar respuestas simuladas
-  const getFakeResponse = (userMsg: string, gameKey: string) => {
-    if (gameKey === 'valorant') {
-      if (/meta|parche/i.test(userMsg)) return 'El meta actual favorece a agentes como Jett, Reyna y Viper. Las composiciones con duelistas son muy efectivas.';
-      if (/composición|team/i.test(userMsg)) return 'Para ranked, recomiendo: Jett, Reyna, Viper, Sova, Sage. Esta composición es muy equilibrada.';
-      if (/reyna|counter/i.test(userMsg)) return 'Contra Reyna, usa agentes como Cypher para limitar sus escapes, o Sova para revelar su posición.';
-      if (/ascent|mapa/i.test(userMsg)) return 'En Ascent, controla Mid con Sova y usa las habilidades de Viper para dividir los sitios.';
-      return '¡Consulta sobre Valorant! ¿Te interesa el meta, agentes o estrategias de mapa?';
+  // Inicializar chat al cargar o cambiar juego
+  useEffect(() => {
+    initializeChat();
+  }, [selectedGame]);
+
+  const initializeChat = async () => {
+    if (!isAuthenticated || !user) {
+      addNotification({
+        type: 'error',
+        priority: 'high',
+        title: 'Autenticación requerida',
+        message: 'Debes iniciar sesión para usar el chat.',
+      });
+      return;
     }
     
-    if (gameKey === 'lol') {
-      if (/campeón|champion/i.test(userMsg)) return 'Los campeones más fuertes actualmente son: Yasuo, Zed, Ahri en mid. Lee Sin y Kha\'Zix en jungla.';
-      if (/yasuo|mid/i.test(userMsg)) return 'Contra Yasuo, usa campeones con CC como Malzahar o Lissandra. Evita peleas largas y pica cuando no tenga tornado.';
-      if (/build|adc/i.test(userMsg)) return 'Para ADC, las builds actuales favorecen: Kraken Slayer + Infinity Edge para daño crítico, o Galeforce para movilidad.';
-      if (/elo|ranked/i.test(userMsg)) return 'Para subir de elo: enfócate en farm, no mueras innecesariamente, y mejora tu visión del mapa.';
-      return '¡Consulta sobre League of Legends! ¿Te interesa campeones, builds o estrategias?';
+    try {
+      const newSessionId = ChatService.createSession(selectedGame, user.id);
+      const session = ChatService.getOrCreateSession(selectedGame, newSessionId, user.id);
+      
+      setSessionId(newSessionId);
+      setMessages(session.messages.map(msg => ({
+        ...msg,
+        content: typeof msg.content === 'string' ? <p dangerouslySetInnerHTML={{ __html: msg.content }} /> : msg.content
+      })));
+      
+    } catch (error) {
+      addNotification({
+        type: 'error',
+        priority: 'high',
+        title: 'Error de inicialización',
+        message: 'No se pudo inicializar el chat correctamente.',
+      });
     }
-    
-    if (gameKey === 'dota2') {
-      if (/héroe|hero|meta/i.test(userMsg)) return 'Los héroes más fuertes en el meta actual son: Invoker, Storm Spirit, y Phantom Assassin.';
-      if (/invoker|build/i.test(userMsg)) return 'Para Invoker: empieza con Quas-Wex, construye Orchid Malevolence y Blink Dagger para iniciar teamfights.';
-      if (/línea|lane/i.test(userMsg)) return 'En la fase de líneas: mantén el equilibrio, usa las habilidades eficientemente y coordina con tu support.';
-      if (/teamfight/i.test(userMsg)) return 'En teamfights: posiciona bien, usa las habilidades en el orden correcto y coordina con tu equipo.';
-      return '¡Consulta sobre Dota 2! ¿Te interesa héroes, builds o estrategias?';
-    }
-
-    if (gameKey === 'cs2') {
-      if (/awp|dust2/i.test(userMsg)) return 'Para AWP en Dust2: posiciones clave son A Long, Mid Doors, y B Site. Siempre ten un escape planificado.';
-      if (/eco|economía/i.test(userMsg)) return 'En eco rounds: compra solo pistolas básicas, usa tácticas de rush o espera a que el equipo tenga dinero.';
-      if (/aim|precisión/i.test(userMsg)) return 'Para mejorar el aim: practica en mapas de aim, ajusta tu sensibilidad, y mantén la crosshair a nivel de la cabeza.';
-      if (/comunicación|team/i.test(userMsg)) return 'Comunica claramente: posiciones del enemigo, información de daño, y coordina las rotaciones.';
-      return '¡Consulta sobre CS2! ¿Te interesa aim, estrategias o economía?';
-    }
-
-    if (gameKey === 'starcraft2') {
-      if (/build|terran|zerg|protoss/i.test(userMsg)) return 'Para Terran, la build 3-1-1 es muy sólida. Contra Zerg, defiende bien los rush.';
-      if (/micro|macro/i.test(userMsg)) return 'Practica el control de unidades y la producción constante para mejorar tu micro y macro.';
-      if (/timing|expansión/i.test(userMsg)) return 'Los timings clave son: expansión a 2 bases, y luego expandir según la presión del enemigo.';
-      if (/rush|defensa/i.test(userMsg)) return 'Para defender rush: construye unidades defensivas temprano y mantén scouting constante.';
-      return '¡Consulta sobre Starcraft 2! ¿Te interesa builds, timings o estrategias por raza?';
-    }
-
-    if (gameKey === 'overwatch2') {
-      if (/composición|team/i.test(userMsg)) return 'Las mejores composiciones actuales son: 2-2-2 con tanques como Reinhardt y DPS como Genji.';
-      if (/mercy|support/i.test(userMsg)) return 'Con Mercy: mantén la distancia, usa Guardian Angel para movilidad, y prioriza healear a los tanques.';
-      if (/genji|counter/i.test(userMsg)) return 'Contra Genji: usa héroes con CC como Brigitte o Ana, y mantén la distancia.';
-      if (/mapa|estrategia/i.test(userMsg)) return 'Adapta tu composición al mapa: en mapas de control usa héroes móviles, en payload usa héroes de área.';
-      return '¡Consulta sobre Overwatch 2! ¿Te interesa composiciones, héroes o estrategias?';
-    }
-
-    return '¡Gracias por tu pregunta!';
   };
+
+  // Actualizar estadísticas del chat
+  useEffect(() => {
+    const stats = ChatService.getChatStats();
+    setChatStats({
+      totalMessages: stats.totalMessages,
+      responseTime: messages.length > 1 ? messages[messages.length - 1]?.metadata?.responseTime || 0 : 0
+    });
+  }, [messages]);
+
 
   // Manejo de envío de mensaje
   const handleSend = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() || isLoading) return;
     
-    const userMessage: ChatMessageType = {
-      id: Date.now().toString(),
-      type: 'user',
-      content: <p>{input}</p>,
-      timestamp: new Date(),
-      game: selectedGame
-    };
-    
-    // Agrega mensaje del usuario
-    setMessages(prev => [...prev, userMessage]);
-    const userMsg = input;
+    const messageContent = input.trim();
     setInput('');
     setIsLoading(true);
     
-    // Simula respuesta de IA
-    setTimeout(() => {
-      try {
-        const response = getFakeResponse(userMsg, selectedGame);
+    try {
+      // Agregar mensaje del usuario inmediatamente
+      const userMessage: ChatMessageType = {
+        id: Date.now().toString(),
+        type: 'user',
+        content: <p>{messageContent}</p>,
+        timestamp: new Date(),
+        game: selectedGame
+      };
+      
+      setMessages(prev => [...prev, userMessage]);
+      
+      // Verificar autenticación
+      if (!isAuthenticated || !user) {
+        addNotification({
+          type: 'error',
+          priority: 'high',
+          title: 'Autenticación requerida',
+          message: 'Debes iniciar sesión para enviar mensajes.',
+        });
+        return;
+      }
+      
+      // Enviar mensaje al servicio de chat
+      const response = await ChatService.sendMessage(messageContent, selectedGame, sessionId || undefined, user.id);
+      
+      if (response.success) {
+        // Convertir contenido de string a JSX si es necesario
         const aiMessage: ChatMessageType = {
-          id: (Date.now() + 1).toString(),
-          type: 'ia',
-          content: <p>{response}</p>,
-          timestamp: new Date(),
-          game: selectedGame,
-          metadata: {
-            responseTime: 1200,
-            tokens: Math.floor(response.length / 4),
-            model: 'Aethra-Gaming-v1'
-          }
+          ...response.message,
+          content: typeof response.message.content === 'string' 
+            ? <p dangerouslySetInnerHTML={{ __html: response.message.content }} />
+            : response.message.content
         };
         
         setMessages(prev => [...prev, aiMessage]);
@@ -125,47 +125,97 @@ export default function ChatPage() {
         // Notificación de respuesta exitosa
         addNotification({
           type: 'success',
-          priority: 'medium',
+          priority: 'low',
           title: 'Respuesta de Aethra',
-          message: `Aethra ha respondido a tu consulta sobre ${activeGame.name}`,
+          message: `Respondido en ${response.message.metadata?.responseTime}ms`,
         });
-        
-        setIsLoading(false);
-      } catch (error) {
-        // Notificación de error
+      } else {
+        // Error en la respuesta
         addNotification({
           type: 'error',
           priority: 'high',
           title: 'Error en la comunicación',
-          message: 'No se pudo obtener respuesta de Aethra. Intenta de nuevo.',
+          message: response.error || 'No se pudo obtener respuesta de Aethra.',
         });
-        setIsLoading(false);
       }
-    }, 1200);
+      
+    } catch (error) {
+      // Error inesperado
+      addNotification({
+        type: 'error',
+        priority: 'high',
+        title: 'Error inesperado',
+        message: 'Ocurrió un error al enviar tu mensaje. Intenta de nuevo.',
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  // Limpiar mensajes al cambiar de juego
-  const handleSelectGame = (key: string) => {
+  // Cambiar de juego y reiniciar chat
+  const handleSelectGame = async (key: string) => {
     const game = getGameByKey(key);
-    if (!game) return;
+    if (!game || key === selectedGame) return;
     
     setSelectedGame(key);
-    setMessages([
-      { 
-        id: '1',
-        type: 'ia', 
-        content: <p>¡Hola! Soy Aethra, tu IA estratégica para <b>{game.name}</b>. Pregúntame sobre builds, meta, counters o cambios recientes.</p>,
-        timestamp: new Date(),
-        game: key
-      }
-    ]);
+    
+    // Verificar autenticación
+    if (!isAuthenticated || !user) {
+      addNotification({
+        type: 'error',
+        priority: 'high',
+        title: 'Autenticación requerida',
+        message: 'Debes iniciar sesión para cambiar de juego.',
+      });
+      return;
+    }
+    
+    // Limpiar sesión anterior si existe
+    if (sessionId) {
+      ChatService.clearSession(sessionId, user.id);
+    }
+    
+    // Crear nueva sesión para el nuevo juego
+    const newSessionId = ChatService.createSession(key, user.id);
+    const session = ChatService.getOrCreateSession(key, newSessionId, user.id);
+    
+    setSessionId(newSessionId);
+    setMessages(session.messages.map(msg => ({
+      ...msg,
+      content: typeof msg.content === 'string' ? <p dangerouslySetInnerHTML={{ __html: msg.content }} /> : msg.content
+    })));
     
     // Notificación de cambio de juego
     addNotification({
       type: 'info',
       priority: 'low',
       title: 'Juego cambiado',
-      message: `Ahora consultando sobre ${game.name}`,
+      message: `Iniciando nueva sesión para ${game.name}`,
+    });
+  };
+
+  // Función para limpiar chat actual
+  const handleClearChat = () => {
+    if (!isAuthenticated || !user) {
+      addNotification({
+        type: 'error',
+        priority: 'high',
+        title: 'Autenticación requerida',
+        message: 'Debes iniciar sesión para limpiar el chat.',
+      });
+      return;
+    }
+    
+    if (sessionId) {
+      ChatService.clearSession(sessionId, user.id);
+    }
+    initializeChat();
+    
+    addNotification({
+      type: 'info',
+      priority: 'low',
+      title: 'Chat limpiado',
+      message: 'Se ha iniciado una nueva sesión de chat.',
     });
   };
 
@@ -182,48 +232,83 @@ export default function ChatPage() {
             </div>
             <div>
               <h2 className="text-xl font-bold text-theme-primary">Asistente Estratégico Aethra</h2>
-              <div className="flex items-center">
-                <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                <span className="text-xs text-theme-secondary">Especialista en meta de juegos</span>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center">
+                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                  <span className="text-xs text-theme-secondary">Online • {activeGame.name}</span>
+                </div>
+                {chatStats.totalMessages > 0 && (
+                  <span className="text-xs theme-badge" style={{ backgroundColor: 'var(--color-primary)', opacity: '0.2', color: 'var(--color-primary)' }}>
+                    {chatStats.totalMessages} mensajes
+                  </span>
+                )}
               </div>
             </div>
+          </div>
+          
+          {/* Controles del chat */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleClearChat}
+              className="px-3 py-2 text-xs rounded-lg transition-all theme-text-secondary hover:theme-text-primary"
+              style={{ 
+                backgroundColor: 'var(--color-surface)', 
+                borderColor: 'var(--color-border)', 
+                border: '1px solid' 
+              }}
+              title="Limpiar chat"
+            >
+              <i className="fas fa-broom mr-1"></i>
+              Limpiar
+            </button>
+            <button
+              className="px-3 py-2 text-xs rounded-lg transition-all theme-text-secondary hover:theme-text-primary"
+              style={{ 
+                backgroundColor: 'var(--color-surface)', 
+                borderColor: 'var(--color-border)', 
+                border: '1px solid' 
+              }}
+              title="Configuración"
+            >
+              <i className="fas fa-cog"></i>
+            </button>
           </div>
         </div>
 
         {/* Contenedor principal */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 md:gap-6">
           {/* Columna lateral - Selector de juegos y ejemplos */}
-          <div className="lg:col-span-1 space-y-6">
+          <div className="lg:col-span-1 space-y-4 md:space-y-6 order-2 lg:order-1">
             {/* Selector de juegos */}
-            <div className="cuadro rounded-2xl p-4">
-              <h3 className="text-sm font-semibold text-theme-primary mb-3">SELECCIONA TU JUEGO</h3>
-              <div className="grid grid-cols-2 gap-3">
+            <div className="cuadro rounded-2xl p-3 md:p-4">
+              <h3 className="text-xs md:text-sm font-semibold text-theme-primary mb-2 md:mb-3">SELECCIONA TU JUEGO</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-2 md:gap-3">
                 {GAMES.map(game => (
                   <button
                     key={game.key}
                     onClick={() => handleSelectGame(game.key)}
-                    className={`p-3 rounded-lg border transition-all text-center cuadro ${
+                    className={`p-2 md:p-3 rounded-lg border transition-all text-center cuadro mobile-button ${
                       selectedGame === game.key
                         ? 'border-theme-hover text-theme-primary animate-theme-glow'
                         : 'text-theme-secondary hover:border-theme-hover hover:text-theme-primary'
                     }`}
                   >
-                    <img src={game.icon} alt={game.name} className="w-8 h-8 mx-auto mb-2 rounded" />
-                    <div className="text-xs font-medium">{game.name}</div>
+                    <img src={game.icon} alt={game.name} className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-1 md:mb-2 rounded" />
+                    <div className="text-xs font-medium mobile-text-sm">{game.name}</div>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Ejemplos de consultas */}
-            <div className="cuadro rounded-2xl p-4">
-              <h3 className="text-sm font-semibold text-theme-primary mb-3">EJEMPLOS DE CONSULTAS</h3>
-              <div className="space-y-2">
+            <div className="cuadro rounded-2xl p-3 md:p-4 hidden sm:block">
+              <h3 className="text-xs md:text-sm font-semibold text-theme-primary mb-2 md:mb-3">EJEMPLOS DE CONSULTAS</h3>
+              <div className="space-y-1 md:space-y-2">
                 {activeGame.examples.map((example, index) => (
                   <button
                     key={index}
                     onClick={() => setInput(example)}
-                    className="w-full text-left p-2 text-xs text-theme-secondary hover:text-theme-primary rounded transition-all animate-theme-hover"
+                    className="w-full text-left p-2 text-xs text-theme-secondary hover:text-theme-primary rounded transition-all animate-theme-hover mobile-button"
                   >
                     {example}
                   </button>
@@ -232,17 +317,17 @@ export default function ChatPage() {
             </div>
 
             {/* Tip del día */}
-            <div className="cuadro rounded-2xl p-4">
-              <h3 className="text-sm font-semibold text-theme-primary mb-2">TIP ESTRATÉGICO</h3>
+            <div className="cuadro rounded-2xl p-3 md:p-4 hidden md:block">
+              <h3 className="text-xs md:text-sm font-semibold text-theme-primary mb-2">TIP ESTRATÉGICO</h3>
               <p className="text-xs text-theme-secondary">{activeGame.tip}</p>
             </div>
           </div>
 
           {/* Columna central - Consulta estratégica */}
-          <div className="lg:col-span-3">
-            <div className="chat-container h-[calc(110vh-140px)] rounded-2xl overflow-hidden flex flex-col">
+          <div className="lg:col-span-3 order-1 lg:order-2">
+            <div className="chat-container h-[calc(100vh-200px)] md:h-[calc(100vh-160px)] lg:h-[calc(100vh-140px)] rounded-xl md:rounded-2xl overflow-hidden flex flex-col">
               {/* Área de mensajes */}
-              <div className="flex-1 p-4 overflow-y-auto space-y-4 scrollbar-morado">
+              <div className="flex-1 p-3 md:p-4 overflow-y-auto space-y-3 md:space-y-4 scrollbar-morado mobile-padding">
                 {messages.map((message) => (
                   <ChatMessage key={message.id} message={message} />
                 ))}
@@ -261,11 +346,11 @@ export default function ChatPage() {
               </div>
               
               {/* Formulario de entrada */}
-              <form onSubmit={handleSend} className="flex items-center gap-3 p-4 border-t border-purple-900/40 bg-[#1a0933]">
+              <form onSubmit={handleSend} className="flex items-center gap-2 md:gap-3 p-3 md:p-4 border-t border-purple-900/40 bg-[#1a0933] mobile-padding">
                 <div className="flex-1">
                   <input
                     type="text"
-                    className="w-full bg-[#0f0720] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600 border border-purple-900/50"
+                    className="w-full bg-[#0f0720] text-white rounded-lg px-3 md:px-4 py-2 md:py-3 focus:outline-none focus:ring-2 focus:ring-purple-600 border border-purple-900/50 mobile-form-input"
                     placeholder={`Escribe tu consulta sobre ${activeGame.name}...`}
                     value={input}
                     onChange={e => setInput(e.target.value)}
@@ -274,10 +359,11 @@ export default function ChatPage() {
                 </div>
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-500 hover:to-pink-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-500 hover:to-pink-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed mobile-button"
                   disabled={isLoading || !input.trim()}
                 >
-                  Enviar
+                  <span className="hidden sm:inline">Enviar</span>
+                  <i className="fas fa-paper-plane sm:hidden"></i>
                 </button>
               </form>
             </div>

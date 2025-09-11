@@ -1,13 +1,18 @@
+export interface Author {
+  id: string;
+  name: string;
+  avatar: string;
+  level: number;
+  reputation?: number;
+  joinDate?: Date;
+  badges?: string[];
+}
+
 export interface Post {
   id: string;
   title: string;
   content: string;
-  author: {
-    id: string;
-    name: string;
-    avatar: string;
-    level: number;
-  };
+  author: Author;
   category: PostCategory;
   tags: string[];
   likes: number;
@@ -17,6 +22,31 @@ export interface Post {
   updatedAt: Date;
   isPinned?: boolean;
   isLocked?: boolean;
+  isDeleted?: boolean;
+  isEdited?: boolean;
+  deletedAt?: Date;
+  likedBy?: string[];
+  bookmarkedBy?: string[];
+  viewedBy?: Author[];
+  replies?: Comment[];
+  reports?: PostReport[];
+}
+
+export interface Comment {
+  id: number;
+  author: string;
+  avatar: string;
+  content: string;
+  time: string;
+  likes: number;
+  createdAt?: Date;
+}
+
+export interface PostReport {
+  id: string;
+  reason: string;
+  reporterId: string;
+  createdAt: Date;
 }
 
 export type PostCategory = 
@@ -24,6 +54,7 @@ export type PostCategory =
   | 'strategy'
   | 'news'
   | 'help'
+  | 'guide'
   | 'off-topic'
   | 'events';
 
