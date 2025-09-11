@@ -120,11 +120,12 @@ export default function CommentSection({
         <div className="flex items-center gap-4">
           <button
             onClick={() => handleVote('up')}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg theme-border transition-all hover:scale-105"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg theme-border transition-all hover:scale-105 animate-theme-hover"
             style={{ 
-              backgroundColor: 'rgba(34, 197, 94, 0.2)', 
+              backgroundColor: 'var(--color-success)', 
+              opacity: '0.2',
               color: 'var(--color-success)', 
-              borderColor: 'rgba(34, 197, 94, 0.3)' 
+              borderColor: 'var(--color-success)' 
             }}
           >
             <i className="fas fa-thumbs-up icon-success"></i>
@@ -132,11 +133,12 @@ export default function CommentSection({
           </button>
           <button
             onClick={() => handleVote('down')}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg theme-border transition-all hover:scale-105"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg theme-border transition-all hover:scale-105 animate-theme-hover"
             style={{ 
-              backgroundColor: 'rgba(239, 68, 68, 0.2)', 
+              backgroundColor: 'var(--color-error)', 
+              opacity: '0.2',
               color: 'var(--color-error)', 
-              borderColor: 'rgba(239, 68, 68, 0.3)' 
+              borderColor: 'var(--color-error)' 
             }}
           >
             <i className="fas fa-thumbs-down icon-error"></i>
@@ -153,19 +155,29 @@ export default function CommentSection({
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             rows={3}
-            className="input-theme w-full rounded-lg px-4 py-3 resize-none"
+            className="theme-input w-full rounded-lg px-4 py-3 resize-none"
+            style={{ 
+              backgroundColor: 'var(--color-surface)', 
+              borderColor: 'var(--color-border)', 
+              color: 'var(--color-text)' 
+            }}
             placeholder="Comparte tu experiencia o pregunta..."
             disabled={isSubmitting}
           />
           {newComment.length > 0 && newComment.length < 10 && (
-            <div className="text-sm icon-error">Mínimo 10 caracteres</div>
+            <div className="text-sm" style={{ color: 'var(--color-error)' }}>Mínimo 10 caracteres</div>
           )}
           <div className="flex justify-between items-center">
             <div className="text-xs theme-text-secondary">{newComment.length}/500</div>
             <button
               type="submit"
               disabled={isSubmitting || newComment.length < 10}
-              className="theme-button px-4 py-2 rounded-lg font-semibold transition-all disabled:opacity-50"
+              className="px-4 py-2 rounded-lg font-semibold transition-all disabled:opacity-50 animate-theme-hover"
+              style={{ 
+                background: 'var(--gradient-primary)', 
+                color: 'var(--color-text)', 
+                border: '1px solid var(--color-primary)' 
+              }}
             >
               {isSubmitting ? (
                 <>
@@ -183,9 +195,9 @@ export default function CommentSection({
       {/* Lista de comentarios */}
       <div className="space-y-4">
         {comments.map(comment => (
-          <div key={comment.id} className="theme-card rounded-xl p-4 card-hover">
+          <div key={comment.id} className="rounded-xl p-4 card-hover animate-theme-hover" style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)', border: '1px solid' }}>
             <div className="flex items-start gap-3">
-              <img src={comment.avatar} alt={comment.author} className="w-10 h-10 rounded-full theme-border" />
+              <img src={comment.avatar} alt={comment.author} className="w-10 h-10 rounded-full" style={{ borderColor: 'var(--color-border)', border: '2px solid' }} />
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="font-semibold theme-text-primary">{comment.author}</span>
@@ -195,12 +207,12 @@ export default function CommentSection({
                 <div className="flex items-center gap-4">
                   <button 
                     onClick={() => handleCommentLike(comment.id)}
-                    className="flex items-center gap-1 text-xs theme-text-secondary hover:theme-text-primary transition-colors hover:scale-105"
+                    className="flex items-center gap-1 text-xs theme-text-secondary hover:theme-text-primary transition-colors hover:scale-105 animate-theme-hover"
                   >
-                    <i className="fas fa-thumbs-up icon-theme"></i>
+                    <i className="fas fa-thumbs-up" style={{ color: 'var(--color-primary)' }}></i>
                     <span>{comment.likes}</span>
                   </button>
-                  <button className="text-xs theme-text-secondary hover:theme-text-primary transition-colors hover:scale-105">
+                  <button className="text-xs theme-text-secondary hover:theme-text-primary transition-colors hover:scale-105 animate-theme-hover">
                     Responder
                   </button>
                 </div>

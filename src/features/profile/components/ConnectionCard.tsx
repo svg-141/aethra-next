@@ -25,11 +25,11 @@ export default function ConnectionCard({ connection, onDisconnect, onReconnect, 
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'connected': return 'text-green-400';
-      case 'disconnected': return 'text-gray-400';
-      case 'error': return 'text-red-400';
-      case 'syncing': return 'text-yellow-400';
-      default: return 'text-gray-400';
+      case 'connected': return { color: 'var(--color-success)' };
+      case 'disconnected': return { color: 'var(--color-text-secondary)' };
+      case 'error': return { color: 'var(--color-error)' };
+      case 'syncing': return { color: 'var(--color-warning)' };
+      default: return { color: 'var(--color-text-secondary)' };
     }
   };
 
@@ -44,16 +44,16 @@ export default function ConnectionCard({ connection, onDisconnect, onReconnect, 
   };
 
   return (
-    <div className="flex items-center justify-between p-4 cuadro rounded-lg mb-4 animate-theme-hover">
+    <div className="flex items-center justify-between p-4 rounded-lg mb-4 animate-theme-hover" style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
       <div className="flex items-center gap-3">
-        <div className={`w-10 h-10 ${connection.color} rounded-lg flex items-center justify-center text-white`}>
+        <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white`} style={{ backgroundColor: 'var(--color-primary)' }}>
           <span className="text-lg">{connection.icon}</span>
         </div>
         
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
             <div className="text-sm font-medium text-theme-primary">{connection.name}</div>
-            <span className={`text-xs ${getStatusColor(connection.status)}`}>
+            <span className={`text-xs`} style={getStatusColor(connection.status)}>
               <i className={`${getStatusIcon(connection.status)} mr-1`}></i>
               {connection.status === 'connected' && 'Conectado'}
               {connection.status === 'disconnected' && 'Desconectado'}
@@ -99,7 +99,8 @@ export default function ConnectionCard({ connection, onDisconnect, onReconnect, 
         {connection.status === 'error' && onReconnect && (
           <button
             onClick={handleReconnect}
-            className="p-2 text-yellow-400 hover:text-theme-primary transition-colors animate-theme-hover"
+            className="p-2 hover:text-theme-primary transition-colors animate-theme-hover"
+            style={{ color: 'var(--color-warning)' }}
             title="Reconectar"
           >
             <i className="fas fa-redo"></i>
@@ -118,7 +119,8 @@ export default function ConnectionCard({ connection, onDisconnect, onReconnect, 
         
         <button
           onClick={handleDisconnect}
-          className="p-2 text-red-400 hover:text-red-300 transition-colors animate-theme-hover"
+          className="p-2 transition-colors animate-theme-hover"
+          style={{ color: 'var(--color-error)' }}
           title="Desconectar"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

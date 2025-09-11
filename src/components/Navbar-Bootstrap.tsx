@@ -91,7 +91,7 @@ function Navbar({ active }: NavbarProps) {
           <div className="d-flex align-items-center gap-2 gap-lg-3">
             <ThemeSelector />
             <NotificationBell />
-            <button className="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 animate-theme-hover" id="user-menu">
+            <button className="theme-button btn-sm d-flex align-items-center gap-2 animate-theme-hover" id="user-menu" style={{ background: 'var(--gradient-primary)', border: '1px solid var(--color-primary)', color: 'var(--color-text)' }}>
               <span className="d-none d-xl-inline">Cerrar sesión</span>
               <i className="fas fa-sign-out-alt"></i>
             </button>

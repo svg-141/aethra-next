@@ -31,7 +31,7 @@ export default function UserCard({ user, stats, onEdit, onViewProfile, children 
   };
 
   return (
-    <div className="cuadro rounded-2xl p-6 mb-6 animate-theme-hover">
+    <div className="rounded-2xl p-6 mb-6 animate-theme-hover" style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
           <div className="relative">
@@ -39,15 +39,16 @@ export default function UserCard({ user, stats, onEdit, onViewProfile, children 
               <img src={user.avatar} alt={`Avatar de ${user.name}`} className="w-full h-full object-cover" />
             </div>
             {/* Online status indicator */}
-            <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 ${
-              user.isOnline ? 'bg-green-500' : 'bg-gray-500'
-            }`} style={{ borderColor: 'var(--color-surface)' }}></div>
+            <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2`} style={{ 
+              backgroundColor: user.isOnline ? 'var(--color-success)' : 'var(--color-text-secondary)',
+              borderColor: 'var(--color-surface)' 
+            }}></div>
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h4 className="font-bold text-theme-primary">{user.name}</h4>
               {user.isVerified && (
-                <span className="text-blue-400" title="Usuario verificado">
+                <span style={{ color: 'var(--color-info)' }} title="Usuario verificado">
                   <i className="fas fa-check-circle text-sm"></i>
                 </span>
               )}
@@ -134,7 +135,7 @@ export default function UserCard({ user, stats, onEdit, onViewProfile, children 
       )}
 
       {/* Stats */}
-      <div className="pt-4 border-t border-theme">
+      <div className="pt-4 border-t" style={{ borderColor: 'var(--color-border)' }}>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="text-center">
             <div className="text-lg font-bold text-theme-primary">{stats.totalMatches.toLocaleString()}</div>

@@ -68,7 +68,7 @@ function Navbar({ active }: NavbarProps) {
       
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-lg border-b border-purple-800/30 animate-slide-down">
+        <div className="lg:hidden absolute top-full left-0 right-0 theme-bg-surface backdrop-blur-lg border-b theme-border animate-slide-down">
           <div className="px-4 py-4 space-y-4">
             {/* Mobile Search */}
             <div data-tooltip="search">
@@ -77,15 +77,15 @@ function Navbar({ active }: NavbarProps) {
             
             {/* Mobile Navigation */}
             <nav className="space-y-2">
-              <Link href="/" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'home' ? 'text-purple-400 bg-purple-400/10' : 'text-gray-300 hover:text-white hover:bg-white/10'}`}>Inicio</Link>
-              <Link href="/chat" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'chat' ? 'text-purple-400 bg-purple-400/10' : 'text-gray-300 hover:text-white hover:bg-white/10'}`}>Funciones</Link>
-              <Link href="/games" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'games' ? 'text-purple-400 bg-purple-400/10' : 'text-gray-300 hover:text-white hover:bg-white/10'}`}>Guías</Link>
-              <Link href="/comunity" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'comunity' ? 'text-purple-400 bg-purple-400/10' : 'text-gray-300 hover:text-white hover:bg-white/10'}`}>Comunidad</Link>
-              <Link href="/profile" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'profile' ? 'text-purple-200 bg-purple-200/10' : 'text-gray-300 hover:text-purple-200 hover:bg-purple-200/10'}`}>Mi perfil</Link>
+              <Link href="/" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'home' ? 'theme-text-primary' : 'theme-text-secondary hover:theme-text-primary'}`} style={active === 'home' ? { backgroundColor: 'var(--color-primary)', opacity: '0.1' } : {}}>Inicio</Link>
+              <Link href="/chat" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'chat' ? 'theme-text-primary' : 'theme-text-secondary hover:theme-text-primary'}`} style={active === 'chat' ? { backgroundColor: 'var(--color-primary)', opacity: '0.1' } : {}}>Funciones</Link>
+              <Link href="/games" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'games' ? 'theme-text-primary' : 'theme-text-secondary hover:theme-text-primary'}`} style={active === 'games' ? { backgroundColor: 'var(--color-primary)', opacity: '0.1' } : {}}>Guías</Link>
+              <Link href="/comunity" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'comunity' ? 'theme-text-primary' : 'theme-text-secondary hover:theme-text-primary'}`} style={active === 'comunity' ? { backgroundColor: 'var(--color-primary)', opacity: '0.1' } : {}}>Comunidad</Link>
+              <Link href="/profile" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'profile' ? 'theme-text-primary' : 'theme-text-secondary hover:theme-text-primary'}`} style={active === 'profile' ? { backgroundColor: 'var(--color-primary)', opacity: '0.1' } : {}}>Mi perfil</Link>
             </nav>
             
             {/* Mobile Actions */}
-            <div className="flex items-center justify-between pt-4 border-t border-purple-800/30">
+            <div className="flex items-center justify-between pt-4 border-t theme-border">
               <div className="flex items-center gap-4">
                 <ThemeSelector />
                 <NotificationBell />

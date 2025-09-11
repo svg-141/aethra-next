@@ -24,12 +24,12 @@ export default function SubscriptionCard({ subscription, onManage, onUpgrade, on
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-500/20 text-green-300 border-green-500/30';
-      case 'cancelled': return 'bg-red-500/20 text-red-300 border-red-500/30';
-      case 'expired': return 'bg-gray-500/20 text-gray-300 border-gray-500/30';
-      case 'pending': return 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30';
-      case 'trial': return 'bg-blue-500/20 text-blue-300 border-blue-500/30';
-      default: return 'bg-gray-500/20 text-gray-300 border-gray-500/30';
+      case 'active': return { backgroundColor: 'var(--color-success)', opacity: '0.2', color: 'var(--color-success)', borderColor: 'var(--color-success)' };
+      case 'cancelled': return { backgroundColor: 'var(--color-error)', opacity: '0.2', color: 'var(--color-error)', borderColor: 'var(--color-error)' };
+      case 'expired': return { backgroundColor: 'var(--color-text-secondary)', opacity: '0.2', color: 'var(--color-text-secondary)', borderColor: 'var(--color-text-secondary)' };
+      case 'pending': return { backgroundColor: 'var(--color-warning)', opacity: '0.2', color: 'var(--color-warning)', borderColor: 'var(--color-warning)' };
+      case 'trial': return { backgroundColor: 'var(--color-info)', opacity: '0.2', color: 'var(--color-info)', borderColor: 'var(--color-info)' };
+      default: return { backgroundColor: 'var(--color-text-secondary)', opacity: '0.2', color: 'var(--color-text-secondary)', borderColor: 'var(--color-text-secondary)' };
     }
   };
 
@@ -55,13 +55,13 @@ export default function SubscriptionCard({ subscription, onManage, onUpgrade, on
   };
 
   return (
-    <div className={`cuadro bg-gradient-to-br ${getPlanColor(subscription.plan)} rounded-2xl p-6 mb-6 animate-theme-hover animate-theme-glow`} style={{ borderColor: 'var(--color-secondary)' }}>
+    <div className={`rounded-2xl p-6 mb-6 animate-theme-hover`} style={{ background: 'var(--gradient-primary)', border: '1px solid var(--color-primary)' }}>
       <div className="flex items-start justify-between mb-4">
         <div>
           <h3 className="text-lg font-bold text-theme-primary mb-1 capitalize">{subscription.plan}</h3>
           <p className="text-sm text-theme-secondary">Desbloquea todo el potencial</p>
         </div>
-        <span className={`px-2 py-1 text-xs font-bold rounded-full border ${getStatusColor(subscription.status)}`}>
+        <span className={`px-2 py-1 text-xs font-bold rounded-full border`} style={getStatusColor(subscription.status)}>
           {getStatusLabel(subscription.status)}
         </span>
       </div>
@@ -78,7 +78,7 @@ export default function SubscriptionCard({ subscription, onManage, onUpgrade, on
         </div>
         <div className="flex items-center justify-between mb-2">
           <span>Renovación automática:</span>
-          <span className={subscription.autoRenew ? 'text-green-400' : 'text-red-400'}>
+          <span style={{ color: subscription.autoRenew ? 'var(--color-success)' : 'var(--color-error)' }}>
             {subscription.autoRenew ? 'Sí' : 'No'}
           </span>
         </div>
@@ -93,7 +93,7 @@ export default function SubscriptionCard({ subscription, onManage, onUpgrade, on
       <ul className="space-y-2 mb-6">
         {subscription.features.map((feature, i) => (
           <li key={i} className="flex items-center gap-2 text-sm text-theme-secondary">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--color-success)' }}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
             </svg>
             {feature}
@@ -138,7 +138,8 @@ export default function SubscriptionCard({ subscription, onManage, onUpgrade, on
 
         {onCancel && subscription.status === 'active' && (
           <button
-            className="px-4 py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-500 transition-all"
+            className="px-4 py-2 rounded-lg font-semibold transition-all animate-theme-hover"
+            style={{ backgroundColor: 'var(--color-error)', color: 'var(--color-text)' }}
             onClick={handleCancel}
           >
             <i className="fas fa-times mr-2"></i>

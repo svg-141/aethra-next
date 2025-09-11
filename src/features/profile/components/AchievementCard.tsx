@@ -20,38 +20,38 @@ export default function AchievementCard({ achievement, onView, onShare }: Achiev
 
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
-      case 'common': return 'text-gray-300';
-      case 'rare': return 'text-blue-300';
-      case 'epic': return 'text-purple-300';
-      case 'legendary': return 'text-yellow-300';
-      default: return 'text-gray-300';
+      case 'common': return { color: 'var(--color-text-secondary)' };
+      case 'rare': return { color: 'var(--color-info)' };
+      case 'epic': return { color: 'var(--color-primary)' };
+      case 'legendary': return { color: 'var(--color-accent)' };
+      default: return { color: 'var(--color-text-secondary)' };
     }
   };
 
   const getRarityBorder = (rarity: string) => {
     switch (rarity) {
-      case 'common': return 'border-gray-500/30';
-      case 'rare': return 'border-blue-500/30';
-      case 'epic': return 'border-purple-500/30';
-      case 'legendary': return 'border-yellow-500/30';
-      default: return 'border-gray-500/30';
+      case 'common': return { borderColor: 'var(--color-text-secondary)', opacity: '0.3' };
+      case 'rare': return { borderColor: 'var(--color-info)', opacity: '0.3' };
+      case 'epic': return { borderColor: 'var(--color-primary)', opacity: '0.3' };
+      case 'legendary': return { borderColor: 'var(--color-accent)', opacity: '0.3' };
+      default: return { borderColor: 'var(--color-text-secondary)', opacity: '0.3' };
     }
   };
 
   return (
-    <div className={`flex items-center gap-3 p-3 ${achievement.color} rounded-lg border ${getRarityBorder(achievement.rarity)} cuadro transition-all cursor-pointer animate-theme-hover`} onClick={handleView}>
-      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg ${achievement.color}`}>
+    <div className={`flex items-center gap-3 p-3 rounded-lg border transition-all cursor-pointer animate-theme-hover`} onClick={handleView} style={{ backgroundColor: 'var(--color-surface)', ...getRarityBorder(achievement.rarity) }}>
+      <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg`} style={{ backgroundColor: 'var(--color-primary)', opacity: '0.2' }}>
         {achievement.icon}
       </div>
       
       <div className="flex-1">
         <div className="flex items-center gap-2 mb-1">
           <div className="text-sm font-medium text-theme-primary">{achievement.title}</div>
-          <span className={`text-xs ${getRarityColor(achievement.rarity)} font-medium`}>
+          <span className={`text-xs font-medium`} style={getRarityColor(achievement.rarity)}>
             {achievement.rarity.toUpperCase()}
           </span>
           {achievement.isUnlocked && (
-            <span className="text-xs text-green-400">
+            <span className="text-xs" style={{ color: 'var(--color-success)' }}>
               <i className="fas fa-check-circle"></i>
             </span>
           )}
@@ -65,13 +65,13 @@ export default function AchievementCard({ achievement, onView, onShare }: Achiev
           </div>
           
           <div className="flex items-center gap-2">
-            <span className="text-xs text-yellow-400 font-medium">
+            <span className="text-xs font-medium" style={{ color: 'var(--color-accent)' }}>
               {achievement.points} pts
             </span>
             
             {achievement.progress !== undefined && achievement.maxProgress !== undefined && (
               <div className="flex items-center gap-1">
-                <div className="w-16 h-1 bg-gray-600 rounded-full overflow-hidden">
+                <div className="w-16 h-1 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--color-border)' }}>
                   <div 
                     className="h-full rounded-full transition-all"
                     style={{ 
