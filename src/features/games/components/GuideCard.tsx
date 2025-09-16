@@ -1,18 +1,81 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { GuideCardProps } from '../types/games.types';
+import { useAuth } from '../../../context/AuthContext';
+import { enhancedGuideService } from '../services/guideService';
+import { RequirePremium } from '../../../components/auth/ProtectedRoute';
 
 export default function GuideCard({ guide, onView, onDownload, onRate }: GuideCardProps) {
-  const handleView = () => {
+  const auth = useAuth();
+  const router = useRouter();
+  const [isLiking, setIsLiking] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isRating, setIsRating] = useState(false);
+
+  // Check if user can access this guide
+  const canAccess = auth.user
+    ? enhancedGuideService.canAccessGuide(guide, auth.user.plan)
+    : !guide.isPremium;
+
+  // Get user interactions
+  const interactions = auth.user && guide.interactions
+    ? guide.interactions
+    : { userLiked: false, userDownloaded: false };
+
+  const handleView = useCallback(() => {
+    if (!canAccess) return;
+    router.push(`/guide/${guide.id}`);
     onView?.(guide.id);
-  };
+  }, [canAccess, guide.id, onView, router]);
 
-  const handleDownload = () => {
-    onDownload?.(guide.id);
-  };
+  const handleLike = useCallback(async () => {
+    if (!auth.user || isLiking) return;
 
-  const handleRate = (rating: number) => {
-    onRate?.(guide.id, rating);
-  };
+    setIsLiking(true);
+    try {
+      await enhancedGuideService.toggleLike(auth.user.id, guide.id);
+      // Refresh user data to get updated interactions
+      // await auth.refreshUser(); // Disabled to prevent flickering
+    } catch (error) {
+      console.error('Error toggling like:', error);
+    } finally {
+      setIsLiking(false);
+    }
+  }, [auth.user, auth.refreshUser, guide.id, isLiking]);
+
+  const handleDownload = useCallback(async () => {
+    if (!auth.user || isDownloading || !canAccess) return;
+
+    setIsDownloading(true);
+    try {
+      const success = await enhancedGuideService.downloadGuide(auth.user.id, guide.id);
+      if (success) {
+        onDownload?.(guide.id);
+        // Refresh user data to get updated interactions
+        // await auth.refreshUser(); // Disabled to prevent flickering
+      }
+    } catch (error) {
+      console.error('Error downloading guide:', error);
+    } finally {
+      setIsDownloading(false);
+    }
+  }, [auth.user, auth.refreshUser, guide.id, isDownloading, canAccess, onDownload]);
+
+  const handleRate = useCallback(async (rating: number) => {
+    if (!auth.user || isRating || !canAccess) return;
+
+    setIsRating(true);
+    try {
+      await enhancedGuideService.rateGuide(auth.user.id, guide.id, rating);
+      onRate?.(guide.id, rating);
+      // Refresh user data to get updated interactions
+      // await auth.refreshUser(); // Disabled to prevent flickering
+    } catch (error) {
+      console.error('Error rating guide:', error);
+    } finally {
+      setIsRating(false);
+    }
+  }, [auth.user, auth.refreshUser, guide.id, isRating, canAccess, onRate]);
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -45,6 +108,11 @@ export default function GuideCard({ guide, onView, onDownload, onRate }: GuideCa
           <span className={`px-2 py-1 text-xs font-medium rounded-full border`} style={{ backgroundColor: 'var(--color-primary)', opacity: '0.2', color: 'var(--color-primary)', borderColor: 'var(--color-primary)' }}>
             {guide.type}
           </span>
+          {guide.isPremium && (
+            <span className="px-2 py-1 text-xs font-medium rounded-full border" style={{ backgroundColor: 'var(--color-warning)', opacity: '0.2', color: 'var(--color-warning)', borderColor: 'var(--color-warning)' }}>
+              👑 Premium
+            </span>
+          )}
         </div>
         
         <div className="absolute bottom-4 left-4 flex items-center gap-3">
@@ -86,14 +154,22 @@ export default function GuideCard({ guide, onView, onDownload, onRate }: GuideCa
         </div>
         
         {/* Stats */}
-        <div className="flex items-center gap-4 mb-4 text-xs theme-text-secondary">
+        <div className="grid grid-cols-2 gap-2 mb-4 text-xs theme-text-secondary">
           <span className="flex items-center gap-1">
             <i className="fas fa-eye"></i>
-            {guide.views.toLocaleString()}
+            {(guide.views || 0).toLocaleString()}
           </span>
           <span className="flex items-center gap-1">
             <i className="fas fa-download"></i>
-            {guide.downloads.toLocaleString()}
+            {(guide.downloads || 0).toLocaleString()}
+          </span>
+          <span className="flex items-center gap-1">
+            <i className="fas fa-heart"></i>
+            {(guide.likes || 0).toLocaleString()}
+          </span>
+          <span className="flex items-center gap-1">
+            <i className="fas fa-comments"></i>
+            {(guide.comments || 0).toLocaleString()}
           </span>
         </div>
         
@@ -107,38 +183,81 @@ export default function GuideCard({ guide, onView, onDownload, onRate }: GuideCa
         
         <div className="flex justify-between items-center mt-auto">
           <div className="flex gap-2">
-            <button
-              onClick={handleView}
-              className="text-sm font-medium flex items-center gap-2 transition-colors animate-theme-hover theme-text-primary hover:theme-text-primary"
-            >
-              Ver guía completa
-              <i className="fas fa-arrow-right text-xs"></i>
-            </button>
-            <button
-              onClick={handleDownload}
-              className="text-sm font-medium flex items-center gap-2 transition-colors animate-theme-hover"
-              style={{ color: 'var(--color-info)' }}
-            >
-              <i className="fas fa-download text-xs"></i>
-              Descargar
-            </button>
+            {canAccess ? (
+              <button
+                onClick={handleView}
+                className="text-sm font-medium flex items-center gap-2 transition-colors animate-theme-hover theme-text-primary hover:theme-text-primary"
+              >
+                Ver guía completa
+                <i className="fas fa-arrow-right text-xs"></i>
+              </button>
+            ) : (
+              <RequirePremium showPrompt={false}>
+                <button
+                  className="text-sm font-medium flex items-center gap-2 transition-colors animate-theme-hover cursor-not-allowed opacity-60"
+                  style={{ color: 'var(--color-text-secondary)' }}
+                  title="Requiere Premium"
+                >
+                  <i className="fas fa-crown text-xs"></i>
+                  Requiere Premium
+                </button>
+              </RequirePremium>
+            )}
           </div>
+
           <div className="flex items-center gap-2">
+            {/* Like button */}
+            {auth.user && canAccess && (
+              <button
+                onClick={handleLike}
+                disabled={isLiking}
+                className={`text-xs transition-colors animate-theme-hover ${isLiking ? 'opacity-50' : ''}`}
+                style={{
+                  color: interactions.userLiked ? 'var(--color-error)' : 'var(--color-text-secondary)'
+                }}
+                title={interactions.userLiked ? 'Quitar like' : 'Dar like'}
+              >
+                <i className={`fas fa-heart ${isLiking ? 'fa-spin' : ''}`}></i>
+              </button>
+            )}
+
+            {/* Download button */}
+            {auth.user && canAccess && (
+              <button
+                onClick={handleDownload}
+                disabled={isDownloading || interactions.userDownloaded}
+                className={`text-xs transition-colors animate-theme-hover ${isDownloading ? 'opacity-50' : ''}`}
+                style={{
+                  color: interactions.userDownloaded ? 'var(--color-success)' : 'var(--color-info)'
+                }}
+                title={interactions.userDownloaded ? 'Ya descargado' : 'Descargar guía'}
+              >
+                <i className={`fas ${isDownloading ? 'fa-spinner fa-spin' : interactions.userDownloaded ? 'fa-check' : 'fa-download'}`}></i>
+              </button>
+            )}
+
+            {/* Rating */}
             <div className="flex items-center gap-1 text-xs" style={{ color: 'var(--color-warning)' }}>
-              {renderStars(guide.rating)}
-              <span className="ml-1">{guide.rating}</span>
+              {renderStars(guide.rating || 0)}
+              <span className="ml-1">{(guide.rating || 0).toFixed(1)}</span>
             </div>
-            <button
-              onClick={() => handleRate(guide.rating)}
-              className="text-xs transition-colors animate-theme-hover"
-              style={{ color: 'var(--color-text-secondary)' }}
-              title="Calificar"
-            >
-              <i className="fas fa-star"></i>
-            </button>
+
+            {/* Rate button */}
+            {auth.user && canAccess && (
+              <button
+                onClick={() => handleRate(Math.min(5, (guide.rating || 0) + 0.1))}
+                disabled={isRating}
+                className={`text-xs transition-colors animate-theme-hover ${isRating ? 'opacity-50' : ''}`}
+                style={{ color: 'var(--color-text-secondary)' }}
+                title="Calificar guía"
+              >
+                <i className={`fas fa-star ${isRating ? 'fa-spin' : ''}`}></i>
+              </button>
+            )}
           </div>
         </div>
       </div>
+
     </div>
   );
 } 

@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useMemo, memo } from 'react';
 import Navbar from './Navbar';
 import { NotificationManager } from '../features/notifications';
-import { ProtectedRoute } from '../features/auth';
+import ProtectedRoute from '../components/auth/ProtectedRoute';
 
 function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -13,7 +13,7 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
   const active = useMemo(() => {
     if (pathname === '/') return 'home';
     if (pathname.startsWith('/chat')) return 'chat';
-    if (pathname.startsWith('/games')) return 'games';
+    if (pathname.startsWith('/games') || pathname.startsWith('/guide/')) return 'games';
     if (pathname.startsWith('/comunity')) return 'comunity';
     if (pathname.startsWith('/profile')) return 'profile';
     return '';

@@ -1,5 +1,5 @@
 import { Comment } from '../types/chat.types';
-import { AuthService } from '../../auth/services/authService';
+import { authService } from '../../../services/authService';
 
 export interface CreateCommentData {
   content: string;
@@ -118,8 +118,7 @@ export class CommentService {
     const comment = commentsDatabase[commentIndex];
     
     // Verificar permisos: solo el autor o administrador puede editar
-    const permissions = AuthService.getUserPermissions(currentUserId, comment.userId);
-    if (!permissions.canEdit) {
+    if (comment.userId !== currentUserId) {
       throw new Error('No tienes permisos para editar este comentario');
     }
 
@@ -151,8 +150,7 @@ export class CommentService {
     const comment = commentsDatabase[commentIndex];
     
     // Verificar permisos: solo el autor o administrador puede eliminar
-    const permissions = AuthService.getUserPermissions(currentUserId, comment.userId);
-    if (!permissions.canDelete) {
+    if (comment.userId !== currentUserId) {
       throw new Error('No tienes permisos para eliminar este comentario');
     }
 

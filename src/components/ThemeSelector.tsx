@@ -25,10 +25,12 @@ function ThemeSelector() {
       {/* Botón para abrir selector */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 theme-button-hover rounded-lg border theme-border hover:border-purple-500 transition-all"
+        className="flex items-center gap-2 px-3 py-2 rounded-lg border transition-all theme-button"
         style={{
-          background: `rgba(${parseInt(currentTheme.colors.primary.slice(1, 3), 16)}, ${parseInt(currentTheme.colors.primary.slice(3, 5), 16)}, ${parseInt(currentTheme.colors.primary.slice(5, 7), 16)}, 0.2)`,
-          color: currentTheme.colors.primary
+          backgroundColor: 'var(--color-primary)',
+          opacity: '0.2',
+          color: 'var(--color-primary)',
+          borderColor: 'var(--color-border)'
         }}
         data-tooltip="themes"
       >
@@ -132,32 +134,32 @@ function ThemeSelector() {
               <div className="space-y-4">
                 <div className="space-y-3">
                   <label className="flex items-center justify-between">
-                    <span className="text-sm text-white">Alto contraste</span>
+                    <span className="text-sm theme-text-primary">Alto contraste</span>
                     <input
                       type="checkbox"
                       checked={userPreferences.highContrast}
                       onChange={(e) => updatePreferences({ highContrast: e.target.checked })}
-                      className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                      className="input-theme w-4 h-4 rounded"
                     />
                   </label>
-                  
+
                   <label className="flex items-center justify-between">
-                    <span className="text-sm text-white">Reducir movimiento</span>
+                    <span className="text-sm theme-text-primary">Reducir movimiento</span>
                     <input
                       type="checkbox"
                       checked={userPreferences.reducedMotion}
                       onChange={(e) => updatePreferences({ reducedMotion: e.target.checked })}
-                      className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                      className="input-theme w-4 h-4 rounded"
                     />
                   </label>
-                  
+
                   <label className="flex items-center justify-between">
-                    <span className="text-sm text-white">Animaciones</span>
+                    <span className="text-sm theme-text-primary">Animaciones</span>
                     <input
                       type="checkbox"
                       checked={userPreferences.animations}
                       onChange={(e) => updatePreferences({ animations: e.target.checked })}
-                      className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                      className="input-theme w-4 h-4 rounded"
                     />
                   </label>
                 </div>
@@ -197,33 +199,33 @@ function ThemeSelector() {
               <div className="space-y-4">
                 <div className="space-y-3">
                   <label className="flex items-center justify-between">
-                    <span className="text-sm text-white">Mostrar tooltips de ayuda</span>
+                    <span className="text-sm theme-text-primary">Mostrar tooltips de ayuda</span>
                     <input
                       type="checkbox"
                       checked={tooltipPreferences.showTooltips}
                       onChange={(e) => updateTooltipPreferences({ showTooltips: e.target.checked })}
-                      className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                      className="input-theme w-4 h-4 rounded"
                     />
                   </label>
-                  
+
                   <label className="flex items-center justify-between">
-                    <span className="text-sm text-white">Tooltips animados</span>
+                    <span className="text-sm theme-text-primary">Tooltips animados</span>
                     <input
                       type="checkbox"
                       checked={tooltipPreferences.animatedTooltips}
                       onChange={(e) => updateTooltipPreferences({ animatedTooltips: e.target.checked })}
-                      className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                      className="input-theme w-4 h-4 rounded"
                       disabled={!tooltipPreferences.showTooltips}
                     />
                   </label>
-                  
+
                   <label className="flex items-center justify-between">
-                    <span className="text-sm text-white">Modo spotlight</span>
+                    <span className="text-sm theme-text-primary">Modo spotlight</span>
                     <input
                       type="checkbox"
                       checked={tooltipPreferences.spotlightMode}
                       onChange={(e) => updateTooltipPreferences({ spotlightMode: e.target.checked })}
-                      className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500 focus:ring-2"
+                      className="input-theme w-4 h-4 rounded"
                       disabled={!tooltipPreferences.showTooltips}
                     />
                   </label>
@@ -281,16 +283,16 @@ const ThemeCard = memo(function ThemeCard({ theme, isActive, onSelect }: ThemeCa
   }, [isActive, onSelect]);
   return (
     <div
-      className={`p-3 rounded-lg border cursor-pointer transition-all transform hover:scale-105 ${
+      className={`p-3 rounded-lg border cursor-pointer transition-all transform hover:scale-105 theme-card animate-theme-hover ${
         isActive
-          ? 'border-purple-500 bg-purple-500/20 shadow-lg shadow-purple-500/20'
-          : 'border-purple-900/50 bg-[#1e0b36] hover:border-purple-500/50 hover:bg-purple-500/10'
+          ? 'theme-border-hover animate-theme-glow'
+          : 'theme-border hover:theme-border-hover'
       }`}
       onClick={handleClick}
     >
       <div className="flex items-center gap-3">
         {/* Preview del tema */}
-        <div className="w-12 h-8 rounded border border-purple-900/50 overflow-hidden">
+        <div className="w-12 h-8 rounded border theme-border overflow-hidden">
           <div
             className="w-full h-full"
             style={{
@@ -300,12 +302,12 @@ const ThemeCard = memo(function ThemeCard({ theme, isActive, onSelect }: ThemeCa
         </div>
         
         <div className="flex-1">
-          <h4 className="text-sm font-semibold text-white">{theme.name}</h4>
-          <p className="text-xs text-gray-400">{theme.description}</p>
+          <h4 className="text-sm font-semibold theme-text-primary">{theme.name}</h4>
+          <p className="text-xs theme-text-secondary">{theme.description}</p>
         </div>
         
         {isActive && (
-          <i className="fas fa-check text-purple-400"></i>
+          <i className="fas fa-check icon-primary"></i>
         )}
       </div>
     </div>

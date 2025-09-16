@@ -1,5 +1,5 @@
 import { Post, PostCategory, PostFilter, Author } from '../types/community.types';
-import { AuthService } from '../../auth/services/authService';
+import { authService } from '../../../services/authService';
 
 export interface CreatePostData {
   title: string;
@@ -232,8 +232,7 @@ export class ForumService {
     const post = postsDatabase[postIndex];
     
     // Verificar permisos: solo el autor o administrador puede editar
-    const permissions = AuthService.getUserPermissions(currentUserId, post.author.id);
-    if (!permissions.canEdit) {
+    if (post.author.id !== currentUserId) {
       throw new Error('No tienes permisos para editar este post');
     }
 
@@ -266,8 +265,7 @@ export class ForumService {
     const post = postsDatabase[postIndex];
     
     // Verificar permisos: solo el autor o administrador puede eliminar
-    const permissions = AuthService.getUserPermissions(currentUserId, post.author.id);
-    if (!permissions.canDelete) {
+    if (post.author.id !== currentUserId) {
       throw new Error('No tienes permisos para eliminar este post');
     }
 

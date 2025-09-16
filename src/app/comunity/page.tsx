@@ -6,7 +6,7 @@ import { PostCard, PostForm, SidebarCommunity, Post, PostCategory, PostFilter } 
 import { POST_CATEGORIES, DEFAULT_FILTERS, SAMPLE_COMMUNITY_STATS } from '../../features/community/constants/community-constants';
 import { ForumService } from '../../features/community/services/forumService';
 import { useNotifications } from '../../features/notifications';
-import { useAuth } from '../../features/auth';
+import { useAuth } from '../../context/AuthContext';
 
 export default function CommunityPage() {
   const [filters, setFilters] = useState<PostFilter>(DEFAULT_FILTERS);

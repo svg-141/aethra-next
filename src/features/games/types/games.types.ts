@@ -12,12 +12,23 @@ export interface Guide {
   updated: string;
   meta: string;
   author: string;
+  authorId: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   estimatedTime: string;
   views: number;
   downloads: number;
+  likes: number;
+  comments: number;
   isFeatured?: boolean;
   isNew?: boolean;
+  isPremium?: boolean;
+  interactions?: GuideInteractions;
+}
+
+export interface GuideInteractions {
+  userLiked: boolean;
+  userDownloaded: boolean;
+  userRated?: number;
 }
 
 export type GuideType = 

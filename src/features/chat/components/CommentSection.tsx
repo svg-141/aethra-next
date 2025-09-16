@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { CommentSectionProps, Comment } from '../types/chat.types';
 import { useNotifications } from '../../notifications';
 import { CommentService } from '../services/commentService';
-import { useAuth } from '../../auth';
+import { useAuth } from '../../../context/AuthContext';
 
 export default function CommentSection({ 
   sectionId, 

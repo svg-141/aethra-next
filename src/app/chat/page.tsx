@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { ChatMessage, CommentSection, GAMES, getGameByKey, ChatMessageType } from '../../features/chat';
 import { useNotifications } from '../../features/notifications';
 import { ChatService } from '../../features/chat/services/chatService';
-import { useAuth } from '../../features/auth';
+import { useAuth } from '../../context/AuthContext';
 
 export default function ChatPage() {
   // Estado para el juego seleccionado
@@ -346,11 +346,12 @@ export default function ChatPage() {
               </div>
               
               {/* Formulario de entrada */}
-              <form onSubmit={handleSend} className="flex items-center gap-2 md:gap-3 p-3 md:p-4 border-t border-purple-900/40 bg-[#1a0933] mobile-padding">
+              <form onSubmit={handleSend} className="flex items-center gap-2 md:gap-3 p-3 md:p-4 border-t theme-border mobile-padding"
+                    style={{ backgroundColor: 'var(--color-surface)' }}>
                 <div className="flex-1">
                   <input
                     type="text"
-                    className="w-full bg-[#0f0720] text-white rounded-lg px-3 md:px-4 py-2 md:py-3 focus:outline-none focus:ring-2 focus:ring-purple-600 border border-purple-900/50 mobile-form-input"
+                    className="w-full theme-input mobile-form-input"
                     placeholder={`Escribe tu consulta sobre ${activeGame.name}...`}
                     value={input}
                     onChange={e => setInput(e.target.value)}
@@ -359,7 +360,7 @@ export default function ChatPage() {
                 </div>
                 <button
                   type="submit"
-                  className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-500 hover:to-pink-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed mobile-button"
+                  className="px-4 md:px-6 py-2 md:py-3 theme-button mobile-button disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={isLoading || !input.trim()}
                 >
                   <span className="hidden sm:inline">Enviar</span>

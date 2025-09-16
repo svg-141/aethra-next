@@ -50,30 +50,17 @@ const mockData: SearchResult[] = [
     relevance: 0.95,
   },
   {
-    id: 'guide-lol',
+    id: 'guide-starcraft2',
     type: 'guide',
-    title: 'League of Legends - Parche 13.11',
-    description: 'Guía completa de campeones, objetos y rutas más fuertes tras el último parche.',
-    url: '/guides/lol',
-    image: '/assets/img/banners/lol-banner.jpg',
-    icon: '/assets/img/games/lol.png',
-    tags: ['MOBA', 'Campeones', 'Objetos', 'Macro'],
+    title: 'Starcraft 2 - Meta y Estrategias',
+    description: 'Guía completa de builds, micro y macro para dominar todas las razas.',
+    url: '/guides/starcraft2',
+    image: '/assets/img/banners/starcraft-2-banner.jpg',
+    icon: '/assets/img/games/starcraft2.png',
+    tags: ['RTS', 'Builds', 'Micro', 'Macro'],
     author: 'Aethra Team',
     timestamp: new Date('2024-01-10'),
     relevance: 0.92,
-  },
-  {
-    id: 'guide-dota2',
-    type: 'guide',
-    title: 'Dota 2 - Héroes Meta',
-    description: 'Descubre los héroes más fuertes, builds optimizadas y sinergias por rol.',
-    url: '/guides/dota2',
-    image: '/assets/img/banners/dota2-banner.jpg',
-    icon: '/assets/img/games/dota2.png',
-    tags: ['MOBA', 'Héroes', 'Builds', 'Sinergias'],
-    author: 'Aethra Team',
-    timestamp: new Date('2024-01-08'),
-    relevance: 0.88,
   },
 
   // Posts de comunidad
@@ -89,26 +76,15 @@ const mockData: SearchResult[] = [
     relevance: 0.85,
   },
   {
-    id: 'post-yasuo-counter',
+    id: 'post-protoss-builds',
     type: 'post',
-    title: '¿Cómo counterear a Yasuo en mid?',
-    description: 'Siempre pierdo contra Yasuo, ¿algún consejo o pick recomendado?',
-    url: '/comunity#post-yasuo',
-    tags: ['LoL', 'Yasuo', 'Mid', 'Counters'],
-    author: 'GamerGirl',
+    title: 'Mejores builds de Protoss en el meta',
+    description: '¿Qué builds están funcionando mejor para Protoss en el meta actual?',
+    url: '/comunity#post-protoss',
+    tags: ['Starcraft 2', 'Protoss', 'Builds', 'Meta'],
+    author: 'ProGamer',
     timestamp: new Date('2024-01-13'),
     relevance: 0.82,
-  },
-  {
-    id: 'post-invoker-builds',
-    type: 'post',
-    title: 'Mejores builds para Invoker',
-    description: '¿Qué builds están funcionando mejor en el meta actual para Invoker?',
-    url: '/comunity#post-invoker',
-    tags: ['Dota 2', 'Invoker', 'Builds', 'Meta'],
-    author: 'DotaMaster',
-    timestamp: new Date('2024-01-12'),
-    relevance: 0.78,
   },
 
   // Usuarios
@@ -125,14 +101,14 @@ const mockData: SearchResult[] = [
     relevance: 0.75,
   },
   {
-    id: 'user-gamergirl',
+    id: 'user-sc2pro',
     type: 'user',
-    title: 'GamerGirl',
-    description: 'Streamer y jugadora de League of Legends. Especializada en mid lane y macro juego.',
+    title: 'SC2Pro',
+    description: 'Jugador profesional de Starcraft 2. Especializado en estrategias Terran.',
     url: '/profile',
-    image: 'https://randomuser.me/api/portraits/women/44.jpg',
-    tags: ['LoL', 'Streamer', 'Mid Lane'],
-    author: 'GamerGirl',
+    image: 'https://randomuser.me/api/portraits/men/35.jpg',
+    tags: ['Starcraft 2', 'Profesional', 'Terran'],
+    author: 'SC2Pro',
     timestamp: new Date('2024-01-05'),
     relevance: 0.72,
   },
@@ -149,24 +125,14 @@ const mockData: SearchResult[] = [
     relevance: 0.90,
   },
   {
-    id: 'game-lol',
+    id: 'game-starcraft2',
     type: 'game',
-    title: 'League of Legends',
-    description: 'MOBA donde equipos de 5 jugadores compiten para destruir la base enemiga.',
-    url: '/games#lol',
-    icon: '/assets/img/games/lol.png',
-    tags: ['MOBA', '5v5', 'Riot Games'],
+    title: 'Starcraft 2',
+    description: 'RTS donde la estrategia, micro y macro determinan la victoria entre tres razas únicas.',
+    url: '/games#starcraft2',
+    icon: '/assets/img/games/starcraft2.png',
+    tags: ['RTS', 'Estrategia', 'Blizzard', 'Razas'],
     relevance: 0.88,
-  },
-  {
-    id: 'game-dota2',
-    type: 'game',
-    title: 'Dota 2',
-    description: 'MOBA complejo con más de 120 héroes únicos y mecánicas avanzadas.',
-    url: '/games#dota2',
-    icon: '/assets/img/games/dota2.png',
-    tags: ['MOBA', 'Valve', 'Héroes'],
-    relevance: 0.85,
   },
 
   // Logros
@@ -222,8 +188,8 @@ export function useSearch(): UseSearchReturn {
       }
 
       if (filters.games.length > 0) {
-        const itemGames = item.tags?.filter(tag => 
-          ['valorant', 'lol', 'dota2', 'csgo', 'fortnite'].includes(tag.toLowerCase())
+        const itemGames = item.tags?.filter(tag =>
+          ['valorant', 'starcraft2', 'starcraft 2'].includes(tag.toLowerCase())
         ) || [];
         if (!filters.games.some(game => itemGames.includes(game))) {
           return false;

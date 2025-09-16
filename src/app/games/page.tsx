@@ -1,18 +1,34 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { CommentSection } from '../../features/chat';
 import { GuideCard, GameCard, Guide, Game } from '../../features/games';
-import { SUPPORTED_GAMES, SAMPLE_GUIDES, GUIDE_TYPES, DEFAULT_GUIDE_FILTERS } from '../../features/games/constants/games-constants';
+import { guideService, getValorantGuides, getStarcraft2Guides } from '../../features/games/services/guideService';
+import { SUPPORTED_GAMES, GUIDE_TYPES, DEFAULT_GUIDE_FILTERS } from '../../features/games/constants/games-constants';
 
 export default function GamesPage() {
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
 
-  // Filtrar guías según el juego seleccionado
-  const filteredGuides = selectedGame 
-    ? SAMPLE_GUIDES.filter(guide => guide.name.toLowerCase() === selectedGame.toLowerCase())
-    : SAMPLE_GUIDES;
+  // Get all guides from the service
+  const allGuides = useMemo(() => guideService.getAllGuides(), []);
+
+  // Filtrar guías según el juego seleccionado y filtros activos
+  const filteredGuides = useMemo(() => {
+    let guides = allGuides;
+
+    // Filter by selected game
+    if (selectedGame) {
+      guides = guideService.getGuidesByGame(selectedGame);
+    }
+
+    // Filter by guide type
+    if (activeFilter !== 'all') {
+      guides = guides.filter(guide => guide.type === activeFilter);
+    }
+
+    return guides;
+  }, [allGuides, selectedGame, activeFilter]);
 
   const handleViewGuide = (guideId: string) => {
     console.log('Ver guía:', guideId);
@@ -92,7 +108,7 @@ export default function GamesPage() {
               }`}
               style={activeFilter === 'all' ? { background: 'var(--gradient-primary)' } : {}}
             >
-              Todas las guías ({SAMPLE_GUIDES.length})
+              Todas las guías ({allGuides.length})
             </button>
             {GUIDE_TYPES.map(type => (
               <button
@@ -105,7 +121,7 @@ export default function GamesPage() {
                 }`}
                 style={activeFilter === type.key ? { background: 'var(--gradient-primary)' } : {}}
               >
-                <span className="icon-theme">{type.icon}</span> {type.label} ({SAMPLE_GUIDES.filter(g => g.type === type.key).length})
+                <span className="icon-theme">{type.icon}</span> {type.label} ({allGuides.filter(g => g.type === type.key).length})
               </button>
             ))}
           </div>

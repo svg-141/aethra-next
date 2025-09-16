@@ -1,5 +1,5 @@
 import { ChatMessage } from '../types/chat.types';
-import { AuthService } from '../../auth/services/authService';
+import { authService } from '../../../services/authService';
 
 export interface ChatResponse {
   message: ChatMessage;

@@ -7,7 +7,7 @@ import { useState } from 'react';
  * @param initialValues Valores iniciales del formulario
  * @param validate Función de validación, retorna objeto de errores
  */
-export function useForm<T extends Record<string, any>>({
+export function useForm<T extends Record<string, unknown>>({
   initialValues,
   validate,
   onSubmit,

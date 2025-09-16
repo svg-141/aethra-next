@@ -59,14 +59,14 @@ export default function Starcraft2GuidePage() {
     <section className="pt-32 pb-20 px-6 relative overflow-hidden min-h-screen bg-gradient-to-b from-[#0f0720] to-[#1a0933]">
       {/* Hero Section */}
       <HeroSection
-        image="/assets/img/banners/dota2-banner.jpg"
+        image="/assets/img/banners/starcraft-2-banner.jpg"
         title="Starcraft 2"
         subtitle="Guía estratégica completa para dominar el campo de batalla. Expansión Legacy of the Void."
         badge="RTS"
         badgeColor="bg-blue-500/20 text-blue-300 border-blue-500/30"
       >
         <div className="flex items-center gap-4 mb-4">
-          <img src="/assets/img/games/dota2.png" alt="Starcraft 2" className="w-16 h-16 rounded-lg border-2 border-white/20" />
+          <img src="/assets/img/games/starcraft2.png" alt="Starcraft 2" className="w-16 h-16 rounded-lg border-2 border-white/20" />
         </div>
       </HeroSection>
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">

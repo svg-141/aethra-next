@@ -4,7 +4,7 @@ import { memo, useState, useCallback } from 'react';
 import NotificationBell from './NotificationBell';
 import SearchBar from './SearchBar';
 import ThemeSelector from './ThemeSelector';
-import { useAuth } from '../features/auth';
+import { useAuth } from '../context/AuthContext';
 
 interface NavbarProps {
   active?: string;
