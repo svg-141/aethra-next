@@ -1,0 +1,527 @@
+/* ===== ADAPTACIÓN DE COMPONENTES AL FONDO PERSONALIZADO ===== */
+
+/* Este archivo corrige todos los problemas de adaptación de UI al fondo personalizado */
+
+/* ===== CUADROS Y CONTENEDORES ===== */
+
+/* Asegurar que todos los cuadros tengan fondo semi-transparente */
+.cuadro,
+.box-component,
+.theme-card,
+.card,
+.card-gaming {
+  background: var(--color-surface) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Containers de chat */
+.chat-container,
+.chat-message {
+  background: var(--color-surface) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+/* ===== CAMPOS DE FORMULARIO ===== */
+
+/* Inputs con fondo semi-transparente adaptado */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select,
+.form-control,
+.form-select,
+.form-input,
+.theme-input {
+  background: var(--color-input-bg) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  border: 1px solid var(--color-input-border) !important;
+  color: var(--color-text) !important;
+}
+
+/* Estado focus de inputs */
+input:focus,
+textarea:focus,
+select:focus,
+.form-control:focus,
+.form-select:focus,
+.form-input:focus,
+.theme-input:focus {
+  background: var(--color-surface-light) !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
+  outline: none !important;
+}
+
+/* Placeholders visibles sobre fondo oscuro */
+input::placeholder,
+textarea::placeholder,
+.form-control::placeholder,
+.form-input::placeholder,
+.theme-input::placeholder {
+  color: var(--color-text-tertiary) !important;
+  opacity: 0.7 !important;
+}
+
+/* ===== SECCIONES Y PANELES ===== */
+
+/* Secciones con fondo adaptado */
+section,
+.section,
+.panel,
+.sidebar {
+  background: transparent !important;
+}
+
+/* Contenedores internos con fondo semi-transparente */
+.container-fluid,
+.container {
+  background: transparent !important;
+}
+
+/* ===== MODALES Y OVERLAYS ===== */
+
+/* Modal backdrop */
+.modal-backdrop,
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+}
+
+/* Modal content */
+.modal-content {
+  background: var(--color-surface) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+/* ===== DROPDOWNS Y MENÚS ===== */
+
+/* Dropdown menus */
+.dropdown-menu,
+.dropdown-content {
+  background: var(--color-surface) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.dropdown-item {
+  color: var(--color-text) !important;
+  background: transparent !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background: var(--color-surface-hover) !important;
+  color: var(--color-primary) !important;
+}
+
+/* ===== NAVEGACIÓN ===== */
+
+/* Navbar adaptada */
+.navbar,
+nav {
+  background: var(--color-navbar) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+}
+
+/* Nav items */
+.nav-link,
+.navbar-link {
+  color: var(--color-text-secondary) !important;
+  transition: all var(--animation-duration) var(--animation-ease) !important;
+}
+
+.nav-link:hover,
+.navbar-link:hover,
+.nav-link.active,
+.navbar-link.active {
+  color: var(--color-primary) !important;
+  background: var(--color-surface-hover) !important;
+}
+
+/* ===== TABLAS ===== */
+
+/* Tablas con fondo adaptado */
+table,
+.table {
+  background: transparent !important;
+  color: var(--color-text) !important;
+}
+
+thead,
+.table thead {
+  background: var(--color-surface) !important;
+  color: var(--color-text-primary) !important;
+}
+
+tbody tr,
+.table tbody tr {
+  background: var(--color-surface) !important;
+  border-bottom: 1px solid var(--color-border-light) !important;
+}
+
+tbody tr:hover,
+.table tbody tr:hover {
+  background: var(--color-surface-hover) !important;
+}
+
+/* ===== BOTONES ===== */
+
+/* Asegurar que los botones se vean bien sobre el fondo */
+.btn,
+button,
+.theme-button {
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  transition: all var(--animation-duration) var(--animation-ease) !important;
+}
+
+/* Botones outline sobre fondo oscuro */
+.btn-outline-primary,
+.btn-outline-secondary {
+  background: transparent !important;
+  border: 2px solid var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-secondary:hover {
+  background: var(--gradient-primary) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-primary) !important;
+}
+
+/* ===== LISTAS ===== */
+
+/* List groups */
+.list-group-item {
+  background: var(--color-surface) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  border: 1px solid var(--color-border) !important;
+  color: var(--color-text) !important;
+}
+
+.list-group-item:hover {
+  background: var(--color-surface-hover) !important;
+}
+
+.list-group-item.active {
+  background: var(--gradient-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+/* ===== BADGES Y ETIQUETAS ===== */
+
+/* Badges con contraste adecuado */
+.badge,
+.tag,
+.theme-badge {
+  background: var(--color-primary) !important;
+  color: var(--color-text) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+}
+
+/* ===== PROGRESS BARS ===== */
+
+/* Progress bars */
+.progress {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+.progress-bar {
+  background: var(--gradient-primary) !important;
+}
+
+/* ===== TOOLTIPS Y POPOVERS ===== */
+
+/* Tooltips */
+.tooltip,
+.popover {
+  background: var(--color-surface) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--color-border) !important;
+  color: var(--color-text) !important;
+}
+
+.tooltip-inner,
+.popover-body {
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+}
+
+/* ===== ALERTS Y NOTIFICACIONES ===== */
+
+/* Alerts con fondo semi-transparente */
+.alert {
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-width: 1px !important;
+}
+
+.alert-primary {
+  background: rgba(139, 92, 246, 0.15) !important;
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary-light) !important;
+}
+
+.alert-success {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: var(--color-success) !important;
+  color: var(--color-success-light) !important;
+}
+
+.alert-warning {
+  background: rgba(245, 158, 11, 0.15) !important;
+  border-color: var(--color-warning) !important;
+  color: var(--color-warning-light) !important;
+}
+
+.alert-danger {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: var(--color-error) !important;
+  color: var(--color-error-light) !important;
+}
+
+/* ===== SCROLLBARS ===== */
+
+/* Scrollbars personalizadas que se vean bien sobre el fondo */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--color-surface) !important;
+  border-radius: var(--radius-sm);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-primary) !important;
+  border-radius: var(--radius-sm);
+  transition: background var(--animation-duration) var(--animation-ease);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-light) !important;
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--color-surface) !important;
+}
+
+/* ===== SELECTORES ESPECÍFICOS DE BOOTSTRAP ===== */
+
+/* Bootstrap specific fixes */
+.form-floating > label {
+  color: var(--color-text-tertiary) !important;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  color: var(--color-primary) !important;
+}
+
+/* Checkbox y radio buttons */
+.form-check-input {
+  background-color: var(--color-surface) !important;
+  border-color: var(--color-border) !important;
+}
+
+.form-check-input:checked {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.form-check-input:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 0.25rem rgba(139, 92, 246, 0.25) !important;
+}
+
+/* Switch */
+.form-switch .form-check-input {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,0.9)'/%3e%3c/svg%3e") !important;
+}
+
+.form-switch .form-check-input:checked {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
+}
+
+/* ===== SELECTORES ESPECÍFICOS DE COMPONENTES PERSONALIZADOS ===== */
+
+/* Sidebar */
+.sidebar,
+.sidebar-guide,
+.sidebar-community {
+  background: var(--color-surface) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+/* Filter bar */
+.filter-bar,
+.search-bar {
+  background: var(--color-surface) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+/* Game cards */
+.game-card,
+.guide-card,
+.post-card {
+  background: var(--color-surface) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--color-border) !important;
+  transition: all var(--animation-duration) var(--animation-ease) !important;
+}
+
+.game-card:hover,
+.guide-card:hover,
+.post-card:hover {
+  background: var(--color-surface-hover) !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: var(--shadow-glow) !important;
+  transform: translateY(-4px);
+}
+
+/* Hero section */
+.hero-section {
+  background: transparent !important;
+}
+
+/* Footer */
+.footer,
+footer {
+  background: var(--color-surface) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-top: 1px solid var(--color-border) !important;
+}
+
+/* ===== CORRECCIONES RESPONSIVE ===== */
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .cuadro,
+  .theme-card,
+  .card {
+    background: var(--color-surface-dark) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+  }
+
+  .navbar,
+  nav {
+    background: var(--color-surface-dark) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+  }
+}
+
+/* ===== SOPORTE PARA NAVEGADORES SIN BACKDROP-FILTER ===== */
+
+/* Fallback para navegadores que no soportan backdrop-filter */
+@supports not (backdrop-filter: blur(10px)) {
+  .cuadro,
+  .theme-card,
+  .card,
+  .modal-content,
+  .dropdown-menu,
+  .navbar {
+    background: var(--color-surface-dark) !important;
+  }
+}
+
+/* ===== DARK MODE ADJUSTMENTS ===== */
+
+/* Asegurar compatibilidad con dark mode */
+@media (prefers-color-scheme: dark) {
+  /* Ya estamos en modo oscuro por defecto, pero reforzamos algunos elementos */
+  .cuadro,
+  .theme-card,
+  .card {
+    box-shadow: var(--shadow-md), inset 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+  }
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+
+/* Modo de alto contraste - mantiene el tema pero incrementa contraste */
+.high-contrast .cuadro,
+.high-contrast .theme-card,
+.high-contrast .card,
+.high-contrast .form-control,
+.high-contrast .form-select {
+  border-width: var(--border-width, 2px) !important;
+  /* Mantener el color del tema pero con más opacidad */
+  background: var(--color-surface) !important;
+  box-shadow: var(--shadow-md), inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+}
+
+.high-contrast .btn,
+.high-contrast .theme-button {
+  border-width: var(--border-width, 2px) !important;
+  /* Mantener gradiente del tema */
+  filter: brightness(1.1) contrast(1.2);
+}
+
+.high-contrast * {
+  /* Incrementar contraste sin cambiar colores */
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+.high-contrast .text-theme-primary,
+.high-contrast h1,
+.high-contrast h2,
+.high-contrast h3 {
+  color: var(--color-text-contrast) !important;
+  font-weight: 600 !important;
+}
+
+.high-contrast .text-theme-secondary {
+  color: var(--color-text-secondary-contrast) !important;
+  font-weight: 500 !important;
+}
+
+/* ===== ACCESIBILIDAD ===== */
+
+/* Focus visible para accesibilidad */
+*:focus-visible {
+  outline: 2px solid var(--color-primary) !important;
+  outline-offset: 2px !important;
+}
+
+/* Reducir movimiento para usuarios que lo prefieran */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

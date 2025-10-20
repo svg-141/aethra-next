@@ -4,7 +4,7 @@ export const GAMES: Game[] = [
   {
     key: 'valorant',
     name: 'Valorant',
-    icon: '/assets/icons/valorant.svg',
+    icon: '/assets/icons/valorant-logo.svg',
     category: 'fps',
     description: 'FPS táctico 5v5 con agentes únicos',
     examples: [
@@ -18,7 +18,7 @@ export const GAMES: Game[] = [
   {
     key: 'lol',
     name: 'League of Legends',
-    icon: '/assets/icons/lol.svg',
+    icon: '/assets/games/lol.png',
     category: 'moba',
     description: 'MOBA 5v5 con más de 150 campeones',
     examples: [
@@ -30,23 +30,9 @@ export const GAMES: Game[] = [
     tip: 'En LoL, controlar la visión y los objetivos neutrales es clave para ganar partidas cerradas.'
   },
   {
-    key: 'dota2',
-    name: 'Dota 2',
-    icon: '/assets/icons/dota2.svg',
-    category: 'moba',
-    description: 'MOBA complejo con más de 120 héroes',
-    examples: [
-      '¿Qué héroes están en el meta?',
-      'Mejores builds para Invoker',
-      'Consejos para ganar la fase de líneas',
-      '¿Cómo jugar teamfights efectivas?',
-    ],
-    tip: 'En Dota 2, la coordinación en teamfights y el control de runas pueden cambiar el rumbo de la partida.'
-  },
-  {
     key: 'cs2',
     name: 'Counter-Strike 2',
-    icon: '/assets/icons/csgo.svg',
+    icon: '/assets/icons/cs2-logo.png',
     category: 'fps',
     description: 'FPS táctico de terroristas vs contra-terroristas',
     examples: [
@@ -60,7 +46,7 @@ export const GAMES: Game[] = [
   {
     key: 'starcraft2',
     name: 'Starcraft 2',
-    icon: '/assets/icons/starcraft2.svg',
+    icon: '/assets/icons/starcraft2-logo.svg',
     category: 'rts',
     description: 'RTS con tres razas únicas',
     examples: [
@@ -70,20 +56,6 @@ export const GAMES: Game[] = [
       'Timings clave para cada raza',
     ],
     tip: 'En Starcraft 2, practicar los timings de expansión y producción es esencial para escalar en ladder.'
-  },
-  {
-    key: 'overwatch2',
-    name: 'Overwatch 2',
-    icon: '/assets/icons/overwatch.svg',
-    category: 'fps',
-    description: 'FPS hero shooter 5v5',
-    examples: [
-      'Mejores composiciones para ranked',
-      '¿Cómo jugar con Mercy?',
-      'Counters para Genji',
-      'Estrategias para cada mapa',
-    ],
-    tip: 'En Overwatch 2, la sinergia entre héroes y la adaptación al meta son clave para el éxito.'
   }
 ];
 

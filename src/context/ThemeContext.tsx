@@ -289,9 +289,25 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         };
 
         root.style.setProperty('--font-size-base', fontSizeMap[userPreferences.fontSize]);
-        root.style.setProperty('--animation-duration', 
+        root.style.setProperty('--animation-duration',
           userPreferences.reducedMotion ? '0.1s' : '0.3s'
         );
+
+        // Apply high contrast adjustments WITHOUT changing colors
+        if (userPreferences.highContrast) {
+          // Increase contrast by making borders thicker and shadows stronger
+          root.style.setProperty('--border-width', '2px');
+          root.style.setProperty('--shadow-intensity', '1.5');
+          // Brighten text slightly for better readability
+          const textColor = currentTheme.colors.text;
+          root.style.setProperty('--color-text-contrast', textColor);
+          root.style.setProperty('--color-text-secondary-contrast', currentTheme.colors.textSecondary);
+        } else {
+          root.style.setProperty('--border-width', '1px');
+          root.style.setProperty('--shadow-intensity', '1');
+          root.style.setProperty('--color-text-contrast', currentTheme.colors.text);
+          root.style.setProperty('--color-text-secondary-contrast', currentTheme.colors.textSecondary);
+        }
 
         // Apply class-based preferences
         const classUpdates = {

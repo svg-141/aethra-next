@@ -3,7 +3,7 @@ import { GuideType, GameType, Guide, Game, GamesStats } from '../types/games.typ
 export const SUPPORTED_GAMES: Game[] = [
   {
     id: 'valorant',
-    image: '/images/games/valorant-icon.png',
+    image: '/assets/games/valorant.png',
     name: 'Valorant',
     type: 'fps',
     description: 'FPS táctico 5v5 donde la precisión y la estrategia se combinan para crear experiencias épicas.',
@@ -21,7 +21,7 @@ export const SUPPORTED_GAMES: Game[] = [
   },
   {
     id: 'starcraft2',
-    image: '/images/games/starcraft2-icon.png',
+    image: '/assets/icons/starcraft2-logo.svg',
     name: 'StarCraft 2',
     type: 'strategy',
     description: 'RTS legendario que define el género con tres razas únicas y mecánicas profundas.',
@@ -39,7 +39,7 @@ export const SUPPORTED_GAMES: Game[] = [
   },
   {
     id: 'cs2',
-    image: '/images/games/cs2-icon.png',
+    image: '/assets/icons/cs2-logo.png',
     name: 'Counter-Strike 2',
     type: 'fps',
     description: 'El FPS competitivo por excelencia con mecánicas refinadas y gameplay intenso.',
@@ -57,7 +57,7 @@ export const SUPPORTED_GAMES: Game[] = [
   },
   {
     id: 'league-of-legends',
-    image: '/images/games/lol-icon.png',
+    image: '/assets/games/lol.png',
     name: 'League of Legends',
     type: 'moba',
     description: 'MOBA masivo con más de 150 campeones y un meta en constante evolución.',
@@ -159,8 +159,8 @@ export const GAME_TYPES: Array<{
 export const SAMPLE_GUIDES: Guide[] = [
   {
     id: 'valorant-strategy-1',
-    image: '/images/guides/valorant-strategy.jpg',
-    icon: '/images/games/valorant-icon.png',
+    image: '/assets/banners/valorant-banner.jpg',
+    icon: '/assets/games/valorant.png',
     name: 'Valorant',
     type: 'strategy',
     typeColor: 'green',
@@ -180,8 +180,8 @@ export const SAMPLE_GUIDES: Guide[] = [
   },
   {
     id: 'starcraft2-tutorial-1',
-    image: '/images/guides/starcraft2-tutorial.jpg',
-    icon: '/images/games/starcraft2-icon.png',
+    image: '/assets/banners/starcraft-2-banner.jpg',
+    icon: '/assets/icons/starcraft2-logo.svg',
     name: 'StarCraft 2',
     type: 'tutorial',
     typeColor: 'blue',
@@ -201,8 +201,8 @@ export const SAMPLE_GUIDES: Guide[] = [
   },
   {
     id: 'cs2-meta-1',
-    image: '/images/guides/cs2-meta.jpg',
-    icon: '/images/games/cs2-icon.png',
+    image: '/assets/games/csgo.png',
+    icon: '/assets/icons/cs2-logo.png',
     name: 'CS2',
     type: 'meta-analysis',
     typeColor: 'purple',
@@ -222,8 +222,8 @@ export const SAMPLE_GUIDES: Guide[] = [
   },
   {
     id: 'lol-build-1',
-    image: '/images/guides/lol-build.jpg',
-    icon: '/images/games/lol-icon.png',
+    image: '/assets/games/lol.png',
+    icon: '/assets/games/lol.png',
     name: 'League of Legends',
     type: 'build-guide',
     typeColor: 'orange',

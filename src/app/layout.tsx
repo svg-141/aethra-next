@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import '../styles/theme-core.css';
 import '../styles/bootstrap-theme.css';
+import '../styles/adaptive-ui.css';
 import { ThemeProvider } from '../context/ThemeContext';
 import { AuthProvider } from '../context/AuthContext';
 import ClientLayout from '../components/ClientLayout';
