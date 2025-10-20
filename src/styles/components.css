@@ -1,5 +1,64 @@
 /* ===== COMPONENTES COMUNES AETHRA ===== */
 
+/* ===== FONT AWESOME ICON FIXES ===== */
+/* Prevenir superposición y parpadeo de íconos */
+.fas, .far, .fab, .fal, .fad {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Asegurar que los íconos no se superpongan */
+.guide-card .fas,
+.guide-card .far,
+.guide-card .fab {
+  min-width: 12px;
+  text-align: center;
+}
+
+/* Prevenir animaciones no deseadas en íconos */
+.fas:not(.fa-spin):not(.fa-pulse),
+.far:not(.fa-spin):not(.fa-pulse),
+.fab:not(.fa-spin):not(.fa-pulse) {
+  animation: none !important;
+}
+
+/* ===== GUIDE CARD NEW DESIGN ===== */
+.guide-card-new {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth hover effects */
+.guide-card-new:hover {
+  will-change: transform, box-shadow;
+}
+
+/* Prevent image flickering */
+.guide-card-new img {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Line clamp support for older browsers */
+.guide-card-new .line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* ===== NAVBAR ===== */
 
 .navbar {

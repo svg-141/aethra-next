@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import '../styles/theme-core.css';
 import '../styles/bootstrap-theme.css';
@@ -17,11 +17,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#8B5CF6",
+};
+
 export const metadata: Metadata = {
   title: "Aethra - Tu Asistente Gaming IA",
   description: "Plataforma de inteligencia artificial especializada en gaming, estrategias y análisis de juegos",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
-  themeColor: "#8B5CF6",
   authors: [{ name: "Aethra Team" }],
   keywords: ["gaming", "AI", "esports", "estrategias", "valorant", "league of legends", "cs2", "dota2"],
   robots: "index, follow",

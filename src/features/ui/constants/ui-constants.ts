@@ -1,13 +1,13 @@
 import { FilterOption } from '../types/ui.types';
 
 export const SAMPLE_HERO_DATA = {
-  image: '/images/hero-bg.jpg',
   title: 'Domina el Gaming Competitivo',
   subtitle: 'Aprende estrategias avanzadas, conecta con jugadores profesionales y mejora tu rendimiento en los mejores juegos competitivos.',
   badge: 'Nuevo',
   badgeColor: 'bg-green-500/20 text-green-300 border-green-500/30',
   actionLabel: 'Comenzar Ahora',
-  actionIcon: 'fas fa-play'
+  actionIcon: 'fas fa-play',
+  gradient: 'from-purple-900/40 via-pink-900/30 to-purple-900/40'
 };
 
 export const SAMPLE_FILTER_OPTIONS: FilterOption[] = [

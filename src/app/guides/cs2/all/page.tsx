@@ -2,34 +2,91 @@
 
 import React, { useState, useMemo } from 'react';
 import { useThemeContext } from '../../../../context/ThemeContext';
-import { getValorantGuides } from '../../../../features/games/services/guideService';
 import GuideCard from '../../../../features/games/components/GuideCard';
 import HeroSection from '../../../../features/ui/components/HeroSection';
+import Image from 'next/image';
 
-export default function ValorantGuidesPage() {
+// Mock data for CS2 guides
+const cs2Guides = [
+  {
+    id: 'cs2-1',
+    title: 'Guía Completa de Economía CS2',
+    description: 'Aprende a gestionar la economía del equipo para maximizar wins',
+    type: 'strategy',
+    difficulty: 'intermediate',
+    rating: 4.8,
+    views: 15420,
+    downloads: 2340,
+    updated: '2025-10-15',
+    meta: 'CS2 Economía',
+    isFeatured: true,
+    isNew: true,
+    game: 'cs2'
+  },
+  {
+    id: 'cs2-2',
+    title: 'Estrategias de Mirage',
+    description: 'Domina uno de los mapas más jugados con estas estrategias',
+    type: 'tutorial',
+    difficulty: 'beginner',
+    rating: 4.6,
+    views: 12300,
+    downloads: 1890,
+    updated: '2025-10-10',
+    meta: 'CS2 Mirage',
+    isFeatured: true,
+    isNew: false,
+    game: 'cs2'
+  },
+  {
+    id: 'cs2-3',
+    title: 'Utilidades en Inferno',
+    description: 'Todas las granadas esenciales para dominar Inferno',
+    type: 'tutorial',
+    difficulty: 'intermediate',
+    rating: 4.9,
+    views: 9870,
+    downloads: 1560,
+    updated: '2025-10-12',
+    meta: 'CS2 Inferno',
+    isFeatured: false,
+    isNew: true,
+    game: 'cs2'
+  },
+  {
+    id: 'cs2-4',
+    title: 'Análisis Meta Profesional',
+    description: 'Tendencias del meta en los últimos torneos tier 1',
+    type: 'meta-analysis',
+    difficulty: 'advanced',
+    rating: 4.7,
+    views: 7650,
+    downloads: 1234,
+    updated: '2025-10-08',
+    meta: 'CS2 Pro Meta',
+    isFeatured: true,
+    isNew: false,
+    game: 'cs2'
+  }
+];
+
+export default function CS2GuidesPage() {
   const { currentTheme } = useThemeContext();
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('newest');
 
-  // Get Valorant guides
-  const valorantGuides = useMemo(() => getValorantGuides(), []);
-
-  // Filter and sort guides
   const filteredGuides = useMemo(() => {
-    let guides = valorantGuides;
+    let guides = [...cs2Guides];
 
-    // Filter by type
     if (selectedType !== 'all') {
       guides = guides.filter(guide => guide.type === selectedType);
     }
 
-    // Filter by difficulty
     if (selectedDifficulty !== 'all') {
       guides = guides.filter(guide => guide.difficulty === selectedDifficulty);
     }
 
-    // Sort guides
     switch (sortBy) {
       case 'newest':
         guides.sort((a, b) => new Date(b.updated).getTime() - new Date(a.updated).getTime());
@@ -46,7 +103,7 @@ export default function ValorantGuidesPage() {
     }
 
     return guides;
-  }, [valorantGuides, selectedType, selectedDifficulty, sortBy]);
+  }, [selectedType, selectedDifficulty, sortBy]);
 
   const handleGuideView = (guideId: string) => {
     console.log('Viewing guide:', guideId);
@@ -62,32 +119,36 @@ export default function ValorantGuidesPage() {
 
   return (
     <section className="pt-32 pb-20 px-6 relative overflow-hidden min-h-screen" style={{ background: 'var(--gradient-background)' }}>
-      {/* Hero Section */}
       <HeroSection
-        gradient="from-green-900/40 via-emerald-800/30 to-green-900/40"
-        title="Guías de Valorant"
-        subtitle="Colección completa de guías estratégicas para dominar Valorant. Desde principiante hasta nivel profesional."
+        image="/assets/banners/starcraft-2-banner.jpg"
+        title="Guías de Counter-Strike 2"
+        subtitle="Colección completa de guías para CS2. Desde economía hasta estrategias de mapas específicos."
         badge="FPS Táctico"
-        badgeColor="bg-red-500/20 text-red-300 border-red-500/30"
+        badgeColor="bg-orange-500/20 text-orange-300 border-orange-500/30"
       >
         <div className="flex items-center gap-4 mb-4">
-          <pre className="font-mono text-green-400 text-sm leading-tight" style={{ textShadow: '0 0 10px rgba(74, 222, 128, 0.5)' }}>
-{`\\\\     //  /\\  ||
- \\\\   //  /__\\ ||
-  \\\\ //  /    \\||___`}
-          </pre>
+          <div className="relative w-16 h-16">
+            <Image
+              src="/assets/icons/cs2-logo.png"
+              alt="CS2"
+              fill
+              sizes="64px"
+              style={{ objectFit: 'contain' }}
+              className="rounded-lg border-2 border-white/20"
+            />
+          </div>
           <div className="flex items-center gap-4 text-sm theme-text-secondary">
             <div className="flex items-center gap-2">
               <i className="fas fa-book"></i>
-              <span>{valorantGuides.length} Guías</span>
+              <span>{cs2Guides.length} Guías</span>
             </div>
             <div className="flex items-center gap-2">
               <i className="fas fa-star"></i>
-              <span>{valorantGuides.filter(g => g.isFeatured).length} Destacadas</span>
+              <span>{cs2Guides.filter(g => g.isFeatured).length} Destacadas</span>
             </div>
             <div className="flex items-center gap-2">
               <i className="fas fa-plus"></i>
-              <span>{valorantGuides.filter(g => g.isNew).length} Nuevas</span>
+              <span>{cs2Guides.filter(g => g.isNew).length} Nuevas</span>
             </div>
           </div>
         </div>
@@ -97,9 +158,8 @@ export default function ValorantGuidesPage() {
         {/* Filters */}
         <div className="mb-8">
           <div className="theme-card p-6">
-            <h2 className="text-xl font-bold theme-text-primary mb-4">Filtrar Guías de Valorant</h2>
+            <h2 className="text-xl font-bold theme-text-primary mb-4">Filtrar Guías de CS2</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Type Filter */}
               <div>
                 <label className="block text-sm font-medium theme-text-secondary mb-2">Tipo de Guía</label>
                 <select
@@ -115,12 +175,10 @@ export default function ValorantGuidesPage() {
                   <option value="all">Todos los tipos</option>
                   <option value="strategy">🎯 Estrategia</option>
                   <option value="tutorial">📚 Tutorial</option>
-                  <option value="build-guide">🔨 Build Guide</option>
                   <option value="meta-analysis">📊 Análisis Meta</option>
                 </select>
               </div>
 
-              {/* Difficulty Filter */}
               <div>
                 <label className="block text-sm font-medium theme-text-secondary mb-2">Dificultad</label>
                 <select
@@ -140,7 +198,6 @@ export default function ValorantGuidesPage() {
                 </select>
               </div>
 
-              {/* Sort */}
               <div>
                 <label className="block text-sm font-medium theme-text-secondary mb-2">Ordenar por</label>
                 <select
@@ -163,33 +220,11 @@ export default function ValorantGuidesPage() {
           </div>
         </div>
 
-        {/* Results Summary */}
+        {/* Results */}
         <div className="mb-6">
           <div className="flex items-center justify-between">
             <div className="theme-text-secondary">
-              Mostrando {filteredGuides.length} guía{filteredGuides.length !== 1 ? 's' : ''} de Valorant
-            </div>
-            <div className="flex gap-2">
-              {selectedType !== 'all' && (
-                <span
-                  className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full cursor-pointer animate-theme-hover"
-                  style={{ backgroundColor: 'var(--color-primary)', opacity: '0.2', color: 'var(--color-primary)' }}
-                  onClick={() => setSelectedType('all')}
-                >
-                  {selectedType}
-                  <i className="fas fa-times text-xs"></i>
-                </span>
-              )}
-              {selectedDifficulty !== 'all' && (
-                <span
-                  className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full cursor-pointer animate-theme-hover"
-                  style={{ backgroundColor: 'var(--color-info)', opacity: '0.2', color: 'var(--color-info)' }}
-                  onClick={() => setSelectedDifficulty('all')}
-                >
-                  {selectedDifficulty}
-                  <i className="fas fa-times text-xs"></i>
-                </span>
-              )}
+              Mostrando {filteredGuides.length} guía{filteredGuides.length !== 1 ? 's' : ''} de CS2
             </div>
           </div>
         </div>
@@ -207,7 +242,7 @@ export default function ValorantGuidesPage() {
               </span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {valorantGuides.filter(guide => guide.isFeatured).map((guide) => (
+              {cs2Guides.filter(guide => guide.isFeatured).map((guide) => (
                 <GuideCard
                   key={guide.id}
                   guide={guide}
@@ -248,7 +283,7 @@ export default function ValorantGuidesPage() {
               </div>
               <h3 className="text-lg font-semibold theme-text-primary mb-2">No se encontraron guías</h3>
               <p className="theme-text-secondary mb-4">
-                No hay guías de Valorant que coincidan con los filtros seleccionados.
+                No hay guías de CS2 que coincidan con los filtros seleccionados.
               </p>
               <button
                 onClick={() => {
@@ -264,25 +299,25 @@ export default function ValorantGuidesPage() {
           )}
         </div>
 
-        {/* Game Statistics */}
+        {/* Statistics */}
         <div className="theme-card p-6">
-          <h3 className="text-lg font-bold theme-text-primary mb-4">Estadísticas de Valorant</h3>
+          <h3 className="text-lg font-bold theme-text-primary mb-4">Estadísticas de CS2</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold theme-text-primary mb-1">{valorantGuides.length}</div>
+              <div className="text-2xl font-bold theme-text-primary mb-1">{cs2Guides.length}</div>
               <div className="text-sm theme-text-secondary">Total de Guías</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold theme-text-primary mb-1">{valorantGuides.filter(g => g.isFeatured).length}</div>
+              <div className="text-2xl font-bold theme-text-primary mb-1">{cs2Guides.filter(g => g.isFeatured).length}</div>
               <div className="text-sm theme-text-secondary">Destacadas</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold theme-text-primary mb-1">{valorantGuides.filter(g => g.isNew).length}</div>
+              <div className="text-2xl font-bold theme-text-primary mb-1">{cs2Guides.filter(g => g.isNew).length}</div>
               <div className="text-sm theme-text-secondary">Nuevas</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold theme-text-primary mb-1">
-                {Math.round((valorantGuides.reduce((sum, guide) => sum + guide.rating, 0) / valorantGuides.length) * 10) / 10}
+                {Math.round((cs2Guides.reduce((sum, guide) => sum + guide.rating, 0) / cs2Guides.length) * 10) / 10}
               </div>
               <div className="text-sm theme-text-secondary">Rating Promedio</div>
             </div>

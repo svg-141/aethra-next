@@ -70,14 +70,18 @@ export default function ValorantGuidePage() {
     <section className="pt-32 pb-20 px-6 relative overflow-hidden min-h-screen bg-gradient-to-b from-[#0f0720] to-[#1a0933]">
       {/* Hero Section */}
       <HeroSection
-        image="/assets/img/banners/valorant-banner2.jpeg"
+        gradient="from-green-900/40 via-emerald-800/30 to-green-900/40"
         title="Valorant"
         subtitle="Guía estratégica completa para dominar el meta actual en Valorant. Episodio 6, Acto 3."
         badge="FPS Táctico"
         badgeColor="bg-red-500/20 text-red-300 border-red-500/30"
       >
         <div className="flex items-center gap-4 mb-4">
-          <img src="/assets/img/games/valorant.png" alt="Valorant" className="w-16 h-16 rounded-lg border-2 border-white/20" />
+          <pre className="font-mono text-green-400 text-sm leading-tight" style={{ textShadow: '0 0 10px rgba(74, 222, 128, 0.5)' }}>
+{`\\\\     //  /\\  ||
+ \\\\   //  /__\\ ||
+  \\\\ //  /    \\||___`}
+          </pre>
         </div>
       </HeroSection>
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">

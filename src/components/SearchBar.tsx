@@ -276,14 +276,7 @@ const SearchResultItem = memo(function SearchResultItem({
     >
       <div className="flex items-start gap-3">
         <div className="flex-shrink-0 mt-1">
-          {result.image ? (
-            <img 
-              src={result.image} 
-              alt={result.title} 
-              className="w-8 h-8 rounded object-cover" 
-              loading="lazy"
-            />
-          ) : result.icon ? (
+          {result.icon ? (
             <div className="w-8 h-8 flex items-center justify-center text-lg">
               {result.icon}
             </div>

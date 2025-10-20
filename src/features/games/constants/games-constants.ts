@@ -1,14 +1,85 @@
 import { GuideType, GameType, Guide, Game, GamesStats } from '../types/games.types';
 
+// Logos ASCII diseñados para parecerse a los logos oficiales
+export const GAME_ASCII_LOGOS = {
+  // VALORANT - Logo con forma de V angular característica
+  valorant: {
+    large: `\\\\        //  //\\\\  ||      //\\\\  ||\\\\    || ==========
+ \\\\      //  //--\\\\ ||     //--\\\\ || \\\\   ||     ||
+  \\\\    //  //    \\\\||    //    \\\\||  \\\\  ||     ||
+   \\\\  //  //      \\\\||   //      \\\\||   \\\\ ||     ||
+    \\\\//  //        \\\\\\\\=//        \\\\||    \\\\||     ||`,
+    medium: `\\\\     //  /\\  ||
+ \\\\   //  /__\\ ||
+  \\\\ //  /    \\||___ `,
+    small: `\\/AL`,
+    icon: `\\/`
+  },
+
+  // StarCraft II - Logo con estilo futurista SC II
+  starcraft2: {
+    large: ` _____  _______    /\\    ||\\\\    ||  _____  ||\\\\     /\\    ||====  ======
+//      ||   ||   //\\\\   || \\\\   || //      || \\\\   //\\\\   ||      ||
+\\\\___   ||   ||  //  \\\\  ||  \\\\  ||//       ||  \\\\ //  \\\\  ||===   ||
+     \\\\ ||   || //====\\\\ ||   \\\\ ||\\\\       ||  ////====\\\\ ||      ||
+_____// ||   ||//      \\\\||    \\\\|| \\\\_____||  \\//      \\\\||      ||`,
+    medium: ` ___  _____  //
+/ __)/     //||
+\\__ \\\\    // ||
+(___/ \\__//  ||`,
+    small: `SC II`,
+    icon: `SC`
+  },
+
+  // CS2 - Counter-Strike 2 con tipografía característica
+  cs2: {
+    large: ` _____  _____       ___
+//     //        ___  //
+||     \\\\____   //   //
+||          \\\\ //___//
+\\\\_____\\____////       `,
+    medium: ` __   __
+//   / /
+||   \\_\\_
+\\\\_____//`,
+    small: `CS:2`,
+    icon: `CS`
+  },
+
+  // League of Legends - Logo LoL con forma característica de L
+  lol: {
+    large: `||      _____   _____  ||
+||     //   \\\\ //   \\\\ ||
+||     ||   || ||   || ||
+||     ||   || ||   || ||
+||==== \\\\_____//\\_____//||====`,
+    medium: `||     _   _
+||    / \\ / \\
+||___ \\_/ \\_/`,
+    small: `LoL`,
+    icon: `LL`
+  }
+};
+
+// Iconos ASCII minimalistas (mantener compatibilidad)
+export const GAME_ASCII_ICONS = {
+  valorant: GAME_ASCII_LOGOS.valorant.large,
+  starcraft2: GAME_ASCII_LOGOS.starcraft2.large,
+  cs2: GAME_ASCII_LOGOS.cs2.large,
+  lol: GAME_ASCII_LOGOS.lol.large,
+};
+
 export const SUPPORTED_GAMES: Game[] = [
   {
     id: 'valorant',
-    image: '/assets/games/valorant.png',
     name: 'Valorant',
     type: 'fps',
     description: 'FPS táctico 5v5 donde la precisión y la estrategia se combinan para crear experiencias épicas.',
     badge: 'Táctico',
     badgeColor: 'text-green-300',
+    gradient: 'from-green-900/30 via-emerald-900/20 to-green-900/30',
+    accentColor: 'green',
+    asciiIcon: GAME_ASCII_ICONS.valorant,
     genre: ['FPS', 'Táctico', 'Competitivo'],
     platform: ['PC'],
     releaseDate: '2020-06-02',
@@ -21,12 +92,14 @@ export const SUPPORTED_GAMES: Game[] = [
   },
   {
     id: 'starcraft2',
-    image: '/assets/icons/starcraft2-logo.svg',
     name: 'StarCraft 2',
     type: 'strategy',
     description: 'RTS legendario que define el género con tres razas únicas y mecánicas profundas.',
     badge: 'RTS',
     badgeColor: 'text-blue-300',
+    gradient: 'from-blue-900/30 via-cyan-900/20 to-blue-900/30',
+    accentColor: 'blue',
+    asciiIcon: GAME_ASCII_ICONS.starcraft2,
     genre: ['RTS', 'Estrategia', 'Competitivo'],
     platform: ['PC'],
     releaseDate: '2010-07-27',
@@ -39,12 +112,14 @@ export const SUPPORTED_GAMES: Game[] = [
   },
   {
     id: 'cs2',
-    image: '/assets/icons/cs2-logo.png',
     name: 'Counter-Strike 2',
     type: 'fps',
     description: 'El FPS competitivo por excelencia con mecánicas refinadas y gameplay intenso.',
     badge: 'Competitivo',
     badgeColor: 'text-orange-300',
+    gradient: 'from-orange-900/30 via-amber-900/20 to-orange-900/30',
+    accentColor: 'orange',
+    asciiIcon: GAME_ASCII_ICONS.cs2,
     genre: ['FPS', 'Táctico', 'Competitivo'],
     platform: ['PC'],
     releaseDate: '2023-09-27',
@@ -57,12 +132,14 @@ export const SUPPORTED_GAMES: Game[] = [
   },
   {
     id: 'league-of-legends',
-    image: '/assets/games/lol.png',
     name: 'League of Legends',
     type: 'moba',
     description: 'MOBA masivo con más de 150 campeones y un meta en constante evolución.',
     badge: 'MOBA',
     badgeColor: 'text-purple-300',
+    gradient: 'from-purple-900/30 via-fuchsia-900/20 to-purple-900/30',
+    accentColor: 'purple',
+    asciiIcon: GAME_ASCII_ICONS.lol,
     genre: ['MOBA', 'Estrategia', 'Competitivo'],
     platform: ['PC'],
     releaseDate: '2009-10-27',
@@ -159,11 +236,10 @@ export const GAME_TYPES: Array<{
 export const SAMPLE_GUIDES: Guide[] = [
   {
     id: 'valorant-strategy-1',
-    image: '/assets/banners/valorant-banner.jpg',
-    icon: '/assets/games/valorant.png',
     name: 'Valorant',
     type: 'strategy',
     typeColor: 'green',
+    gradient: 'from-green-900/40 via-emerald-800/30 to-green-900/40',
     description: 'Guía completa de estrategias para el meta actual de Valorant, incluyendo posicionamiento, rotaciones y coordinación de equipo.',
     tags: ['Estrategia', 'Meta', 'Posicionamiento'],
     rating: 4.8,
@@ -180,11 +256,10 @@ export const SAMPLE_GUIDES: Guide[] = [
   },
   {
     id: 'starcraft2-tutorial-1',
-    image: '/assets/banners/starcraft-2-banner.jpg',
-    icon: '/assets/icons/starcraft2-logo.svg',
     name: 'StarCraft 2',
     type: 'tutorial',
     typeColor: 'blue',
+    gradient: 'from-blue-900/40 via-cyan-800/30 to-blue-900/40',
     description: 'Tutorial completo para principiantes de StarCraft 2, desde los conceptos básicos hasta las primeras estrategias.',
     tags: ['Tutorial', 'Principiantes', 'Básicos'],
     rating: 4.9,
@@ -201,11 +276,10 @@ export const SAMPLE_GUIDES: Guide[] = [
   },
   {
     id: 'cs2-meta-1',
-    image: '/assets/games/csgo.png',
-    icon: '/assets/icons/cs2-logo.png',
     name: 'CS2',
     type: 'meta-analysis',
     typeColor: 'purple',
+    gradient: 'from-purple-900/40 via-violet-800/30 to-purple-900/40',
     description: 'Análisis profundo del meta actual de CS2, incluyendo las mejores armas, mapas y estrategias del momento.',
     tags: ['Meta', 'Análisis', 'Armas'],
     rating: 4.7,
@@ -222,11 +296,10 @@ export const SAMPLE_GUIDES: Guide[] = [
   },
   {
     id: 'lol-build-1',
-    image: '/assets/games/lol.png',
-    icon: '/assets/games/lol.png',
     name: 'League of Legends',
     type: 'build-guide',
     typeColor: 'orange',
+    gradient: 'from-orange-900/40 via-amber-800/30 to-orange-900/40',
     description: 'Guía completa de builds para los campeones más populares del meta actual de League of Legends.',
     tags: ['Builds', 'Campeones', 'Meta'],
     rating: 4.6,

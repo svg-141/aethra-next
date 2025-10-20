@@ -1,10 +1,10 @@
 export interface Guide {
   id: string;
-  image: string;
-  icon: string;
   name: string;
   type: GuideType;
   typeColor: string;
+  gradient?: string;
+  asciiIcon?: string;
   description: string;
   tags: string[];
   rating: number;
@@ -12,13 +12,13 @@ export interface Guide {
   updated: string;
   meta: string;
   author: string;
-  authorId: string;
+  authorId?: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   estimatedTime: string;
   views: number;
   downloads: number;
-  likes: number;
-  comments: number;
+  likes?: number;
+  comments?: number;
   isFeatured?: boolean;
   isNew?: boolean;
   isPremium?: boolean;
@@ -41,12 +41,14 @@ export type GuideType =
 
 export interface Game {
   id: string;
-  image: string;
   name: string;
   type: GameType;
   description: string;
   badge?: string;
   badgeColor?: string;
+  gradient?: string;
+  accentColor?: string;
+  asciiIcon?: string;
   genre: string[];
   platform: string[];
   releaseDate: string;

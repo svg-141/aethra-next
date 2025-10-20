@@ -271,15 +271,7 @@ const SearchResultItem = memo(function SearchResultItem({
     >
       <div className="d-flex align-items-start gap-3">
         <div className="flex-shrink-0 mt-1">
-          {result.image ? (
-            <img 
-              src={result.image} 
-              alt={result.title} 
-              className="rounded object-fit-cover" 
-              style={{ width: '40px', height: '40px' }}
-              loading="lazy"
-            />
-          ) : result.icon ? (
+          {result.icon ? (
             <div className="d-flex align-items-center justify-content-center" style={{ width: '40px', height: '40px', fontSize: '1.5rem' }}>
               {result.icon}
             </div>

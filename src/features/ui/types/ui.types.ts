@@ -1,5 +1,6 @@
 export interface HeroSectionProps {
-  image: string;
+  image?: string;
+  gradient?: string;
   title: string;
   subtitle?: string;
   badge?: string;

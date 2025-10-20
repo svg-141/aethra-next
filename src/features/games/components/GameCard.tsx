@@ -1,5 +1,6 @@
 import React from 'react';
 import { GameCardProps } from '../types/games.types';
+import GameLogo from '../../../components/GameLogo';
 
 export default function GameCard({ game, onClick, onFavorite, onShare, details }: GameCardProps) {
   const handleClick = () => {
@@ -26,7 +27,7 @@ export default function GameCard({ game, onClick, onFavorite, onShare, details }
   };
 
   return (
-    <div 
+    <div
       className="cuadro h-100 cursor-pointer animate-theme-hover rounded-3 p-4"
       onClick={handleClick}
     >
@@ -46,13 +47,20 @@ export default function GameCard({ game, onClick, onFavorite, onShare, details }
         </div>
 
         <div className="d-flex justify-content-center mb-4">
-          <div className="rounded-circle d-flex align-items-center justify-content-center border border-theme shadow-theme-glow" 
-               style={{ 
-                 width: '80px', 
-                 height: '80px', 
-                 background: 'var(--gradient-primary)'
+          <div className="rounded-circle d-flex align-items-center justify-content-center border border-theme shadow-theme-glow position-relative"
+               style={{
+                 width: '80px',
+                 height: '80px',
+                 background: game.gradient
+                   ? `linear-gradient(135deg, ${game.gradient})`
+                   : 'var(--gradient-primary)'
                }}>
-            <img src={game.image} alt={game.name} className="img-fluid" style={{width: '50px', height: '50px', objectFit: 'contain'}} />
+            <GameLogo
+              game={game.id as any}
+              size="icon"
+              accentColor={game.accentColor}
+              className="text-2xl"
+            />
           </div>
         </div>
         

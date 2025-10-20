@@ -25,16 +25,16 @@ function ThemeSelector() {
       {/* Botón para abrir selector */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-lg border transition-all theme-button"
+        className="flex items-center gap-2 px-4 py-2 rounded-lg border transition-all hover:scale-105 hover:shadow-lg font-medium"
         style={{
-          backgroundColor: 'var(--color-primary)',
-          opacity: '0.2',
+          backgroundColor: 'rgba(var(--color-primary-rgb, 139, 92, 246), 0.15)',
           color: 'var(--color-primary)',
-          borderColor: 'var(--color-border)'
+          borderColor: 'var(--color-primary)',
+          borderWidth: '1.5px'
         }}
         data-tooltip="themes"
       >
-        <i className="fas fa-palette"></i>
+        <i className="fas fa-palette text-lg"></i>
         <span className="hidden sm:inline">Personalizar</span>
       </button>
 

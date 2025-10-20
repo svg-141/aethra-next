@@ -14,11 +14,14 @@ export interface ChatMessage {
 export interface Game {
   key: string;
   name: string;
-  icon: string;
   examples: string[];
   tip: string;
   description?: string;
   category?: string;
+  gradient?: string;
+  accentColor?: string;
+  emoji?: string;
+  asciiIcon?: string;
 }
 
 export interface ChatState {

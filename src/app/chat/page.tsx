@@ -293,7 +293,7 @@ export default function ChatPage() {
                         : 'text-theme-secondary hover:border-theme-hover hover:text-theme-primary'
                     }`}
                   >
-                    <img src={game.icon} alt={game.name} className="w-6 h-6 md:w-8 md:h-8 mx-auto mb-1 md:mb-2 rounded" />
+                    <div className="text-2xl md:text-3xl mb-1 md:mb-2">{game.emoji || '🎮'}</div>
                     <div className="text-xs font-medium mobile-text-sm">{game.name}</div>
                   </button>
                 ))}

@@ -1,13 +1,14 @@
 import React from 'react';
 import { HeroSectionProps } from '../types/ui.types';
 
-export default function HeroSection({ 
-  image, 
-  title, 
-  subtitle, 
-  badge, 
-  badgeColor, 
-  children, 
+export default function HeroSection({
+  image,
+  gradient,
+  title,
+  subtitle,
+  badge,
+  badgeColor,
+  children,
   className,
   onAction,
   actionLabel,
@@ -19,7 +20,26 @@ export default function HeroSection({
 
   return (
     <div className={`position-relative rounded-4 overflow-hidden shadow-theme-lg animate-theme-hover ${className || ''}`} style={{ height: '400px' }}>
-      <img src={image} alt={title} className="w-100 h-100 object-fit-cover" />
+      {/* Fondo con gradiente */}
+      <div
+        className="position-absolute top-0 start-0 w-100 h-100"
+        style={{
+          background: gradient
+            ? `linear-gradient(135deg, ${gradient})`
+            : 'linear-gradient(135deg, rgba(139, 92, 246, 0.4), rgba(236, 72, 153, 0.3), rgba(59, 130, 246, 0.3))',
+        }}
+      />
+
+      {/* Patrón decorativo */}
+      <div
+        className="position-absolute top-0 start-0 w-100 h-100"
+        style={{
+          opacity: 0.1,
+          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(255,255,255,0.3) 2%, transparent 0%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.3) 2%, transparent 0%)',
+          backgroundSize: '100px 100px'
+        }}
+      />
+
       <div className="position-absolute top-0 start-0 w-100 h-100" style={{ background: 'var(--gradient-hero)' }}></div>
       
       <div className="position-absolute bottom-0 start-0 w-100 p-4 p-md-5">

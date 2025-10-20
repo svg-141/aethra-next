@@ -38,11 +38,11 @@ export default function FilterBar({
   const getVariantClasses = () => {
     switch (variant) {
       case 'pills':
-        return 'flex flex-wrap justify-center gap-2';
+        return 'flex flex-wrap justify-start gap-2 items-center';
       case 'tabs':
-        return 'flex border-b theme-border';
+        return 'flex flex-wrap border-b theme-border overflow-x-auto';
       default:
-        return 'flex flex-wrap justify-center gap-3';
+        return 'flex flex-wrap justify-start gap-3 items-center';
     }
   };
 
@@ -58,32 +58,32 @@ export default function FilterBar({
   };
 
   const getOptionClasses = (option: FilterOption) => {
-    const baseClasses = `theme-button font-medium flex items-center gap-2 transition-all ${getSizeClasses()}`;
+    const baseClasses = `theme-button font-medium flex items-center gap-2 transition-all hover:scale-105 ${getSizeClasses()}`;
     const isOptionSelected = isSelected(option.value);
     const isDisabled = option.disabled;
 
     if (isDisabled) {
-      return `${baseClasses} opacity-50 cursor-not-allowed theme-bg-muted theme-text-muted`;
+      return `${baseClasses} opacity-50 cursor-not-allowed theme-bg-muted theme-text-muted rounded-lg`;
     }
 
     switch (variant) {
       case 'pills':
-        return `${baseClasses} rounded-full ${
-          isOptionSelected 
-            ? 'theme-bg-primary theme-text-primary' 
+        return `${baseClasses} rounded-full shadow-sm hover:shadow-md ${
+          isOptionSelected
+            ? 'theme-bg-primary theme-text-primary ring-2 ring-offset-2 ring-primary'
             : 'theme-bg-surface theme-text-secondary hover:theme-bg-hover'
         }`;
       case 'tabs':
-        return `${baseClasses} border-b-2 ${
-          isOptionSelected 
-            ? 'theme-border-primary theme-text-primary' 
-            : 'border-transparent theme-text-secondary hover:theme-text-primary'
+        return `${baseClasses} border-b-2 whitespace-nowrap ${
+          isOptionSelected
+            ? 'theme-border-primary theme-text-primary font-semibold'
+            : 'border-transparent theme-text-secondary hover:theme-text-primary hover:border-primary/30'
         }`;
       default:
-        return `${baseClasses} rounded-full ${
-          isOptionSelected 
-            ? 'theme-bg-primary theme-text-primary' 
-            : 'theme-bg-surface theme-text-secondary hover:theme-bg-hover'
+        return `${baseClasses} rounded-lg shadow-sm hover:shadow-md ${
+          isOptionSelected
+            ? 'theme-bg-primary theme-text-primary ring-2 ring-offset-1 ring-primary/50'
+            : 'theme-bg-surface theme-text-secondary hover:theme-bg-hover border theme-border'
         }`;
     }
   };

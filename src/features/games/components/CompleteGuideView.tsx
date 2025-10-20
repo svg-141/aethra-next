@@ -738,12 +738,15 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
             }}
           >
             <div className="flex items-center gap-4">
-              <img
-                src={guide.icon}
-                alt={guide.name}
-                className="w-12 h-12 rounded-lg border-2"
-                style={{ borderColor: 'var(--color-border)' }}
-              />
+              <div
+                className="w-12 h-12 rounded-lg border-2 flex items-center justify-center font-bold text-xl"
+                style={{
+                  borderColor: 'var(--color-border)',
+                  background: guide.gradient ? `linear-gradient(135deg, ${guide.gradient})` : 'var(--gradient-primary)'
+                }}
+              >
+                {guide.name.charAt(0)}
+              </div>
               <div>
                 <h1 className="text-2xl font-bold theme-text-primary">{guide.meta}</h1>
                 <div className="flex items-center gap-4 mt-1">
