@@ -44,8 +44,8 @@ export function useNotifications(): UseNotificationsReturn {
     try {
       const storedPreferences = await notificationService.getPreferences();
       setPreferences(prev => ({ ...DEFAULT_NOTIFICATION_PREFERENCES, ...storedPreferences }));
-    } catch (error) {
-      console.error('Error loading notification preferences:', error);
+    } catch (err) {
+      console.error('Error loading notification preferences:', err);
     }
   };
 
@@ -57,8 +57,8 @@ export function useNotifications(): UseNotificationsReturn {
         const parsedNotifications = JSON.parse(stored);
         setNotifications(parsedNotifications);
       }
-    } catch (error) {
-      console.error('Error loading notifications:', error);
+    } catch (err) {
+      console.error('Error loading notifications:', err);
     }
   };
 
@@ -66,8 +66,8 @@ export function useNotifications(): UseNotificationsReturn {
   const saveNotifications = useCallback((newNotifications: Notification[]) => {
     try {
       localStorage.setItem('aethra-notifications', JSON.stringify(newNotifications));
-    } catch (error) {
-      console.error('Error saving notifications:', error);
+    } catch (err) {
+      console.error('Error saving notifications:', err);
     }
   }, []);
 
@@ -88,8 +88,8 @@ export function useNotifications(): UseNotificationsReturn {
         )
       );
       saveNotifications(notifications.map(n => n.id === id ? { ...n, read: true } : n));
-    } catch (error) {
-      console.error('Error marking notification as read:', error);
+    } catch (err) {
+      console.error('Error marking notification as read:', err);
     }
   }, [notifications, saveNotifications]);
 
@@ -101,8 +101,8 @@ export function useNotifications(): UseNotificationsReturn {
         prev.map(notification => ({ ...notification, read: true }))
       );
       saveNotifications(notifications.map(n => ({ ...n, read: true })));
-    } catch (error) {
-      console.error('Error marking all notifications as read:', error);
+    } catch (err) {
+      console.error('Error marking all notifications as read:', err);
     }
   }, [notifications, saveNotifications]);
 
@@ -112,8 +112,8 @@ export function useNotifications(): UseNotificationsReturn {
       await notificationService.delete(id);
       setNotifications(prev => prev.filter(notification => notification.id !== id));
       saveNotifications(notifications.filter(n => n.id !== id));
-    } catch (error) {
-      console.error('Error deleting notification:', error);
+    } catch (err) {
+      console.error('Error deleting notification:', err);
     }
   }, [notifications, saveNotifications]);
 
@@ -123,8 +123,8 @@ export function useNotifications(): UseNotificationsReturn {
       await notificationService.clearAll();
       setNotifications([]);
       saveNotifications([]);
-    } catch (error) {
-      console.error('Error clearing all notifications:', error);
+    } catch (err) {
+      console.error('Error clearing all notifications:', err);
     }
   }, [saveNotifications]);
 
@@ -133,8 +133,8 @@ export function useNotifications(): UseNotificationsReturn {
     try {
       await notificationService.updatePreferences(newPreferences);
       setPreferences(prev => ({ ...prev, ...newPreferences }));
-    } catch (error) {
-      console.error('Error updating notification preferences:', error);
+    } catch (err) {
+      console.error('Error updating notification preferences:', err);
     }
   }, []);
 

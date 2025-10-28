@@ -287,7 +287,7 @@ export const SAMPLE_PROFILE_STATS: ProfileStats = {
   recentActivity: [
     {
       type: 'achievement',
-      data: SAMPLE_ACHIEVEMENTS[0],
+      data: { ...SAMPLE_ACHIEVEMENTS[0] },
       timestamp: new Date()
     },
     {

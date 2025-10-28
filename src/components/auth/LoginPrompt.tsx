@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { useThemeContext } from '../../context/ThemeContext';
+import { Button } from '../ui/Button';
 
 export default function LoginPrompt() {
   const auth = useAuth();
-  const { currentTheme } = useThemeContext();
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -63,7 +62,7 @@ export default function LoginPrompt() {
         password: 'demo123'
       };
       await auth.login(credentials);
-    } catch (error) {
+    } catch {
       setError('Error al acceder con usuario demo');
     } finally {
       setIsLoading(false);
@@ -120,14 +119,14 @@ export default function LoginPrompt() {
             />
           </div>
 
-          <button
+          <Button
+            variant="primary"
             type="submit"
             disabled={isLoading}
-            className="w-full py-2 px-4 rounded-lg font-medium transition-colors animate-theme-hover animate-theme-glow disabled:opacity-50"
-            style={{ background: 'var(--gradient-primary)', color: 'var(--color-text)' }}
+            className="w-full"
           >
             {isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
-          </button>
+          </Button>
         </form>
 
         <div className="mt-6 text-center">
@@ -258,14 +257,14 @@ export default function LoginPrompt() {
             />
           </div>
 
-          <button
+          <Button
+            variant="primary"
             type="submit"
             disabled={isLoading}
-            className="w-full py-2 px-4 rounded-lg font-medium transition-colors animate-theme-hover animate-theme-glow disabled:opacity-50"
-            style={{ background: 'var(--gradient-primary)', color: 'var(--color-text)' }}
+            className="w-full"
           >
             {isLoading ? 'Creando cuenta...' : 'Crear Cuenta Gratuita'}
-          </button>
+          </Button>
         </form>
 
         <div className="mt-6 text-center">
@@ -304,23 +303,23 @@ export default function LoginPrompt() {
       </p>
 
       <div className="space-y-3">
-        <button
+        <Button
+          variant="primary"
           onClick={() => setShowRegisterForm(true)}
-          className="w-full py-3 px-4 rounded-lg font-medium transition-colors animate-theme-hover animate-theme-glow"
-          style={{ background: 'var(--gradient-primary)', color: 'var(--color-text)' }}
+          className="w-full"
+          icon={<i className="fas fa-user-plus"></i>}
         >
-          <i className="fas fa-user-plus mr-2"></i>
           Crear Cuenta Gratuita
-        </button>
+        </Button>
 
-        <button
+        <Button
+          variant="outline"
           onClick={() => setShowLoginForm(true)}
-          className="w-full py-3 px-4 rounded-lg font-medium border transition-colors animate-theme-hover"
-          style={{ borderColor: 'var(--color-border)', color: 'var(--color-text)' }}
+          className="w-full"
+          icon={<i className="fas fa-sign-in-alt"></i>}
         >
-          <i className="fas fa-sign-in-alt mr-2"></i>
           Iniciar Sesión
-        </button>
+        </Button>
       </div>
 
       {/* Demo users for development */}

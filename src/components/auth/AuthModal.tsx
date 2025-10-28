@@ -28,18 +28,18 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
 
       // Simulación de OAuth flow
       // En producción, esto redirigirá a Google OAuth
-      const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID';
-      const redirectUri = process.env.NEXT_PUBLIC_REDIRECT_URI || `${window.location.origin}/auth/callback`;
+      // const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID'; // Removed unused variable
+      // const redirectUri = process.env.NEXT_PUBLIC_REDIRECT_URI || `${window.location.origin}/auth/callback`; // Removed unused variable
 
-      const params = new URLSearchParams({
-        client_id: clientId,
-        redirect_uri: redirectUri,
-        response_type: 'code',
-        scope: 'openid email profile',
-        access_type: 'offline',
-        prompt: 'consent',
-        state: JSON.stringify({ selectedPlan, mode }),
-      });
+      // const _params = new URLSearchParams({ // Removed unused variable
+      //   client_id: clientId,
+      //   redirect_uri: redirectUri,
+      //   response_type: 'code',
+      //   scope: 'openid email profile',
+      //   access_type: 'offline',
+      //   prompt: 'consent',
+      //   state: JSON.stringify({ selectedPlan, mode }),
+      // });
 
       // Comentado para desarrollo - descomentar en producción
       // window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
@@ -51,8 +51,8 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
         onClose();
       }, 1500);
 
-    } catch (error) {
-      console.error('Error en autenticación:', error);
+    } catch (err) {
+      console.error('Error en autenticación:', err);
       setIsLoading(false);
     }
   };
@@ -76,8 +76,8 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
         onClose();
       }, 1500);
 
-    } catch (error) {
-      console.error('Error en autenticación:', error);
+    } catch (err) {
+      console.error('Error en autenticación:', err);
       setIsLoading(false);
     }
   };

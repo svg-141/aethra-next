@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useThemeContext } from '../context/ThemeContext';
 import { applyThemeVariables, generateThemeStyles } from '../utils/theme-utils';
-import { Theme } from './useTheme';
+import { Theme } from '../context/ThemeContext';
 
 // Custom hook para optimizar el uso de temas
 export const useOptimizedTheme = () => {

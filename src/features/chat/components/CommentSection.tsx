@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { CommentSectionProps, Comment } from '../types/chat.types';
 import { useNotifications } from '../../notifications';
 import { CommentService } from '../services/commentService';
@@ -31,17 +32,12 @@ export default function CommentSection({
   // Hook de autenticación
   const { user, isAuthenticated } = useAuth();
 
-  // Cargar comentarios desde el servicio
-  useEffect(() => {
-    loadComments();
-  }, [sectionId]);
-
-  const loadComments = async () => {
+  const loadComments = useCallback(async () => {
     try {
       setIsLoading(true);
       const loadedComments = await CommentService.getComments({ sectionId });
       setComments(loadedComments);
-    } catch (error) {
+    } catch {
       addNotification({
         type: 'error',
         priority: 'high',
@@ -51,7 +47,12 @@ export default function CommentSection({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [sectionId, addNotification]);
+
+  // Cargar comentarios desde el servicio
+  useEffect(() => {
+    loadComments();
+  }, [loadComments]);
 
   // Manejo de envío de comentario
   const handleSubmit = async (e: React.FormEvent) => {
@@ -95,7 +96,7 @@ export default function CommentSection({
         message: 'Tu comentario ha sido publicado exitosamente.',
       });
       
-    } catch (error) {
+    } catch {
       addNotification({
         type: 'error',
         priority: 'high',
@@ -162,7 +163,7 @@ export default function CommentSection({
           message: `${isLiked ? 'Ya no te gusta' : 'Te gustó'} el comentario de ${updatedComment.author}`,
         });
       }
-    } catch (error) {
+    } catch {
       addNotification({
         type: 'error',
         priority: 'medium',
@@ -213,7 +214,7 @@ export default function CommentSection({
           message: 'Tu comentario ha sido actualizado exitosamente.',
         });
       }
-    } catch (error) {
+    } catch {
       addNotification({
         type: 'error',
         priority: 'high',
@@ -257,7 +258,7 @@ export default function CommentSection({
           message: 'Tu comentario ha sido eliminado exitosamente.',
         });
       }
-    } catch (error) {
+    } catch {
       addNotification({
         type: 'error',
         priority: 'high',
@@ -309,7 +310,7 @@ export default function CommentSection({
           message: 'Tu respuesta ha sido publicada exitosamente.',
         });
       }
-    } catch (error) {
+    } catch {
       addNotification({
         type: 'error',
         priority: 'high',
@@ -420,7 +421,7 @@ export default function CommentSection({
           comments.map(comment => (
             <div key={comment.id} className="rounded-xl p-4 card-hover animate-theme-hover" style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)', border: '1px solid' }}>
               <div className="flex items-start gap-3">
-                <img src={comment.avatar} alt={comment.author} className="w-10 h-10 rounded-full" style={{ borderColor: 'var(--color-border)', border: '2px solid' }} />
+                <Image src={comment.avatar} alt={comment.author} width={40} height={40} className="w-10 h-10 rounded-full" style={{ borderColor: 'var(--color-border)', border: '2px solid' }} unoptimized />
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2">
@@ -574,7 +575,7 @@ export default function CommentSection({
                           {comment.replies.map(reply => (
                             <div key={reply.id} className="rounded-lg p-3" style={{ backgroundColor: 'var(--color-surface-light)' }}>
                               <div className="flex items-start gap-2">
-                                <img src={reply.avatar} alt={reply.author} className="w-8 h-8 rounded-full" style={{ borderColor: 'var(--color-border)', border: '1px solid' }} />
+                                <Image src={reply.avatar} alt={reply.author} width={32} height={32} className="w-8 h-8 rounded-full" style={{ borderColor: 'var(--color-border)', border: '1px solid' }} unoptimized />
                                 <div className="flex-1">
                                   <div className="flex items-center gap-2 mb-1">
                                     <span className="font-semibold theme-text-primary text-sm">{reply.author}</span>

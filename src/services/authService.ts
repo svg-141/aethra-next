@@ -3,6 +3,7 @@ export interface User {
   id: string;
   email: string;
   username: string;
+  displayName: string;
   firstName?: string;
   lastName?: string;
   avatar?: string;
@@ -13,6 +14,9 @@ export interface User {
   subscriptionEnd?: Date;
   createdAt: Date;
   lastLogin: Date;
+  level: number;
+  reputation: number;
+  role: 'user' | 'admin';
   preferences: UserPreferences;
 }
 
@@ -23,6 +27,7 @@ export interface UserPreferences {
   privacy: {
     showProfile: boolean;
     showActivity: boolean;
+    showStats: boolean;
   };
 }
 
@@ -125,8 +130,8 @@ class AuthService {
         try {
           const user = JSON.parse(savedUser);
           this.users.set(user.id, user);
-        } catch (error) {
-          console.error('Error loading saved user:', error);
+        } catch (err) {
+          console.error('Error loading saved user:', err);
           localStorage.removeItem(this.USER_KEY);
         }
       }
@@ -167,8 +172,8 @@ class AuthService {
       }
 
       return { user, token };
-    } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Error de autenticación');
+    } catch (err) {
+      throw new Error(err instanceof Error ? err.message : 'Error de autenticación');
     }
   }
 
@@ -196,6 +201,7 @@ class AuthService {
         id: this.generateUserId(),
         email: data.email,
         username: data.username,
+        displayName: `${data.firstName} ${data.lastName}`,
         firstName: data.firstName,
         lastName: data.lastName,
         avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${data.username}`,
@@ -205,13 +211,17 @@ class AuthService {
         subscriptionStatus: 'none',
         createdAt: new Date(),
         lastLogin: new Date(),
+        level: 1,
+        reputation: 0,
+        role: 'user',
         preferences: {
           theme: 'aethra-purple',
           notifications: true,
           language: 'es',
           privacy: {
             showProfile: true,
-            showActivity: false
+            showActivity: false,
+            showStats: true
           }
         }
       };
@@ -230,8 +240,8 @@ class AuthService {
       }
 
       return { user: newUser, token };
-    } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Error al crear la cuenta');
+    } catch (err) {
+      throw new Error(err instanceof Error ? err.message : 'Error al crear la cuenta');
     }
   }
 
@@ -247,8 +257,8 @@ class AuthService {
         localStorage.removeItem(this.TOKEN_KEY);
         localStorage.removeItem(this.USER_KEY);
       }
-    } catch (error) {
-      console.error('Error during logout:', error);
+    } catch (err) {
+      console.error('Error during logout:', err);
     }
   }
 
@@ -272,8 +282,8 @@ class AuthService {
       }
 
       return user;
-    } catch (error) {
-      console.error('Error getting current user:', error);
+    } catch (err) {
+      console.error('Error getting current user:', err);
       return null;
     }
   }
@@ -428,6 +438,7 @@ class AuthService {
       id: 'demo_free_user',
       email: 'free@demo.com',
       username: 'usuario_gratis',
+      displayName: 'Usuario Gratuito',
       firstName: 'Usuario',
       lastName: 'Gratuito',
       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=free',
@@ -437,13 +448,17 @@ class AuthService {
       subscriptionStatus: 'none',
       createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
       lastLogin: new Date(),
+      level: 5,
+      reputation: 120,
+      role: 'user',
       preferences: {
         theme: 'aethra-purple',
         notifications: true,
         language: 'es',
         privacy: {
           showProfile: true,
-          showActivity: true
+          showActivity: true,
+          showStats: true
         }
       }
     };
@@ -453,6 +468,7 @@ class AuthService {
       id: 'demo_premium_user',
       email: 'premium@demo.com',
       username: 'usuario_premium',
+      displayName: 'Usuario Premium',
       firstName: 'Usuario',
       lastName: 'Premium',
       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=premium',
@@ -463,13 +479,17 @@ class AuthService {
       subscriptionEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
       createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000), // 60 days ago
       lastLogin: new Date(),
+      level: 25,
+      reputation: 2500,
+      role: 'admin',
       preferences: {
         theme: 'cyber-blue',
         notifications: true,
         language: 'es',
         privacy: {
           showProfile: true,
-          showActivity: true
+          showActivity: true,
+          showStats: false
         }
       }
     };

@@ -75,19 +75,19 @@ export default function ConnectionCard({ connection, onDisconnect, onReconnect, 
           {/* Connection data */}
           {connection.data && (
             <div className="mt-2 text-xs text-theme-secondary">
-              {connection.data.username && (
+              {typeof connection.data.username === 'string' && (
                 <span className="mr-3">@{connection.data.username}</span>
               )}
-              {connection.data.games && (
+              {typeof connection.data.games === 'number' && (
                 <span className="mr-3">{connection.data.games} juegos</span>
               )}
-              {connection.data.level && (
+              {typeof connection.data.level === 'number' && (
                 <span className="mr-3">Nivel {connection.data.level}</span>
               )}
-              {connection.data.followers && (
+              {typeof connection.data.followers === 'number' && (
                 <span className="mr-3">{connection.data.followers} seguidores</span>
               )}
-              {connection.data.serverCount && (
+              {typeof connection.data.serverCount === 'number' && (
                 <span className="mr-3">{connection.data.serverCount} servidores</span>
               )}
             </div>

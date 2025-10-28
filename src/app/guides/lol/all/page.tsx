@@ -1,17 +1,26 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Image from 'next/image';
 import { useThemeContext } from '../../../../context/ThemeContext';
 import GuideCard from '../../../../features/games/components/GuideCard';
 import HeroSection from '../../../../features/ui/components/HeroSection';
 
 // Mock data for LoL guides
-const lolGuides = [
+import { Guide, GuideType } from '../../../../features/games/types/games.types';
+
+// Mock data for LoL guides
+const lolGuides: Guide[] = [
   {
     id: 'lol-1',
-    title: 'Gu\u00eda Completa de Jungle Pathing',
+    name: 'Guía Completa de Jungle Pathing',
     description: 'Domina el early game con las mejores rutas de jungla',
-    type: 'strategy',
+    type: 'strategy' as GuideType,
+    typeColor: 'blue',
+    tags: ['lol', 'jungle', 'strategy'],
+    link: '/guides/lol/jungle-pathing',
+    author: 'Aethra',
+    estimatedTime: '25 min',
     difficulty: 'intermediate',
     rating: 4.9,
     views: 18200,
@@ -19,14 +28,18 @@ const lolGuides = [
     updated: '2025-10-18',
     meta: 'LoL Jungle',
     isFeatured: true,
-    isNew: true,
-    game: 'lol'
+    isNew: true
   },
   {
     id: 'lol-2',
-    title: 'Tier List Parche 13.20',
+    name: 'Tier List Parche 13.20',
     description: 'Los mejores campeones para cada role en el meta actual',
-    type: 'meta-analysis',
+    type: 'meta-analysis' as GuideType,
+    typeColor: 'purple',
+    tags: ['lol', 'tier-list', 'meta'],
+    link: '/guides/lol/tier-list-13-20',
+    author: 'Aethra',
+    estimatedTime: '10 min',
     difficulty: 'beginner',
     rating: 4.7,
     views: 22400,
@@ -34,14 +47,18 @@ const lolGuides = [
     updated: '2025-10-15',
     meta: 'LoL Tier List',
     isFeatured: true,
-    isNew: true,
-    game: 'lol'
+    isNew: true
   },
   {
     id: 'lol-3',
-    title: 'Wave Management Avanzado',
+    name: 'Wave Management Avanzado',
     description: 'Controla las oleadas para dominar tu lane',
-    type: 'tutorial',
+    type: 'tutorial' as GuideType,
+    typeColor: 'green',
+    tags: ['lol', 'wave-management', 'laning'],
+    link: '/guides/lol/wave-management',
+    author: 'Aethra',
+    estimatedTime: '30 min',
     difficulty: 'advanced',
     rating: 4.8,
     views: 15600,
@@ -49,14 +66,18 @@ const lolGuides = [
     updated: '2025-10-12',
     meta: 'LoL Waves',
     isFeatured: false,
-    isNew: false,
-    game: 'lol'
+    isNew: false
   },
   {
     id: 'lol-4',
-    title: 'Gu\u00eda de Runas por Campe\u00f3n',
-    description: 'Las mejores combinaciones de runas para cada situaci\u00f3n',
-    type: 'build-guide',
+    name: 'Guía de Runas por Campeón',
+    description: 'Las mejores combinaciones de runas para cada situación',
+    type: 'build-guide' as GuideType,
+    typeColor: 'yellow',
+    tags: ['lol', 'runes', 'builds'],
+    link: '/guides/lol/runes-guide',
+    author: 'Aethra',
+    estimatedTime: '15 min',
     difficulty: 'intermediate',
     rating: 4.6,
     views: 19800,
@@ -64,14 +85,18 @@ const lolGuides = [
     updated: '2025-10-10',
     meta: 'LoL Runas',
     isFeatured: true,
-    isNew: false,
-    game: 'lol'
+    isNew: false
   },
   {
     id: 'lol-5',
-    title: 'Macro Game y Objetivos',
-    description: 'Cu\u00e1ndo tomar dragones, baron y torres para ganar',
-    type: 'strategy',
+    name: 'Macro Game y Objetivos',
+    description: 'Cuándo tomar dragones, baron y torres para ganar',
+    type: 'strategy' as GuideType,
+    typeColor: 'blue',
+    tags: ['lol', 'macro', 'objectives'],
+    link: '/guides/lol/macro-game',
+    author: 'Aethra',
+    estimatedTime: '20 min',
     difficulty: 'advanced',
     rating: 4.9,
     views: 14200,
@@ -79,13 +104,12 @@ const lolGuides = [
     updated: '2025-10-08',
     meta: 'LoL Macro',
     isFeatured: false,
-    isNew: false,
-    game: 'lol'
+    isNew: false
   }
 ];
 
 export default function LoLGuidesPage() {
-  const { currentTheme } = useThemeContext();
+  useThemeContext();
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('newest');
@@ -141,7 +165,13 @@ export default function LoLGuidesPage() {
         badgeColor="bg-blue-500/20 text-blue-300 border-blue-500/30"
       >
         <div className="flex items-center gap-4 mb-4">
-          <img src="/assets/games/lol.png" alt="League of Legends" className="w-16 h-16 rounded-lg border-2 border-white/20" />
+          <Image
+            src="/assets/games/lol.png"
+            alt="League of Legends"
+            width={64}
+            height={64}
+            className="w-16 h-16 rounded-lg border-2 border-white/20"
+          />
           <div className="flex items-center gap-4 text-sm theme-text-secondary">
             <div className="flex items-center gap-2">
               <i className="fas fa-book"></i>

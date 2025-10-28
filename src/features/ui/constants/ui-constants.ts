@@ -1,6 +1,7 @@
 import { FilterOption } from '../types/ui.types';
 
 export const SAMPLE_HERO_DATA = {
+  image: '/assets/banners/valorant-banner.jpg',
   title: 'Domina el Gaming Competitivo',
   subtitle: 'Aprende estrategias avanzadas, conecta con jugadores profesionales y mejora tu rendimiento en los mejores juegos competitivos.',
   badge: 'Nuevo',

@@ -32,7 +32,7 @@ function Navbar({ active }: NavbarProps) {
     await logout();
   }, [logout]);
   return (
-    <nav className="fixed top-0 w-full z-50 theme-navbar backdrop-blur-lg border-b transition-all duration-300" style={{ borderBottomColor: 'var(--color-border)' }}>
+    <nav className="fixed top-0 w-full z-50 theme-navbar backdrop-blur-lg border-b theme-border transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center gap-4">
         <Link href="/" className="text-theme-primary text-xl sm:text-2xl font-extrabold tracking-wide glow-text flex items-center gap-3 hover:scale-105 transition-transform flex-shrink-0">
           <Image 
@@ -75,28 +75,20 @@ function Navbar({ active }: NavbarProps) {
             <div className="relative">
               <button 
                 onClick={toggleUserMenu}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg animate-theme-hover transition-all" 
-                style={{ 
-                  backgroundColor: 'var(--color-surface)', 
-                  borderColor: 'var(--color-border)', 
-                  border: '1px solid' 
-                }}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg animate-theme-hover transition-all theme-surface border theme-border"
               >
-                <img 
-                  src={user.avatar} 
-                  alt={user.displayName} 
-                  className="w-6 h-6 rounded-full border" 
-                  style={{ borderColor: 'var(--color-border)' }}
+                <Image 
+                  src={user.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${user.username}`}
+                  alt={user.displayName}
+                  width={24}
+                  height={24}
+                  className="w-6 h-6 rounded-full border theme-border" 
                 />
                 <span className="hidden xl:inline text-sm theme-text-primary font-medium">
                   {user.displayName}
                 </span>
                 <div className="flex items-center gap-1">
-                  <span className="text-xs theme-badge" style={{ 
-                    backgroundColor: 'var(--color-primary)', 
-                    opacity: '0.2', 
-                    color: 'var(--color-primary)' 
-                  }}>
+                  <span className="text-xs theme-badge theme-badge-primary">
                     Nv.{user.level}
                   </span>
                   <i className={`fas fa-chevron-${showUserMenu ? 'up' : 'down'} text-xs theme-text-secondary`}></i>
@@ -105,32 +97,25 @@ function Navbar({ active }: NavbarProps) {
               
               {/* User Menu Dropdown */}
               {showUserMenu && (
-                <div className="absolute right-0 top-full mt-2 w-64 rounded-xl theme-card border animate-fade-in z-50" style={{ borderColor: 'var(--color-border)' }}>
+                <div className="absolute right-0 top-full mt-2 w-64 rounded-xl theme-card border theme-border animate-fade-in z-50">
                   <div className="p-4">
                     {/* User Info Header */}
-                    <div className="flex items-center gap-3 pb-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
-                      <img 
-                        src={user.avatar} 
+                    <div className="flex items-center gap-3 pb-3 border-b theme-border">
+                      <Image 
+                        src={user.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${user.username}`} 
                         alt={user.displayName} 
-                        className="w-10 h-10 rounded-full border-2" 
-                        style={{ borderColor: 'var(--color-primary)' }}
+                        width={40}
+                        height={40}
+                        className="w-10 h-10 rounded-full border-2 theme-border-primary" 
                       />
                       <div className="flex-1">
                         <div className="font-medium theme-text-primary">{user.displayName}</div>
                         <div className="text-sm theme-text-secondary">@{user.username}</div>
                         <div className="flex items-center gap-2 mt-1">
-                          <span className="text-xs theme-badge" style={{ 
-                            backgroundColor: 'var(--color-primary)', 
-                            opacity: '0.2', 
-                            color: 'var(--color-primary)' 
-                          }}>
+                          <span className="text-xs theme-badge theme-badge-primary">
                             Nivel {user.level}
                           </span>
-                          <span className="text-xs theme-badge" style={{ 
-                            backgroundColor: 'var(--color-warning)', 
-                            opacity: '0.2', 
-                            color: 'var(--color-warning)' 
-                          }}>
+                          <span className="text-xs theme-badge theme-badge-warning">
                             {user.reputation} pts
                           </span>
                         </div>
@@ -168,7 +153,7 @@ function Navbar({ active }: NavbarProps) {
                     </div>
                     
                     {/* Logout Button */}
-                    <div className="pt-3 border-t" style={{ borderColor: 'var(--color-border)' }}>
+                    <div className="pt-3 border-t theme-border">
                       <button 
                         onClick={handleLogout}
                         className="w-full flex items-center gap-3 px-3 py-2 rounded-lg theme-text-secondary hover:theme-text-primary transition-colors animate-theme-hover"
@@ -204,11 +189,11 @@ function Navbar({ active }: NavbarProps) {
             
             {/* Mobile Navigation */}
             <nav className="space-y-2">
-              <Link href="/" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'home' ? 'theme-text-primary' : 'theme-text-secondary hover:theme-text-primary'}`} style={active === 'home' ? { backgroundColor: 'var(--color-primary)', opacity: '0.1' } : {}}>Inicio</Link>
-              <Link href="/chat" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'chat' ? 'theme-text-primary' : 'theme-text-secondary hover:theme-text-primary'}`} style={active === 'chat' ? { backgroundColor: 'var(--color-primary)', opacity: '0.1' } : {}}>Funciones</Link>
-              <Link href="/games" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'games' ? 'theme-text-primary' : 'theme-text-secondary hover:theme-text-primary'}`} style={active === 'games' ? { backgroundColor: 'var(--color-primary)', opacity: '0.1' } : {}}>Guías</Link>
-              <Link href="/community" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'community' ? 'theme-text-primary' : 'theme-text-secondary hover:theme-text-primary'}`} style={active === 'community' ? { backgroundColor: 'var(--color-primary)', opacity: '0.1' } : {}}>Comunidad</Link>
-              <Link href="/profile" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'profile' ? 'theme-text-primary' : 'theme-text-secondary hover:theme-text-primary'}`} style={active === 'profile' ? { backgroundColor: 'var(--color-primary)', opacity: '0.1' } : {}}>Mi perfil</Link>
+              <Link href="/" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'home' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Inicio</Link>
+              <Link href="/chat" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'chat' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Funciones</Link>
+              <Link href="/games" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'games' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Guías</Link>
+              <Link href="/community" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'community' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Comunidad</Link>
+              <Link href="/profile" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'profile' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Mi perfil</Link>
             </nav>
             
             {/* Mobile Actions */}

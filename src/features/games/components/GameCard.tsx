@@ -1,6 +1,6 @@
 import React from 'react';
-import { GameCardProps } from '../types/games.types';
-import GameLogo from '../../../components/GameLogo';
+import { Game, GameCardProps } from '../types/games.types';
+import GameLogo, { GameKey } from '../../../components/GameLogo';
 
 export default function GameCard({ game, onClick, onFavorite, onShare, details }: GameCardProps) {
   const handleClick = () => {
@@ -56,7 +56,7 @@ export default function GameCard({ game, onClick, onFavorite, onShare, details }
                    : 'var(--gradient-primary)'
                }}>
             <GameLogo
-              game={game.id as any}
+              game={game.id as GameKey}
               size="icon"
               accentColor={game.accentColor}
               className="text-2xl"

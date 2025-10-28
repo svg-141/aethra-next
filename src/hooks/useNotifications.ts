@@ -90,8 +90,8 @@ export function useNotifications(): UseNotificationsReturn {
           ...n,
           timestamp: new Date(n.timestamp)
         })));
-      } catch (error) {
-        console.error('Error loading notifications:', error);
+      } catch (err) {
+        console.error('Error loading notifications:', err);
       }
     }
   }, []);

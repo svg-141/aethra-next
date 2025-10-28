@@ -53,7 +53,8 @@ describe('Theme Utils', () => {
     });
 
     it('should return default class for unknown component', () => {
-      const classes = getThemeClasses('unknown' as any);
+      // @ts-expect-error - Testing with an invalid component type
+      const classes = getThemeClasses('unknown');
       expect(classes).toBe('text-theme-primary');
     });
   });

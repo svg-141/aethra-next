@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { CommentSection } from '../../features/chat';
 import { PostCard, PostForm, SidebarCommunity, Post, PostCategory, PostFilter } from '../../features/community';
-import { POST_CATEGORIES, DEFAULT_FILTERS, SAMPLE_COMMUNITY_STATS } from '../../features/community/constants/community-constants';
+import { POST_CATEGORIES, DEFAULT_FILTERS } from '../../features/community/constants/community-constants';
 import { ForumService } from '../../features/community/services/forumService';
 import { useNotifications } from '../../features/notifications';
 import { useAuth } from '../../context/AuthContext';
 
 export default function CommunityPage() {
   const [filters, setFilters] = useState<PostFilter>(DEFAULT_FILTERS);
-  const [activeCategory, setActiveCategory] = useState<PostCategory | null>(null);
+    const [activeCategory, setActiveCategory] = useState<PostCategory | undefined>(undefined);
   const [showPostForm, setShowPostForm] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,12 +23,7 @@ export default function CommunityPage() {
   // Hook de autenticación
   const { user, isAuthenticated } = useAuth();
 
-  // Cargar posts al inicio y cuando cambien los filtros
-  useEffect(() => {
-    loadPosts();
-  }, [filters, activeCategory]);
-
-  const loadPosts = async () => {
+  const loadPosts = useCallback(async () => {
     try {
       setIsLoading(true);
       const result = await ForumService.getPosts({
@@ -43,7 +38,7 @@ export default function CommunityPage() {
       setTotal(result.total);
       setHasMore(result.hasMore);
       
-    } catch (error) {
+    } catch {
       addNotification({
         type: 'error',
         priority: 'high',
@@ -53,7 +48,12 @@ export default function CommunityPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [activeCategory, filters, addNotification]);
+
+  // Cargar posts al inicio y cuando cambien los filtros
+  useEffect(() => {
+    loadPosts();
+  }, [loadPosts]);
 
 
   const handleCreatePost = async (postData: Omit<Post, 'id' | 'author' | 'likes' | 'comments' | 'views' | 'createdAt' | 'updatedAt'>) => {
@@ -86,7 +86,7 @@ export default function CommunityPage() {
         message: 'Tu post ha sido publicado exitosamente.',
       });
       
-    } catch (error) {
+    } catch {
       addNotification({
         type: 'error',
         priority: 'high',
@@ -121,7 +121,7 @@ export default function CommunityPage() {
           message: updatedPost.likedBy?.includes(user.id) ? 'Te gusta este post' : 'Ya no te gusta este post',
         });
       }
-    } catch (error) {
+    } catch {
       addNotification({
         type: 'error',
         priority: 'medium',
@@ -167,7 +167,7 @@ export default function CommunityPage() {
           message: 'Tu comentario ha sido publicado.',
         });
       }
-    } catch (error) {
+    } catch {
       addNotification({
         type: 'error',
         priority: 'high',
@@ -190,7 +190,7 @@ export default function CommunityPage() {
         title: 'Post compartido',
         message: 'El enlace se ha copiado al portapapeles.',
       });
-    } catch (error) {
+    } catch {
       addNotification({
         type: 'info',
         priority: 'low',
@@ -206,7 +206,7 @@ export default function CommunityPage() {
   };
 
   const handleCategoryChange = (category: PostCategory | null) => {
-    setActiveCategory(category);
+    setActiveCategory(category || undefined);
     // loadPosts se ejecutará automáticamente por el useEffect
   };
 

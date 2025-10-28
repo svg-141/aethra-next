@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChatMessageProps } from '../types/chat.types';
 
-export default function ChatMessage({ message, onAction }: ChatMessageProps) {
+export default function ChatMessage({ message }: Omit<ChatMessageProps, 'onAction'>) { // Removed unused onAction prop
   const isIA = message.type === 'ia';
   
   return (

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { UserCardProps } from '../types/profile.types';
 
 export default function UserCard({ user, stats, onEdit, onViewProfile, children }: UserCardProps) {
@@ -36,7 +37,7 @@ export default function UserCard({ user, stats, onEdit, onViewProfile, children 
         <div className="flex items-center">
           <div className="relative">
             <div className="w-12 h-12 rounded-full flex items-center justify-center border-2 overflow-hidden mr-4" style={{ background: 'var(--gradient-primary)', borderColor: 'var(--color-primary)', opacity: '0.8' }}>
-              <img src={user.avatar} alt={`Avatar de ${user.name}`} className="w-full h-full object-cover" />
+              <Image src={user.avatar} alt={`Avatar de ${user.name}`} width={48} height={48} className="w-full h-full object-cover" />
             </div>
             {/* Online status indicator */}
             <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2`} style={{ 

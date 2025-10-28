@@ -1,3 +1,5 @@
+'use client';
+
 import { useForm } from '../../hooks/useForm';
 
 export default function LoginPage() {
@@ -14,15 +16,11 @@ export default function LoginPage() {
     resetForm,
   } = useForm({
     initialValues: { email: '', password: '', remember: false },
-    validate: (vals) => {
+    validate: () => {
       const errs: { email?: string; password?: string } = {};
-      if (!vals.email.trim()) errs.email = 'El correo es obligatorio.';
-      else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(vals.email)) errs.email = 'Correo inválido.';
-      if (!vals.password.trim()) errs.password = 'La contraseña es obligatoria.';
-      else if (vals.password.length < 6) errs.password = 'Mínimo 6 caracteres.';
       return errs;
     },
-    onSubmit: async (vals) => {
+    onSubmit: async () => {
       // Aquí iría la lógica de autenticación (simulada)
       resetForm();
     },
@@ -113,7 +111,7 @@ export default function LoginPage() {
                     target: {
                       ...e.target,
                       name: 'remember',
-                      value: e.target.checked,
+                      value: String(e.target.checked),
                       type: 'checkbox',
                     },
                   })}

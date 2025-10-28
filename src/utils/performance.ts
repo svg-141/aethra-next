@@ -6,20 +6,35 @@
 import { useCallback, useEffect, useRef } from 'react';
 
 // Debounce hook for search and input optimization
-export function useDebounce<T extends (...args: any[]) => any>(
+export function useDebounce<T extends (...args: unknown[]) => unknown>(
   callback: T,
   delay: number
-): T {
-  const timeoutRef = useRef<NodeJS.Timeout>();
-  
-  return useCallback((...args: Parameters<T>) => {
-    clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => callback(...args), delay);
-  }, [callback, delay]) as T;
+): (...args: Parameters<T>) => void {
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    // Cleanup the timeout on unmount
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  const debouncedCallback = useCallback((...args: Parameters<T>) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      callback(...args);
+    }, delay);
+  }, [callback, delay]);
+
+  return debouncedCallback;
 }
 
 // Throttle hook for scroll and resize events
-export function useThrottle<T extends (...args: any[]) => any>(
+export function useThrottle<T extends (...args: unknown[]) => unknown>(
   callback: T,
   delay: number
 ): T {
@@ -133,12 +148,12 @@ export const listOptimization = {
 
 // Web Workers utilities for heavy computations
 export const workerUtils = {
-  createWorker: (workerFunction: Function): Worker => {
+  createWorker: (workerFunction: () => void): Worker => {
     const blob = new Blob([`(${workerFunction})()`], { type: 'application/javascript' });
     return new Worker(URL.createObjectURL(blob));
   },
   
-  runInWorker: async <T>(workerFunction: Function, data: any): Promise<T> => {
+  runInWorker: async <T>(workerFunction: () => void, data: unknown): Promise<T> => {
     return new Promise((resolve, reject) => {
       const worker = workerUtils.createWorker(workerFunction);
       

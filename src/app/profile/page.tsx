@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { CommentSection } from '../../features/chat';
 import { UserCard, AchievementCard, ConnectionCard, SubscriptionCard } from '../../features/profile';
 import { SAMPLE_USER, SAMPLE_USER_STATS, SAMPLE_ACHIEVEMENTS, SAMPLE_CONNECTIONS, SAMPLE_SUBSCRIPTION } from '../../features/profile/constants/profile-constants';
@@ -64,7 +65,7 @@ export default function ProfilePage() {
         {/* Header del perfil */}
         <div className="card-profile p-8 mb-8">
           <div className="flex items-center gap-6">
-            <img src={SAMPLE_USER.avatar} alt={SAMPLE_USER.name} className="w-24 h-24 rounded-full border-4" style={{ borderColor: 'var(--color-primary)' }} />
+            <Image src={SAMPLE_USER.avatar} alt={SAMPLE_USER.name} width={96} height={96} className="w-24 h-24 rounded-full border-4" style={{ borderColor: 'var(--color-primary)' }} />
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
                 <h1 className="text-3xl font-bold theme-text-primary glow-text">{SAMPLE_USER.name}</h1>

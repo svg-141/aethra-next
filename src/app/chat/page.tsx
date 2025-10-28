@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { ChatMessage, CommentSection, GAMES, getGameByKey, ChatMessageType } from '../../features/chat';
 import { useNotifications } from '../../features/notifications';
 import { ChatService } from '../../features/chat/services/chatService';
@@ -30,12 +30,7 @@ export default function ChatPage() {
   // Hook de autenticación
   const { user, isAuthenticated } = useAuth();
 
-  // Inicializar chat al cargar o cambiar juego
-  useEffect(() => {
-    initializeChat();
-  }, [selectedGame]);
-
-  const initializeChat = async () => {
+  const initializeChat = useCallback(async () => {
     if (!isAuthenticated || !user) {
       addNotification({
         type: 'error',
@@ -56,7 +51,7 @@ export default function ChatPage() {
         content: typeof msg.content === 'string' ? <p dangerouslySetInnerHTML={{ __html: msg.content }} /> : msg.content
       })));
       
-    } catch (error) {
+    } catch {
       addNotification({
         type: 'error',
         priority: 'high',
@@ -64,7 +59,12 @@ export default function ChatPage() {
         message: 'No se pudo inicializar el chat correctamente.',
       });
     }
-  };
+  }, [isAuthenticated, user, selectedGame, addNotification]);
+
+  // Inicializar chat al cargar o cambiar juego
+  useEffect(() => {
+    initializeChat();
+  }, [initializeChat]);
 
   // Actualizar estadísticas del chat
   useEffect(() => {
@@ -139,7 +139,7 @@ export default function ChatPage() {
         });
       }
       
-    } catch (error) {
+    } catch {
       // Error inesperado
       addNotification({
         type: 'error',

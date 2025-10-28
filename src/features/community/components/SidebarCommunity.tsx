@@ -56,7 +56,7 @@ export default function SidebarCommunity({
           ].map(option => (
             <button
               key={option.value}
-              onClick={() => handleSortChange(option.value as any)}
+              onClick={() => handleSortChange(option.value as 'newest' | 'popular' | 'most-commented')}
               className={`w-full flex items-center px-3 py-2 text-sm rounded-lg transition-all ${
                 filters.sortBy === option.value
                   ? 'bg-purple-600 text-white'

@@ -398,6 +398,9 @@ class InteractiveGuideService {
     // Update guide likes count
     const guide = allGuides.find(g => g.id === guideId);
     if (guide) {
+      if (guide.likes === undefined) {
+        guide.likes = 0;
+      }
       guide.likes += newLiked ? 1 : -1;
       guide.likes = Math.max(0, guide.likes); // Prevent negative likes
     }

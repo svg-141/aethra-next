@@ -30,8 +30,8 @@ export default function GuideCard({ guide, onView, onDownload, onRate }: GuideCa
     setIsLiking(true);
     try {
       await enhancedGuideService.toggleLike(auth.user.id, guide.id);
-    } catch (error) {
-      console.error('Error toggling like:', error);
+    } catch (err) {
+      console.error('Error toggling like:', err);
     } finally {
       setIsLiking(false);
     }
@@ -45,8 +45,8 @@ export default function GuideCard({ guide, onView, onDownload, onRate }: GuideCa
       if (success) {
         onDownload?.(guide.id);
       }
-    } catch (error) {
-      console.error('Error downloading guide:', error);
+    } catch (err) {
+      console.error('Error downloading guide:', err);
     } finally {
       setIsDownloading(false);
     }
@@ -54,10 +54,10 @@ export default function GuideCard({ guide, onView, onDownload, onRate }: GuideCa
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'beginner': return { bg: 'var(--color-success)', opacity: '0.15', text: 'var(--color-success)', border: 'var(--color-success)', borderOpacity: '0.3' };
-      case 'intermediate': return { bg: 'var(--color-warning)', opacity: '0.15', text: 'var(--color-warning)', border: 'var(--color-warning)', borderOpacity: '0.3' };
-      case 'advanced': return { bg: 'var(--color-error)', opacity: '0.15', text: 'var(--color-error)', border: 'var(--color-error)', borderOpacity: '0.3' };
-      default: return { bg: 'var(--color-primary)', opacity: '0.15', text: 'var(--color-primary)', border: 'var(--color-primary)', borderOpacity: '0.3' };
+      case 'beginner': return { bg: 'rgba(var(--color-success-rgb), 0.15)', text: 'var(--color-success)', border: 'rgba(var(--color-success-rgb), 0.3)' };
+      case 'intermediate': return { bg: 'rgba(var(--color-warning-rgb), 0.15)', text: 'var(--color-warning)', border: 'rgba(var(--color-warning-rgb), 0.3)' };
+      case 'advanced': return { bg: 'rgba(var(--color-error-rgb), 0.15)', text: 'var(--color-error)', border: 'rgba(var(--color-error-rgb), 0.3)' };
+      default: return { bg: 'rgba(var(--color-primary-rgb), 0.15)', text: 'var(--color-primary)', border: 'rgba(var(--color-primary-rgb), 0.3)' };
     }
   };
 
@@ -245,11 +245,9 @@ export default function GuideCard({ guide, onView, onDownload, onRate }: GuideCa
             borderRadius: '4px',
             fontSize: '11px',
             fontWeight: '600',
-            background: 'var(--color-primary)',
-            opacity: '0.2',
+            background: 'rgba(var(--color-primary-rgb), 0.2)',
             color: 'var(--color-primary)',
-            border: '1px solid var(--color-primary)',
-            borderOpacity: '0.3'
+            border: '1px solid rgba(var(--color-primary-rgb), 0.3)'
           }}>
             {guide.name}
           </span>
@@ -316,7 +314,6 @@ export default function GuideCard({ guide, onView, onDownload, onRate }: GuideCa
             fontSize: '11px',
             fontWeight: '600',
             background: difficultyColors.bg,
-            opacity: difficultyColors.opacity,
             color: difficultyColors.text,
             border: `1px solid ${difficultyColors.border}`
           }}>

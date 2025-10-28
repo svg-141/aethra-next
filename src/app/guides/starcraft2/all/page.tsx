@@ -1,13 +1,14 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Image from 'next/image';
 import { useThemeContext } from '../../../../context/ThemeContext';
 import { getStarcraft2Guides } from '../../../../features/games/services/guideService';
 import GuideCard from '../../../../features/games/components/GuideCard';
 import HeroSection from '../../../../features/ui/components/HeroSection';
 
 export default function Starcraft2GuidesPage() {
-  const { currentTheme } = useThemeContext();
+  useThemeContext();
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('newest');
@@ -71,7 +72,13 @@ export default function Starcraft2GuidesPage() {
         badgeColor="bg-blue-500/20 text-blue-300 border-blue-500/30"
       >
         <div className="flex items-center gap-4 mb-4">
-          <img src="/assets/img/games/starcraft2.png" alt="StarCraft 2" className="w-16 h-16 rounded-lg border-2 border-white/20" />
+          <Image
+            src="/assets/img/games/starcraft2.png"
+            alt="StarCraft 2"
+            width={64}
+            height={64}
+            className="w-16 h-16 rounded-lg border-2 border-white/20"
+          />
           <div className="flex items-center gap-4 text-sm theme-text-secondary">
             <div className="flex items-center gap-2">
               <i className="fas fa-book"></i>

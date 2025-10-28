@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useNotifications } from '../hooks/useNotifications';
-import { Notification } from '../types/notification.types';
+import { Notification, NotificationType } from '../types/notification.types';
 import { NOTIFICATION_TYPES, NOTIFICATION_PRIORITIES } from '../constants/notification-constants';
 
 interface NotificationPanelProps {
@@ -31,7 +31,7 @@ export function NotificationPanel({ onClose }: NotificationPanelProps) {
 
   const handleTypeChange = (type: string) => {
     setSelectedType(type);
-    updateFilters({ type: type === 'all' ? undefined : type as 'achievement' | 'friend' | 'chat' | 'system' | 'security' });
+    updateFilters({ type: type === 'all' ? undefined : type as NotificationType });
   };
 
   const handleNotificationClick = async (notification: Notification) => {

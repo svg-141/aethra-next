@@ -419,18 +419,18 @@ export class ForumService {
       .sort((a, b) => b.count - a.count);
 
     // Contar autores activos
-    const authorCounts = new Map<string, { author: Author; count: number }>();
+    const authorCounts = new Map<string, { author: Author; postCount: number }>();
     activePosts.forEach(post => {
       const existing = authorCounts.get(post.author.id);
       if (existing) {
-        existing.count += 1;
+        existing.postCount += 1;
       } else {
-        authorCounts.set(post.author.id, { author: post.author, count: 1 });
+        authorCounts.set(post.author.id, { author: post.author, postCount: 1 });
       }
     });
 
     const topAuthors = Array.from(authorCounts.values())
-      .sort((a, b) => b.count - a.count)
+      .sort((a, b) => b.postCount - a.postCount)
       .slice(0, 5);
 
     const uniqueAuthors = new Set(activePosts.map(p => p.author.id));

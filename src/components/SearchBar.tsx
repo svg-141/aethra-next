@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect, useCallback, memo, useMemo } from 'react';
 import { useSearch, SearchResult } from '../hooks/useSearch';
-import { useDebounce } from '../utils/performance';
 
 function SearchBar() {
   const { query, results, filters, isLoading, setQuery, setFilters, clearSearch } = useSearch();
@@ -51,20 +50,20 @@ function SearchBar() {
     default: 'bg-gray-500/20 border-gray-500/30',
   }), []);
 
-  // Formatear tiempo relativo
-  const formatTimeAgo = (date: Date) => {
-    const now = new Date();
-    const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
-    
-    if (diffInMinutes < 1) return 'Ahora';
-    if (diffInMinutes < 60) return `hace ${diffInMinutes}m`;
-    
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    if (diffInHours < 24) return `hace ${diffInHours}h`;
-    
-    const diffInDays = Math.floor(diffInHours / 24);
-    return `hace ${diffInDays}d`;
-  };
+  // // Formatear tiempo relativo - moved to component level for better performance
+  // const formatTimeAgo = (date: Date) => { // Removed unused function
+  //   const now = new Date();
+  //   const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
+
+  //   if (diffInMinutes < 1) return 'Ahora';
+  //   if (diffInMinutes < 60) return `hace ${diffInMinutes}m`;
+
+  //   const diffInHours = Math.floor(diffInMinutes / 60);
+  //   if (diffInHours < 24) return `hace ${diffInHours}h`;
+
+  //   const diffInDays = Math.floor(diffInHours / 24);
+  //   return `hace ${diffInDays}d`;
+  // };
 
   // Optimized result click handler
   const handleResultClick = useCallback((result: SearchResult) => {
@@ -73,12 +72,9 @@ function SearchBar() {
     clearSearch();
   }, [clearSearch]);
   
-  // Debounced search input handler
-  const debouncedSetQuery = useDebounce(setQuery, 300);
-  
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    debouncedSetQuery(e.target.value);
-  }, [debouncedSetQuery]);
+    setQuery(e.target.value);
+  }, [setQuery]);
 
   return (
     <div className="relative flex-1 max-w-md" ref={searchRef}>
@@ -175,7 +171,7 @@ function SearchBar() {
             <label className="text-xs theme-text-secondary mb-2 block">Rango de tiempo</label>
             <select
               value={filters.timeRange}
-              onChange={(e) => setFilters({ timeRange: e.target.value as any })}
+              onChange={(e) => setFilters({ timeRange: e.target.value as 'all' | 'day' | 'week' | 'month' })}
               className="w-full select-theme px-3 py-1 text-sm"
             >
               <option value="all">Todo el tiempo</option>

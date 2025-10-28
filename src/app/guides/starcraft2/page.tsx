@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import HeroSection from '../../../features/ui/components/HeroSection';
 import { useSimpleTutorial } from '../../../hooks/useSimpleTutorial';
 import SimpleTutorial from '../../../components/SimpleTutorial';
@@ -66,7 +67,13 @@ export default function Starcraft2GuidePage() {
         badgeColor="bg-blue-500/20 text-blue-300 border-blue-500/30"
       >
         <div className="flex items-center gap-4 mb-4">
-          <img src="/assets/img/games/starcraft2.png" alt="Starcraft 2" className="w-16 h-16 rounded-lg border-2 border-white/20" />
+          <Image
+            src="/assets/img/games/starcraft2.png"
+            alt="Starcraft 2"
+            width={64}
+            height={64}
+            className="w-16 h-16 rounded-lg border-2 border-white/20"
+          />
         </div>
       </HeroSection>
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">

@@ -1,5 +1,4 @@
 import { ChatMessage } from '../types/chat.types';
-import { authService } from '../../../services/authService';
 
 export interface ChatResponse {
   message: ChatMessage;
@@ -17,7 +16,7 @@ export interface ChatHistory {
 }
 
 // Simulación de base de datos de conversaciones
-let chatSessions: Map<string, ChatHistory> = new Map();
+const chatSessions: Map<string, ChatHistory> = new Map();
 let messageIdCounter = 1;
 
 export class ChatService {
@@ -132,7 +131,7 @@ export class ChatService {
         success: true,
       };
 
-    } catch (error) {
+    } catch {
       return {
         message: {
           id: (messageIdCounter++).toString(),
@@ -315,7 +314,7 @@ export class ChatService {
   }
 
   // Respuestas específicas para Valorant
-  private static getValorantResponse(message: string, hasDiscussedBefore: Function): string {
+  private static getValorantResponse(message: string, hasDiscussedBefore: (topic: string) => boolean): string {
     if (/\b(meta|parche|patch)\b/i.test(message)) {
       return hasDiscussedBefore('meta') 
         ? 'Como mencionamos antes, el meta actual sigue favoreciendo composiciones balanceadas. ¿Hay algún aspecto específico del meta que te gustaría profundizar?'
@@ -338,7 +337,7 @@ export class ChatService {
   }
 
   // Respuestas específicas para League of Legends
-  private static getLoLResponse(message: string, hasDiscussedBefore: Function): string {
+  private static getLoLResponse(message: string, hasDiscussedBefore: (topic: string) => boolean): string {
     if (/\b(campe[óo]n|champion|build)\b/i.test(message)) {
       return 'Los campeones más fuertes en el patch actual: Mid - Yasuo, Zed, Ahri; Jungle - Graves, Lee Sin, Kha\'Zix; ADC - Jinx, Caitlyn, Kai\'Sa. Para builds, prioriza items de poder de spike temprano y adapta según el enemy team comp.';
     }
@@ -361,7 +360,7 @@ export class ChatService {
   }
 
   // Respuestas específicas para Dota 2
-  private static getDota2Response(message: string, hasDiscussedBefore: Function): string {
+  private static getDota2Response(message: string, hasDiscussedBefore: (topic: string) => boolean): string {
     if (/\b(h[eé]roe|hero|meta)\b/i.test(message)) {
       return 'Meta actual de Dota 2: Carries fuertes - Anti-Mage, Phantom Assassin, Juggernaut; Mids - Invoker, Storm Spirit, Shadow Fiend; Supports - Crystal Maiden, Lion, Rubick. El meta favorece early fighting y objetivos tempranos.';
     }
@@ -382,7 +381,7 @@ export class ChatService {
   }
 
   // Respuestas específicas para CS2
-  private static getCS2Response(message: string, hasDiscussedBefore: Function): string {
+  private static getCS2Response(message: string, hasDiscussedBefore: (topic: string) => boolean): string {
     if (/\b(awp|dust2|sniper)\b/i.test(message)) {
       return 'AWP en Dust2: posiciones clave son A Long, Mid Doors, y B Site. Siempre ten escape route planificado, usa shoulder peeking, y koordina con tu team para trades. Practice quick scoping en aim maps.';
     }
@@ -405,7 +404,7 @@ export class ChatService {
   }
 
   // Respuestas específicas para StarCraft 2
-  private static getStarCraft2Response(message: string, hasDiscussedBefore: Function): string {
+  private static getStarCraft2Response(message: string, hasDiscussedBefore: (topic: string) => boolean): string {
     if (/\b(build|terran|zerg|protoss)\b/i.test(message)) {
       return 'Builds sólidos por raza: Terran - 3-1-1 o Marine/Tank; Protoss - Robo opening o Blink Stalkers; Zerg - Ling/Bane/Hydra o Roach/Ravager. Practice build orders hasta que sean muscle memory.';
     }
@@ -426,7 +425,7 @@ export class ChatService {
   }
 
   // Respuestas específicas para Overwatch 2
-  private static getOverwatch2Response(message: string, hasDiscussedBefore: Function): string {
+  private static getOverwatch2Response(message: string, hasDiscussedBefore: (topic: string) => boolean): string {
     if (/\b(composici[óo]n|team|comp|meta)\b/i.test(message)) {
       return 'Composiciones meta en OW2: Tank - Reinhardt, Orisa, Winston; DPS - Genji, Tracer, Soldier; Support - Ana, Mercy, Lucio. Adapta según map type: dive para control points, bunker para payload.';
     }

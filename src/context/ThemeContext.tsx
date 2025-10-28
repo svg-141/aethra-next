@@ -1,7 +1,41 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { Theme, UserPreferences } from '../hooks/useTheme';
+
+// Define interfaces directly in this file
+export interface Theme {
+  id: string;
+  name: string;
+  description: string;
+  colors: {
+    primary: string;
+    secondary: string;
+    accent: string;
+    background: string;
+    surface: string;
+    text: string;
+    textSecondary: string;
+    border: string;
+    success: string;
+    warning: string;
+    error: string;
+  };
+  gradients: {
+    primary: string;
+    secondary: string;
+    background: string;
+  };
+  preview: string;
+}
+
+export interface UserPreferences {
+  theme: string;
+  fontSize: 'small' | 'medium' | 'large';
+  animations: boolean;
+  compactMode: boolean;
+  highContrast: boolean;
+  reducedMotion: boolean;
+}
 
 interface ThemeContextType {
   currentTheme: Theme;
@@ -237,8 +271,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
           const theme = themes.find(t => t.id === parsed.theme) || themes[0];
           setCurrentTheme(theme);
         }
-      } catch (error) {
-        console.error('Error loading theme preferences:', error);
+      } catch (err) {
+        console.error('Error loading theme preferences:', err);
       } finally {
         setIsLoading(false);
       }

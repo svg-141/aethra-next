@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import HeroSection from '../../../features/ui/components/HeroSection';
 import CommentSection from '../../../features/chat/components/CommentSection';
 import { useSimpleTutorial } from '../../../hooks/useSimpleTutorial';
@@ -70,7 +71,13 @@ export default function LeagueOfLegendsGuidePage() {
         badgeColor="bg-blue-500/20 text-blue-300 border-blue-500/30"
       >
         <div className="flex items-center gap-4 mb-4">
-          <img src="/assets/games/lol.png" alt="League of Legends" className="w-16 h-16 rounded-lg border-2 border-white/20" />
+          <Image
+            src="/assets/games/lol.png"
+            alt="League of Legends"
+            width={64}
+            height={64}
+            className="w-16 h-16 rounded-lg border-2 border-white/20"
+          />
         </div>
       </HeroSection>
 
@@ -189,7 +196,7 @@ export default function LeagueOfLegendsGuidePage() {
                 <ul className="space-y-3 text-sm text-gray-400">
                   <li className="flex items-start gap-2">
                     <i className="fas fa-arrow-up text-green-400 mt-1"></i>
-                    <span><strong>K'Sante:</strong> Buff en tankiness</span>
+                    <span><strong>K&apos;Sante:</strong> Buff en tankiness</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <i className="fas fa-arrow-down text-red-400 mt-1"></i>
@@ -231,7 +238,7 @@ export default function LeagueOfLegendsGuidePage() {
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                   <div className="bg-[#1e0b36] rounded-lg p-3 border border-yellow-500/20 text-center">
-                    <div className="text-sm text-white font-semibold mb-1">K'Sante</div>
+                    <div className="text-sm text-white font-semibold mb-1">K&apos;Sante</div>
                     <div className="text-xs text-red-300">Top</div>
                   </div>
                   <div className="bg-[#1e0b36] rounded-lg p-3 border border-yellow-500/20 text-center">
@@ -262,7 +269,7 @@ export default function LeagueOfLegendsGuidePage() {
                   Tier A - Muy Fuerte
                 </h3>
                 <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
-                  {['Sett', 'Lee Sin', 'Orianna', 'Kai\'Sa', 'Thresh', 'Garen'].map((champ, i) => (
+                  {['Sett', 'Lee Sin', 'Orianna', 'Kai&apos;Sa', 'Thresh', 'Garen'].map((champ, i) => (
                     <div key={i} className="bg-[#1e0b36] rounded-lg p-2 border border-green-500/20 text-center">
                       <div className="text-xs text-white font-medium">{champ}</div>
                     </div>

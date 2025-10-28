@@ -2,7 +2,6 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { useThemeContext } from '../../../context/ThemeContext';
 import SidebarGuide from '../../../features/games/components/SidebarGuide';
 import CommentSection from '../../../features/chat/components/CommentSection';
 import { Guide } from '../../../features/games/types/games.types';
@@ -20,7 +19,6 @@ interface GuideSection {
 export default function GuidePage() {
   const params = useParams();
   const router = useRouter();
-  const { currentTheme } = useThemeContext();
   const auth = useAuth();
 
   const [guide, setGuide] = useState<Guide | null>(null);
@@ -58,7 +56,7 @@ export default function GuidePage() {
   }, [guide, auth.user]);
 
   // AI-powered content generation functions
-  const generateMetaAnalysis = (): string => {
+  const generateMetaAnalysis = useCallback((): string => {
     setAiGeneratedContent(true);
     return `
       <div class="space-y-6">
@@ -98,9 +96,9 @@ export default function GuidePage() {
         </div>
       </div>
     `;
-  };
+  }, [guide?.name]);
 
-  const generateKeyStrategies = (): string => {
+  const generateKeyStrategies = useCallback((): string => {
     return `
       <div class="space-y-6">
         <div class="theme-card p-6">
@@ -109,7 +107,7 @@ export default function GuidePage() {
             Estrategias Fundamentales
           </h4>
           <div class="space-y-4">
-            <div class="theme-bg-surface p-4 rounded-lg border-l-4" style="border-color: var(--color-primary)">
+            <div class="theme-bg-surface p-4 rounded-lg border-l-4 theme-border-primary">
               <h5 class="font-semibold theme-text-primary mb-2">Estrategia Principal</h5>
               <p class="theme-text-secondary mb-3">
                 Control del ritmo de juego mediante presión constante y rotaciones inteligentes.
@@ -118,7 +116,7 @@ export default function GuidePage() {
                 <span class="theme-text-primary">Dificultad:</span> ${guide?.difficulty === 'beginner' ? 'Principiante' : guide?.difficulty === 'intermediate' ? 'Intermedio' : 'Avanzado'}
               </div>
             </div>
-            <div class="theme-bg-surface p-4 rounded-lg border-l-4" style="border-color: var(--color-secondary)">
+            <div class="theme-bg-surface p-4 rounded-lg border-l-4 theme-border-secondary">
               <h5 class="font-semibold theme-text-primary mb-2">Estrategia Alternativa</h5>
               <p class="theme-text-secondary mb-3">
                 Enfoque defensivo con counter-attacks precisos en momentos clave.
@@ -131,9 +129,9 @@ export default function GuidePage() {
         </div>
       </div>
     `;
-  };
+  }, [guide?.difficulty]);
 
-  const generateTeamCompositions = (): string => {
+  const generateTeamCompositions = useCallback((): string => {
     return `
       <div class="space-y-6">
         <div class="theme-card p-6">
@@ -192,9 +190,9 @@ export default function GuidePage() {
         </div>
       </div>
     `;
-  };
+  }, []);
 
-  const generateDetailedContent = (): string => {
+  const generateDetailedContent = useCallback((): string => {
     return `
       <div class="space-y-6">
         <div class="theme-card p-6">
@@ -232,7 +230,7 @@ export default function GuidePage() {
         </div>
       </div>
     `;
-  };
+  }, [guide?.name]);
 
   // Generate guide sections based on guide type and category
   const generateGuideSections = useCallback((): GuideSection[] => {
@@ -256,7 +254,7 @@ export default function GuidePage() {
             id: 'meta-analysis',
             title: 'Análisis del Meta',
             content: generateMetaAnalysis(),
-            icon: 'fas fa-chart-line'
+            icon: 'fas fa-fa-chart-line'
           },
           {
             id: 'key-strategies',
@@ -283,7 +281,7 @@ export default function GuidePage() {
           }
         ];
     }
-  }, [guide]);
+  }, [guide, generateMetaAnalysis, generateKeyStrategies, generateTeamCompositions, generateDetailedContent]);
 
   const sections = useMemo(() => generateGuideSections(), [generateGuideSections]);
 
@@ -307,8 +305,8 @@ export default function GuidePage() {
 
     try {
       await enhancedGuideService.downloadGuide(auth.user.id, guide.id);
-    } catch (error) {
-      console.error('Error downloading guide:', error);
+    } catch (err) {
+      console.error('Error downloading guide:', err);
     }
   }, [guide, auth.user, canAccess]);
 
@@ -318,10 +316,10 @@ export default function GuidePage() {
 
   if (isLoading) {
     return (
-      <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen" style={{ background: 'var(--gradient-background)' }}>
+      <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen theme-bg-gradient">
         <div className="max-w-6xl mx-auto flex items-center justify-center h-96">
           <div className="text-center">
-            <i className="fas fa-spinner fa-spin text-4xl mb-4" style={{ color: 'var(--color-primary)' }}></i>
+            <i className="fas fa-spinner fa-spin text-4xl mb-4 theme-text-primary"></i>
             <p className="theme-text-secondary">Cargando guía...</p>
           </div>
         </div>
@@ -331,10 +329,10 @@ export default function GuidePage() {
 
   if (!guide) {
     return (
-      <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen" style={{ background: 'var(--gradient-background)' }}>
+      <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen theme-bg-gradient">
         <div className="max-w-6xl mx-auto flex items-center justify-center h-96">
           <div className="text-center">
-            <i className="fas fa-exclamation-triangle text-4xl mb-4" style={{ color: 'var(--color-warning)' }}></i>
+            <i className="fas fa-exclamation-triangle text-4xl mb-4 theme-text-warning"></i>
             <h2 className="text-xl font-bold theme-text-primary mb-2">Guía no encontrada</h2>
             <p className="theme-text-secondary mb-4">La guía que buscas no existe o ha sido movida.</p>
             <button
@@ -352,22 +350,16 @@ export default function GuidePage() {
 
   if (!canAccess) {
     return (
-      <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen" style={{ background: 'var(--gradient-background)' }}>
+      <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen theme-bg-gradient">
         <div className="max-w-6xl mx-auto flex items-center justify-center h-96">
           <div className="text-center">
-            <i className="fas fa-crown text-4xl mb-4" style={{ color: 'var(--color-warning)' }}></i>
+            <i className="fas fa-crown text-4xl mb-4 theme-text-warning"></i>
             <h2 className="text-xl font-bold theme-text-primary mb-2">Contenido Premium</h2>
             <p className="theme-text-secondary mb-4">Esta guía requiere una cuenta premium para acceder.</p>
             <div className="flex gap-3 justify-center">
               <button
                 onClick={handleGoBack}
-                className="px-6 py-3 rounded-lg font-semibold transition-all"
-                style={{
-                  backgroundColor: 'var(--color-surface)',
-                  borderColor: 'var(--color-border)',
-                  color: 'var(--color-text)',
-                  border: '1px solid'
-                }}
+                className="px-6 py-3 rounded-lg font-semibold transition-all theme-surface border theme-border theme-text"
               >
                 <i className="fas fa-arrow-left mr-2"></i>
                 Volver
@@ -384,23 +376,21 @@ export default function GuidePage() {
   }
 
   return (
-    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen" style={{ background: 'var(--gradient-background)' }}>
+    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen theme-bg-gradient">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
             <button
               onClick={handleGoBack}
-              className="w-10 h-10 rounded-lg flex items-center justify-center transition-all animate-theme-hover"
-              style={{ backgroundColor: 'var(--color-surface)', color: 'var(--color-text-secondary)' }}
+              className="w-10 h-10 rounded-lg flex items-center justify-center transition-all animate-theme-hover theme-surface theme-text-secondary"
               title="Volver"
             >
               <i className="fas fa-arrow-left"></i>
             </button>
             <div
-              className="w-12 h-12 rounded-lg border-2 flex items-center justify-center font-bold text-xl"
+              className="w-12 h-12 rounded-lg border-2 flex items-center justify-center font-bold text-xl theme-border"
               style={{
-                borderColor: 'var(--color-border)',
                 background: guide.gradient ? `linear-gradient(135deg, ${guide.gradient})` : 'var(--gradient-primary)'
               }}
             >
@@ -411,36 +401,19 @@ export default function GuidePage() {
               <div className="flex items-center gap-4 mt-1">
                 <span className="text-sm theme-text-secondary">por {guide.author}</span>
                 <span
-                  className="text-xs px-2 py-1 rounded-full"
-                  style={{
-                    backgroundColor: guide.difficulty === 'beginner' ? 'var(--color-success)' :
-                                   guide.difficulty === 'intermediate' ? 'var(--color-warning)' : 'var(--color-error)',
-                    opacity: '0.2',
-                    color: guide.difficulty === 'beginner' ? 'var(--color-success)' :
-                           guide.difficulty === 'intermediate' ? 'var(--color-warning)' : 'var(--color-error)'
-                  }}
+                  className={`text-xs px-2 py-1 rounded-full ${guide.difficulty === 'beginner' ? 'theme-badge-success' : guide.difficulty === 'intermediate' ? 'theme-badge-warning' : 'theme-badge-error'}`}
                 >
                   {guide.difficulty === 'beginner' ? 'Principiante' :
                    guide.difficulty === 'intermediate' ? 'Intermedio' : 'Avanzado'}
                 </span>
                 <span
-                  className="text-xs px-2 py-1 rounded-full"
-                  style={{
-                    backgroundColor: 'var(--color-primary)',
-                    opacity: '0.2',
-                    color: 'var(--color-primary)'
-                  }}
+                  className="text-xs px-2 py-1 rounded-full theme-badge theme-badge-primary"
                 >
                   {guide.type}
                 </span>
                 {aiGeneratedContent && (
                   <span
-                    className="text-xs px-2 py-1 rounded-full flex items-center gap-1"
-                    style={{
-                      backgroundColor: 'var(--color-info)',
-                      opacity: '0.2',
-                      color: 'var(--color-info)'
-                    }}
+                    className="text-xs px-2 py-1 rounded-full flex items-center gap-1 theme-badge theme-badge-info"
                   >
                     <i className="fas fa-brain text-xs"></i>
                     IA Enhanced
@@ -458,14 +431,11 @@ export default function GuidePage() {
               <i className="fas fa-download"></i>
               {(guide.downloads || 0).toLocaleString()}
             </div>
-            <div className="flex items-center gap-1 text-sm" style={{ color: 'var(--color-warning)' }}>
+            <div className="flex items-center gap-1 text-sm theme-text-warning">
               {Array.from({ length: 5 }, (_, i) => (
                 <i
                   key={i}
-                  className="fas fa-star text-xs"
-                  style={{
-                    color: i < Math.floor(guide.rating || 0) ? 'var(--color-warning)' : 'var(--color-text-secondary)'
-                  }}
+                  className={`fas fa-star text-xs ${i < Math.floor(guide.rating || 0) ? 'theme-text-warning' : 'theme-text-secondary'}`}
                 />
               ))}
               <span className="ml-1">{(guide.rating || 0).toFixed(1)}</span>

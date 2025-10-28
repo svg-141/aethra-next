@@ -48,13 +48,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isLoading: false,
         error: null
       });
-    } catch (error) {
-      console.error('Auth initialization error:', error);
+    } catch (err) {
+      console.error('Auth initialization error:', err);
       setAuthState({
         user: null,
         isAuthenticated: false,
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Error de inicialización'
+        error: err instanceof Error ? err.message : 'Error de inicialización'
       });
     }
   };
@@ -71,13 +71,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isLoading: false,
         error: null
       });
-    } catch (error) {
+    } catch (err) {
       setAuthState(prev => ({
         ...prev,
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Error de inicio de sesión'
+        error: err instanceof Error ? err.message : 'Error de inicio de sesión'
       }));
-      throw error;
+      throw err;
     }
   };
 
@@ -93,13 +93,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isLoading: false,
         error: null
       });
-    } catch (error) {
+    } catch (err) {
       setAuthState(prev => ({
         ...prev,
         isLoading: false,
-        error: error instanceof Error ? error.message : 'Error al crear la cuenta'
+        error: err instanceof Error ? err.message : 'Error al crear la cuenta'
       }));
-      throw error;
+      throw err;
     }
   };
 
@@ -115,8 +115,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isLoading: false,
         error: null
       });
-    } catch (error) {
-      console.error('Logout error:', error);
+    } catch (err) {
+      console.error('Logout error:', err);
       // Force logout even if there's an error
       setAuthState({
         user: null,
@@ -137,8 +137,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         ...prev,
         user: updatedUser
       }));
-    } catch (error) {
-      throw error;
+    } catch (err) {
+      throw err;
     }
   };
 
@@ -155,9 +155,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user: updatedUser,
         isLoading: false
       }));
-    } catch (error) {
+    } catch (err) {
       setAuthState(prev => ({ ...prev, isLoading: false }));
-      throw error;
+      throw err;
     }
   };
 
@@ -171,8 +171,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         ...prev,
         user: updatedUser
       }));
-    } catch (error) {
-      throw error;
+    } catch (err) {
+      throw err;
     }
   };
 
@@ -192,8 +192,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       return success;
-    } catch (error) {
-      console.error('Error using tokens:', error);
+    } catch (err) {
+      console.error('Error using tokens:', err);
       return false;
     }
   };
@@ -206,8 +206,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         isAuthenticated: !!user
       }));
-    } catch (error) {
-      console.error('Error refreshing user:', error);
+    } catch (err) {
+      console.error('Error refreshing user:', err);
     }
   };
 

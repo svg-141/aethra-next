@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { useThemeContext } from '../../../context/ThemeContext';
+import React, { useState, useCallback, useMemo } from 'react';
 import SidebarGuide from './SidebarGuide';
 import CommentSection from '../../chat/components/CommentSection';
 import { Guide } from '../types/games.types';
@@ -19,7 +18,6 @@ interface GuideSection {
 }
 
 export default function CompleteGuideView({ guide, onClose, onDownload, onRate }: CompleteGuideViewProps) {
-  const { currentTheme } = useThemeContext();
   const [activeSection, setActiveSection] = useState<string>('overview');
   const [aiGeneratedContent, setAiGeneratedContent] = useState<boolean>(false);
 
@@ -143,7 +141,7 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   }, [guide.type, guide.description, guide.difficulty, guide.estimatedTime]);
 
   // AI-powered content generation functions
-  const generateMetaAnalysis = (): string => {
+  const generateMetaAnalysis = useCallback((): string => {
     setAiGeneratedContent(true);
     return `
       <div class="space-y-6">
@@ -183,9 +181,9 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
         </div>
       </div>
     `;
-  };
+  }, [guide.name]);
 
-  const generateKeyStrategies = (): string => {
+  const generateKeyStrategies = useCallback((): string => {
     return `
       <div class="space-y-6">
         <div class="theme-card p-6">
@@ -216,9 +214,9 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
         </div>
       </div>
     `;
-  };
+  }, [guide.difficulty]);
 
-  const generateTeamCompositions = (): string => {
+  const generateTeamCompositions = useCallback((): string => {
     return `
       <div class="space-y-6">
         <div class="theme-card p-6">
@@ -277,7 +275,7 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
         </div>
       </div>
     `;
-  };
+  }, []);
 
   const generateCounterStrategies = (): string => {
     return `
@@ -602,7 +600,7 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
     `;
   };
 
-  const generateDetailedContent = (): string => {
+  const generateDetailedContent = useCallback((): string => {
     return `
       <div class="space-y-6">
         <div class="theme-card p-6">
@@ -640,7 +638,7 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
         </div>
       </div>
     `;
-  };
+  }, [guide.name]);
 
   const generateTips = (): string => {
     return `
@@ -713,6 +711,7 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
     }
   }, [handleClose]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleRate = useCallback((rating: number) => {
     onRate?.(guide.id, rating);
   }, [onRate, guide.id]);

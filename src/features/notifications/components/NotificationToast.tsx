@@ -14,10 +14,17 @@ export default function NotificationToast({ notification, onClose, onAction }: N
   const [isVisible, setIsVisible] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
+  const handleClose = () => {
+    setIsExiting(true);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  };
+
   useEffect(() => {
     // Animación de entrada
     const enterTimer = setTimeout(() => setIsVisible(true), 100);
-    
+
     // Auto-hide después del tiempo configurado
     const hideTimer = setTimeout(() => {
       handleClose();
@@ -27,14 +34,7 @@ export default function NotificationToast({ notification, onClose, onAction }: N
       clearTimeout(enterTimer);
       clearTimeout(hideTimer);
     };
-  }, []);
-
-  const handleClose = () => {
-    setIsExiting(true);
-    setTimeout(() => {
-      onClose();
-    }, 300);
-  };
+  }, [handleClose]);
 
   const handleAction = () => {
     if (onAction) {

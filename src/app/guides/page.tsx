@@ -4,12 +4,12 @@ import React, { useState, useMemo } from 'react';
 import { useThemeContext } from '../../context/ThemeContext';
 import { enhancedGuideService, getGuideCategories } from '../../features/games/services/guideService';
 import { useAuth } from '../../context/AuthContext';
-import { Guide, GuideType } from '../../features/games/types/games.types';
+import { GuideType } from '../../features/games/types/games.types';
 import GuideCard from '../../features/games/components/GuideCard';
 import HeroSection from '../../features/ui/components/HeroSection';
 
 export default function GuidesPage() {
-  const { currentTheme } = useThemeContext();
+  useThemeContext();
   const auth = useAuth();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedGame, setSelectedGame] = useState<string>('all');

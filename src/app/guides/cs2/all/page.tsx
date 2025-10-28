@@ -7,12 +7,20 @@ import HeroSection from '../../../../features/ui/components/HeroSection';
 import Image from 'next/image';
 
 // Mock data for CS2 guides
-const cs2Guides = [
+import { Guide, GuideType } from '../../../../features/games/types/games.types';
+
+// Mock data for CS2 guides
+const cs2Guides: Guide[] = [
   {
     id: 'cs2-1',
-    title: 'Guía Completa de Economía CS2',
+    name: 'Guía Completa de Economía CS2',
     description: 'Aprende a gestionar la economía del equipo para maximizar wins',
-    type: 'strategy',
+    type: 'strategy' as GuideType,
+    typeColor: 'blue',
+    tags: ['cs2', 'economy', 'strategy'],
+    link: '/guides/cs2/economy',
+    author: 'Aethra',
+    estimatedTime: '15 min',
     difficulty: 'intermediate',
     rating: 4.8,
     views: 15420,
@@ -20,14 +28,18 @@ const cs2Guides = [
     updated: '2025-10-15',
     meta: 'CS2 Economía',
     isFeatured: true,
-    isNew: true,
-    game: 'cs2'
+    isNew: true
   },
   {
     id: 'cs2-2',
-    title: 'Estrategias de Mirage',
+    name: 'Estrategias de Mirage',
     description: 'Domina uno de los mapas más jugados con estas estrategias',
-    type: 'tutorial',
+    type: 'tutorial' as GuideType,
+    typeColor: 'green',
+    tags: ['cs2', 'mirage', 'maps'],
+    link: '/guides/cs2/mirage',
+    author: 'Aethra',
+    estimatedTime: '20 min',
     difficulty: 'beginner',
     rating: 4.6,
     views: 12300,
@@ -35,14 +47,18 @@ const cs2Guides = [
     updated: '2025-10-10',
     meta: 'CS2 Mirage',
     isFeatured: true,
-    isNew: false,
-    game: 'cs2'
+    isNew: false
   },
   {
     id: 'cs2-3',
-    title: 'Utilidades en Inferno',
+    name: 'Utilidades en Inferno',
     description: 'Todas las granadas esenciales para dominar Inferno',
-    type: 'tutorial',
+    type: 'tutorial' as GuideType,
+    typeColor: 'green',
+    tags: ['cs2', 'inferno', 'grenades'],
+    link: '/guides/cs2/inferno',
+    author: 'Aethra',
+    estimatedTime: '10 min',
     difficulty: 'intermediate',
     rating: 4.9,
     views: 9870,
@@ -50,14 +66,18 @@ const cs2Guides = [
     updated: '2025-10-12',
     meta: 'CS2 Inferno',
     isFeatured: false,
-    isNew: true,
-    game: 'cs2'
+    isNew: true
   },
   {
     id: 'cs2-4',
-    title: 'Análisis Meta Profesional',
+    name: 'Análisis Meta Profesional',
     description: 'Tendencias del meta en los últimos torneos tier 1',
-    type: 'meta-analysis',
+    type: 'meta-analysis' as GuideType,
+    typeColor: 'purple',
+    tags: ['cs2', 'meta', 'pro'],
+    link: '/guides/cs2/meta',
+    author: 'Aethra',
+    estimatedTime: '25 min',
     difficulty: 'advanced',
     rating: 4.7,
     views: 7650,
@@ -65,13 +85,12 @@ const cs2Guides = [
     updated: '2025-10-08',
     meta: 'CS2 Pro Meta',
     isFeatured: true,
-    isNew: false,
-    game: 'cs2'
+    isNew: false
   }
 ];
 
 export default function CS2GuidesPage() {
-  const { currentTheme } = useThemeContext();
+  useThemeContext();
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('newest');

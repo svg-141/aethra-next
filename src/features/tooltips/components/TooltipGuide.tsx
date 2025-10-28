@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { TooltipStep, TooltipGuideProps, TooltipWrapperProps } from '../types/tooltip.types';
-import { useTooltips, getTooltipsBySection } from '../hooks/useTooltips';
+import { useTooltips } from '../hooks/useTooltips';
 
 export default function TooltipGuide({ section }: TooltipGuideProps) {
   const { preferences, shouldShowTooltip, markTooltipAsSeen, getTooltipsBySection } = useTooltips();
@@ -25,22 +25,6 @@ export default function TooltipGuide({ section }: TooltipGuideProps) {
       setIsVisible(false);
     }
   }, [section, sectionTooltips, shouldShowTooltip]);
-
-  // Posicionar tooltip cuando cambia
-  useEffect(() => {
-    if (currentTooltip && isVisible) {
-      const targetElement = document.querySelector(currentTooltip.target) as HTMLElement;
-      if (targetElement) {
-        targetRef.current = targetElement;
-        positionTooltip(targetElement);
-        
-        // Agregar clase de spotlight si está habilitado
-        if (preferences.spotlightMode) {
-          targetElement.classList.add('tooltip-spotlight');
-        }
-      }
-    }
-  }, [currentTooltip, isVisible, preferences.spotlightMode]);
 
   // Posicionar tooltip
   const positionTooltip = (targetElement: HTMLElement) => {

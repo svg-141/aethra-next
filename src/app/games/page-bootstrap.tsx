@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { CommentSection } from '../../features/chat';
-import { GuideCard, GameCard, Guide, Game } from '../../features/games';
-import { SUPPORTED_GAMES, SAMPLE_GUIDES, GUIDE_TYPES, DEFAULT_GUIDE_FILTERS } from '../../features/games/constants/games-constants';
+import { GuideCard, GameCard } from '../../features/games';
+import { SUPPORTED_GAMES, SAMPLE_GUIDES, GUIDE_TYPES } from '../../features/games/constants/games-constants';
 
 export default function GamesPage() {
   const [activeFilter, setActiveFilter] = useState('all');

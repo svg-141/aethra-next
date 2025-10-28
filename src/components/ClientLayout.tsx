@@ -5,6 +5,7 @@ import { useMemo, memo } from 'react';
 import Navbar from './Navbar';
 import { NotificationManager } from '../features/notifications';
 import ProtectedRoute from '../components/auth/ProtectedRoute';
+import Script from 'next/script';
 
 function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -38,6 +39,10 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
         </div>
       </main>
       <NotificationManager />
+      <Script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+        strategy="afterInteractive" 
+      />
     </div>
   );
 }

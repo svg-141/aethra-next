@@ -13,8 +13,8 @@ export default function PremiumPrompt() {
     setIsUpgrading(true);
     try {
       await auth.upgradeToPremium(planId);
-    } catch (error) {
-      console.error('Error upgrading to premium:', error);
+    } catch (err) {
+      console.error('Error upgrading to premium:', err);
       alert('Error al actualizar a premium. Por favor, intenta de nuevo.');
     } finally {
       setIsUpgrading(false);

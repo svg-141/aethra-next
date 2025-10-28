@@ -2,9 +2,9 @@
 
 import { useState, useMemo } from 'react';
 import { CommentSection } from '../../features/chat';
-import { GuideCard, GameCard, Guide, Game } from '../../features/games';
-import { guideService, getValorantGuides, getStarcraft2Guides } from '../../features/games/services/guideService';
-import { SUPPORTED_GAMES, GUIDE_TYPES, DEFAULT_GUIDE_FILTERS } from '../../features/games/constants/games-constants';
+import { GuideCard, GameCard } from '../../features/games';
+import { guideService } from '../../features/games/services/guideService';
+import { SUPPORTED_GAMES, GUIDE_TYPES } from '../../features/games/constants/games-constants';
 
 export default function GamesPage() {
   const [activeFilter, setActiveFilter] = useState('all');

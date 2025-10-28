@@ -1,29 +1,27 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '../../../context/AuthContext';
-import { useThemeContext } from '../../../context/ThemeContext';
 import Image from 'next/image';
+import { useAuth } from '../../../context/AuthContext';
+// import { useThemeContext } from '../../../context/ThemeContext'; // Removed unused import
 
 export default function ProfileSettingsPage() {
   const { user, isAuthenticated } = useAuth();
-  const { currentTheme } = useThemeContext();
+  // const { currentTheme } = useThemeContext(); // Removed unused variable
 
   const [formData, setFormData] = useState({
-    displayName: user?.displayName || '',
+    username: user?.username || '',
     email: user?.email || '',
-    bio: user?.bio || '',
     notifications: {
-      email: true,
-      push: true,
-      comments: true,
-      mentions: true
+      news: user?.preferences.notifications || true,
+      updates: user?.preferences.notifications || true,
+      mentions: user?.preferences.notifications || true,
     },
     privacy: {
-      profilePublic: true,
-      showEmail: false,
-      showStats: true
-    }
+      showProfile: user?.preferences.privacy.showProfile || true,
+      showActivity: user?.preferences.privacy.showActivity || true,
+      showStats: user?.preferences.privacy.showStats || true,
+    },
   });
 
   const [activeTab, setActiveTab] = useState<'profile' | 'account' | 'notifications' | 'privacy'>('profile');
@@ -146,9 +144,11 @@ export default function ProfileSettingsPage() {
                   {/* Avatar */}
                   <div className="flex items-center gap-6">
                     <div className="relative">
-                      <img
+                      <Image
                         src={user?.avatar || 'https://randomuser.me/api/portraits/men/1.jpg'}
                         alt="Avatar"
+                        width={96}
+                        height={96}
                         className="w-24 h-24 rounded-full border-4"
                         style={{ borderColor: 'var(--color-primary)' }}
                       />
@@ -157,8 +157,8 @@ export default function ProfileSettingsPage() {
                       </button>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold theme-text-primary">{user?.displayName}</h3>
-                      <p className="text-sm theme-text-secondary mb-2">Nivel {user?.level || 1}</p>
+                      <h3 className="text-lg font-semibold theme-text-primary">{user?.username}</h3>
+
                       <button className="text-sm px-4 py-2 rounded-lg transition-all animate-theme-hover" style={{ backgroundColor: 'var(--color-primary)', opacity: '0.2', color: 'var(--color-primary)' }}>
                         Cambiar foto
                       </button>
@@ -172,7 +172,7 @@ export default function ProfileSettingsPage() {
                       <input
                         type="text"
                         name="displayName"
-                        value={formData.displayName}
+                        value={formData.username}
                         onChange={handleInputChange}
                         className="w-full px-4 py-3 rounded-lg border transition-colors"
                         style={{
@@ -186,19 +186,7 @@ export default function ProfileSettingsPage() {
 
                     <div>
                       <label className="block text-sm font-medium theme-text-primary mb-2">Biografía</label>
-                      <textarea
-                        name="bio"
-                        value={formData.bio}
-                        onChange={handleInputChange}
-                        rows={4}
-                        className="w-full px-4 py-3 rounded-lg border transition-colors resize-none"
-                        style={{
-                          backgroundColor: 'var(--color-surface)',
-                          borderColor: 'var(--color-border)',
-                          color: 'var(--color-text)'
-                        }}
-                        placeholder="Cuéntanos sobre ti..."
-                      />
+
                       <p className="text-xs theme-text-secondary mt-1">Máximo 500 caracteres</p>
                     </div>
                   </div>
@@ -288,53 +276,11 @@ export default function ProfileSettingsPage() {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: 'var(--color-surface)' }}>
-                      <div>
-                        <h4 className="font-medium theme-text-primary">Notificaciones por email</h4>
-                        <p className="text-sm theme-text-secondary">Recibe updates importantes por correo</p>
-                      </div>
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={formData.notifications.email}
-                          onChange={() => handleNotificationChange('email')}
-                          className="sr-only peer"
-                        />
-                        <div className="w-11 h-6 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all" style={{ backgroundColor: formData.notifications.email ? 'var(--color-primary)' : 'var(--color-border)' }}></div>
-                      </label>
-                    </div>
 
-                    <div className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: 'var(--color-surface)' }}>
-                      <div>
-                        <h4 className="font-medium theme-text-primary">Notificaciones push</h4>
-                        <p className="text-sm theme-text-secondary">Recibe notificaciones en el navegador</p>
-                      </div>
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={formData.notifications.push}
-                          onChange={() => handleNotificationChange('push')}
-                          className="sr-only peer"
-                        />
-                        <div className="w-11 h-6 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all" style={{ backgroundColor: formData.notifications.push ? 'var(--color-primary)' : 'var(--color-border)' }}></div>
-                      </label>
-                    </div>
 
-                    <div className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: 'var(--color-surface)' }}>
-                      <div>
-                        <h4 className="font-medium theme-text-primary">Comentarios</h4>
-                        <p className="text-sm theme-text-secondary">Cuando alguien comenta en tus publicaciones</p>
-                      </div>
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={formData.notifications.comments}
-                          onChange={() => handleNotificationChange('comments')}
-                          className="sr-only peer"
-                        />
-                        <div className="w-11 h-6 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all" style={{ backgroundColor: formData.notifications.comments ? 'var(--color-primary)' : 'var(--color-border)' }}></div>
-                      </label>
-                    </div>
+
+
+
 
                     <div className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: 'var(--color-surface)' }}>
                       <div>
@@ -364,37 +310,9 @@ export default function ProfileSettingsPage() {
                   </div>
 
                   <div className="space-y-4">
-                    <div className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: 'var(--color-surface)' }}>
-                      <div>
-                        <h4 className="font-medium theme-text-primary">Perfil público</h4>
-                        <p className="text-sm theme-text-secondary">Permite que otros usuarios vean tu perfil</p>
-                      </div>
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={formData.privacy.profilePublic}
-                          onChange={() => handlePrivacyChange('profilePublic')}
-                          className="sr-only peer"
-                        />
-                        <div className="w-11 h-6 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all" style={{ backgroundColor: formData.privacy.profilePublic ? 'var(--color-primary)' : 'var(--color-border)' }}></div>
-                      </label>
-                    </div>
 
-                    <div className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: 'var(--color-surface)' }}>
-                      <div>
-                        <h4 className="font-medium theme-text-primary">Mostrar email</h4>
-                        <p className="text-sm theme-text-secondary">Tu email será visible en tu perfil</p>
-                      </div>
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={formData.privacy.showEmail}
-                          onChange={() => handlePrivacyChange('showEmail')}
-                          className="sr-only peer"
-                        />
-                        <div className="w-11 h-6 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all" style={{ backgroundColor: formData.privacy.showEmail ? 'var(--color-primary)' : 'var(--color-border)' }}></div>
-                      </label>
-                    </div>
+
+                    
 
                     <div className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: 'var(--color-surface)' }}>
                       <div>

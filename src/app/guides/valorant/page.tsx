@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import HeroSection from '../../../features/ui/components/HeroSection';
 import CommentSection from '../../../features/chat/components/CommentSection';
 import { useSimpleTutorial } from '../../../hooks/useSimpleTutorial';
@@ -244,7 +245,7 @@ export default function ValorantGuidePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="bg-[#1e0b36] rounded-lg p-4 border border-yellow-500/20">
                     <div className="flex items-center gap-3 mb-2">
-                      <img src="/assets/img/games/valorant/agents/jett.jpg" alt="Jett" className="w-12 h-12 rounded-full" />
+                      <Image src="/assets/img/games/valorant/agents/jett.jpg" alt="Jett" width={48} height={48} className="rounded-full" />
                       <div>
                         <h4 className="text-white font-semibold">Jett</h4>
                         <span className="text-xs text-blue-300">Duelista</span>
@@ -252,10 +253,10 @@ export default function ValorantGuidePage() {
                     </div>
                     <p className="text-xs text-gray-400">Movilidad excepcional, perfecto para entry frags y escapes rápidos. Domina en manos expertas.</p>
                   </div>
-                  
+
                   <div className="bg-[#1e0b36] rounded-lg p-4 border border-yellow-500/20">
                     <div className="flex items-center gap-3 mb-2">
-                      <img src="/assets/img/games/valorant/agents/reyna.jpg" alt="Reyna" className="w-12 h-12 rounded-full" />
+                      <Image src="/assets/img/games/valorant/agents/reyna.jpg" alt="Reyna" width={48} height={48} className="rounded-full" />
                       <div>
                         <h4 className="text-white font-semibold">Reyna</h4>
                         <span className="text-xs text-blue-300">Duelista</span>
@@ -263,10 +264,10 @@ export default function ValorantGuidePage() {
                     </div>
                     <p className="text-xs text-gray-400">Snowball increíble una vez que obtiene la primera kill. Ideal para jugadores agresivos con buena puntería.</p>
                   </div>
-                  
+
                   <div className="bg-[#1e0b36] rounded-lg p-4 border border-yellow-500/20">
                     <div className="flex items-center gap-3 mb-2">
-                      <img src="/assets/img/games/valorant/agents/omen.jpg" alt="Omen" className="w-12 h-12 rounded-full" />
+                      <Image src="/assets/img/games/valorant/agents/omen.jpg" alt="Omen" width={48} height={48} className="rounded-full" />
                       <div>
                         <h4 className="text-white font-semibold">Omen</h4>
                         <span className="text-xs text-green-300">Controlador</span>
@@ -288,7 +289,7 @@ export default function ValorantGuidePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div className="bg-[#1e0b36] rounded-lg p-3 border border-green-500/20">
                     <div className="flex items-center gap-2 mb-2">
-                      <img src="/assets/img/games/valorant/agents/viper.jpg" alt="Viper" className="w-10 h-10 rounded-full" />
+                      <Image src="/assets/img/games/valorant/agents/viper.jpg" alt="Viper" width={40} height={40} className="rounded-full" />
                       <div>
                         <h4 className="text-white text-sm font-semibold">Viper</h4>
                         <span className="text-xs text-green-300">Controlador</span>
@@ -298,7 +299,7 @@ export default function ValorantGuidePage() {
                   
                   <div className="bg-[#1e0b36] rounded-lg p-3 border border-green-500/20">
                     <div className="flex items-center gap-2 mb-2">
-                      <img src="/assets/img/games/valorant/agents/sova.jpg" alt="Sova" className="w-10 h-10 rounded-full" />
+                      <Image src="/assets/img/games/valorant/agents/sova.jpg" alt="Sova" width={40} height={40} className="rounded-full" />
                       <div>
                         <h4 className="text-white text-sm font-semibold">Sova</h4>
                         <span className="text-xs text-yellow-300">Iniciador</span>
@@ -308,7 +309,7 @@ export default function ValorantGuidePage() {
                   
                   <div className="bg-[#1e0b36] rounded-lg p-3 border border-green-500/20">
                     <div className="flex items-center gap-2 mb-2">
-                      <img src="/assets/img/games/valorant/agents/raze.jpg" alt="Raze" className="w-10 h-10 rounded-full" />
+                      <Image src="/assets/img/games/valorant/agents/raze.jpg" alt="Raze" width={40} height={40} className="rounded-full" />
                       <div>
                         <h4 className="text-white text-sm font-semibold">Raze</h4>
                         <span className="text-xs text-blue-300">Duelista</span>
@@ -318,7 +319,7 @@ export default function ValorantGuidePage() {
                   
                   <div className="bg-[#1e0b36] rounded-lg p-3 border border-green-500/20">
                     <div className="flex items-center gap-2 mb-2">
-                      <img src="/assets/img/games/valorant/agents/skye.jpg" alt="Skye" className="w-10 h-10 rounded-full" />
+                      <Image src="/assets/img/games/valorant/agents/skye.jpg" alt="Skye" width={40} height={40} className="rounded-full" />
                       <div>
                         <h4 className="text-white text-sm font-semibold">Skye</h4>
                         <span className="text-xs text-yellow-300">Iniciador</span>
@@ -336,32 +337,32 @@ export default function ValorantGuidePage() {
                   <i className="fas fa-thumbs-up"></i>
                   Tier B - Situacional
                 </h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                  <div className="bg-[#1e0b36] rounded-lg p-2 border border-blue-500/20 text-center">
-                    <img src="/assets/img/games/valorant/agents/sage.jpg" alt="Sage" className="w-8 h-8 rounded-full mx-auto mb-1" />
-                    <div className="text-white text-xs font-medium">Sage</div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                    <div className="bg-[#1e0b36] rounded-lg p-2 border border-blue-500/20 text-center">
+                      <Image src="/assets/img/games/valorant/agents/sage.jpg" alt="Sage" width={32} height={32} className="rounded-full mx-auto mb-1" />
+                      <div className="text-white text-xs font-medium">Sage</div>
+                    </div>
+                    <div className="bg-[#1e0b36] rounded-lg p-2 border border-blue-500/20 text-center">
+                      <Image src="/assets/img/games/valorant/agents/cypher.jpg" alt="Cypher" width={32} height={32} className="rounded-full mx-auto mb-1" />
+                      <div className="text-white text-xs font-medium">Cypher</div>
+                    </div>
+                    <div className="bg-[#1e0b36] rounded-lg p-2 border border-blue-500/20 text-center">
+                      <Image src="/assets/img/games/valorant/agents/brimstone.jpg" alt="Brimstone" width={32} height={32} className="rounded-full mx-auto mb-1" />
+                      <div className="text-white text-xs font-medium">Brimstone</div>
+                    </div>
+                    <div className="bg-[#1e0b36] rounded-lg p-2 border border-blue-500/20 text-center">
+                      <Image src="/assets/img/games/valorant/agents/phoenix.jpg" alt="Phoenix" width={32} height={32} className="rounded-full mx-auto mb-1" />
+                      <div className="text-white text-xs font-medium">Phoenix</div>
+                    </div>
+                    <div className="bg-[#1e0b36] rounded-lg p-2 border border-blue-500/20 text-center">
+                      <Image src="/assets/img/games/valorant/agents/killjoy.jpg" alt="Killjoy" width={32} height={32} className="rounded-full mx-auto mb-1" />
+                      <div className="text-white text-xs font-medium">Killjoy</div>
+                    </div>
+                    <div className="bg-[#1e0b36] rounded-lg p-2 border border-blue-500/20 text-center">
+                      <Image src="/assets/img/games/valorant/agents/kay-o.jpg" alt="KAY/O" width={32} height={32} className="rounded-full mx-auto mb-1" />
+                      <div className="text-white text-xs font-medium">KAY/O</div>
+                    </div>
                   </div>
-                  <div className="bg-[#1e0b36] rounded-lg p-2 border border-blue-500/20 text-center">
-                    <img src="/assets/img/games/valorant/agents/cypher.jpg" alt="Cypher" className="w-8 h-8 rounded-full mx-auto mb-1" />
-                    <div className="text-white text-xs font-medium">Cypher</div>
-                  </div>
-                  <div className="bg-[#1e0b36] rounded-lg p-2 border border-blue-500/20 text-center">
-                    <img src="/assets/img/games/valorant/agents/brimstone.jpg" alt="Brimstone" className="w-8 h-8 rounded-full mx-auto mb-1" />
-                    <div className="text-white text-xs font-medium">Brimstone</div>
-                  </div>
-                  <div className="bg-[#1e0b36] rounded-lg p-2 border border-blue-500/20 text-center">
-                    <img src="/assets/img/games/valorant/agents/phoenix.jpg" alt="Phoenix" className="w-8 h-8 rounded-full mx-auto mb-1" />
-                    <div className="text-white text-xs font-medium">Phoenix</div>
-                  </div>
-                  <div className="bg-[#1e0b36] rounded-lg p-2 border border-blue-500/20 text-center">
-                    <img src="/assets/img/games/valorant/agents/killjoy.jpg" alt="Killjoy" className="w-8 h-8 rounded-full mx-auto mb-1" />
-                    <div className="text-white text-xs font-medium">Killjoy</div>
-                  </div>
-                  <div className="bg-[#1e0b36] rounded-lg p-2 border border-blue-500/20 text-center">
-                    <img src="/assets/img/games/valorant/agents/kay-o.jpg" alt="KAY/O" className="w-8 h-8 rounded-full mx-auto mb-1" />
-                    <div className="text-white text-xs font-medium">KAY/O</div>
-                  </div>
-                </div>
               </div>
             </div>
             
@@ -402,7 +403,7 @@ export default function ValorantGuidePage() {
             <div className="mb-8">
               <div className="bg-[#1e0b36] rounded-xl p-6 border border-purple-900/50 mb-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <img src="/assets/img/games/valorant/ascent.jpg" alt="Ascent" className="w-16 h-16 rounded-lg" />
+                  <Image src="/assets/img/games/valorant/ascent.jpg" alt="Ascent" width={64} height={64} className="rounded-lg" />
                   <div>
                     <h3 className="text-xl font-bold text-white">Ascent</h3>
                     <span className="text-sm text-purple-300">Mapa clásico de 3 carriles</span>
@@ -459,7 +460,7 @@ export default function ValorantGuidePage() {
             <div className="mb-8">
               <div className="bg-[#1e0b36] rounded-xl p-6 border border-purple-900/50 mb-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <img src="/assets/img/games/valorant/bind.jpg" alt="Bind" className="w-16 h-16 rounded-lg" />
+                  <Image src="/assets/img/games/valorant/bind.jpg" alt="Bind" width={64} height={64} className="rounded-lg" />
                   <div>
                     <h3 className="text-xl font-bold text-white">Bind</h3>
                     <span className="text-sm text-purple-300">Mapa de teleports</span>
@@ -492,7 +493,7 @@ export default function ValorantGuidePage() {
             <div className="mb-8">
               <div className="bg-[#1e0b36] rounded-xl p-6 border border-purple-900/50">
                 <div className="flex items-center gap-3 mb-4">
-                  <img src="/assets/img/games/valorant/haven.jpg" alt="Haven" className="w-16 h-16 rounded-lg" />
+                  <Image src="/assets/img/games/valorant/haven.jpg" alt="Haven" width={64} height={64} className="rounded-lg" />
                   <div>
                     <h3 className="text-xl font-bold text-white">Haven</h3>
                     <span className="text-sm text-purple-300">Mapa de 3 sitios</span>
@@ -533,7 +534,7 @@ export default function ValorantGuidePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div className="bg-[#1e0b36] rounded-xl p-6 border border-purple-900/50">
                   <div className="flex items-center gap-3 mb-4">
-                    <img src="/assets/img/games/valorant/weapons/vandal.jpg" alt="Vandal" className="w-16 h-10 rounded" />
+                    <Image src="/assets/img/games/valorant/weapons/vandal.jpg" alt="Vandal" width={64} height={40} className="rounded" />
                     <div>
                       <h4 className="text-lg font-bold text-white">Vandal</h4>
                       <span className="text-sm text-red-300">Rifle de asalto - 2900 créditos</span>
@@ -557,7 +558,7 @@ export default function ValorantGuidePage() {
                 
                 <div className="bg-[#1e0b36] rounded-xl p-6 border border-purple-900/50">
                   <div className="flex items-center gap-3 mb-4">
-                    <img src="/assets/img/games/valorant/weapons/phantom.jpg" alt="Phantom" className="w-16 h-10 rounded" />
+                    <Image src="/assets/img/games/valorant/weapons/phantom.jpg" alt="Phantom" width={64} height={40} className="rounded" />
                     <div>
                       <h4 className="text-lg font-bold text-white">Phantom</h4>
                       <span className="text-sm text-blue-300">Rifle de asalto - 2900 créditos</span>
@@ -704,42 +705,42 @@ export default function ValorantGuidePage() {
               <div className="bg-gradient-to-r from-red-600/20 to-orange-600/20 rounded-xl p-6 border border-red-500/30 mb-6">
                 <h3 className="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
                   <i className="fas fa-fire"></i>
-                  Composición Agresiva - "Rush & Entry"
+                  Composición Agresiva - &quot;Rush & Entry&quot;
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="text-lg font-semibold text-white mb-3">Lineup</h4>
                     <div className="space-y-3">
                       <div className="flex items-center gap-3 bg-[#1e0b36] rounded-lg p-3">
-                        <img src="/assets/img/games/valorant/agents/jett.jpg" alt="Jett" className="w-10 h-10 rounded-full" />
+                        <Image src="/assets/img/games/valorant/agents/jett.jpg" alt="Jett" width={40} height={40} className="rounded-full" />
                         <div>
                           <div className="text-white font-semibold">Jett</div>
                           <div className="text-xs text-blue-300">Duelista principal</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-3 bg-[#1e0b36] rounded-lg p-3">
-                        <img src="/assets/img/games/valorant/agents/reyna.jpg" alt="Reyna" className="w-10 h-10 rounded-full" />
+                        <Image src="/assets/img/games/valorant/agents/reyna.jpg" alt="Reyna" width={40} height={40} className="rounded-full" />
                         <div>
                           <div className="text-white font-semibold">Reyna</div>
                           <div className="text-xs text-blue-300">Segundo duelista</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-3 bg-[#1e0b36] rounded-lg p-3">
-                        <img src="/assets/img/games/valorant/agents/omen.jpg" alt="Omen" className="w-10 h-10 rounded-full" />
+                        <Image src="/assets/img/games/valorant/agents/omen.jpg" alt="Omen" width={40} height={40} className="rounded-full" />
                         <div>
                           <div className="text-white font-semibold">Omen</div>
                           <div className="text-xs text-green-300">Controlador</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-3 bg-[#1e0b36] rounded-lg p-3">
-                        <img src="/assets/img/games/valorant/agents/sova.jpg" alt="Sova" className="w-10 h-10 rounded-full" />
+                        <Image src="/assets/img/games/valorant/agents/sova.jpg" alt="Sova" width={40} height={40} className="rounded-full" />
                         <div>
                           <div className="text-white font-semibold">Sova</div>
                           <div className="text-xs text-yellow-300">Iniciador</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-3 bg-[#1e0b36] rounded-lg p-3">
-                        <img src="/assets/img/games/valorant/agents/sage.jpg" alt="Sage" className="w-10 h-10 rounded-full" />
+                        <Image src="/assets/img/games/valorant/agents/sage.jpg" alt="Sage" width={40} height={40} className="rounded-full" />
                         <div>
                           <div className="text-white font-semibold">Sage</div>
                           <div className="text-xs text-cyan-300">Sentinela</div>
@@ -780,42 +781,42 @@ export default function ValorantGuidePage() {
               <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-xl p-6 border border-blue-500/30 mb-6">
                 <h3 className="text-xl font-bold text-blue-300 mb-4 flex items-center gap-2">
                   <i className="fas fa-balance-scale"></i>
-                  Composición Equilibrada - "Standard Meta"
+                  Composición Equilibrada - &quot;Standard Meta&quot;
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <h4 className="text-lg font-semibold text-white mb-3">Lineup</h4>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="flex items-center gap-2 bg-[#1e0b36] rounded-lg p-2">
-                        <img src="/assets/img/games/valorant/agents/jett.jpg" alt="Jett" className="w-8 h-8 rounded-full" />
+                        <Image src="/assets/img/games/valorant/agents/jett.jpg" alt="Jett" width={32} height={32} className="rounded-full" />
                         <div className="text-xs">
                           <div className="text-white font-semibold">Jett</div>
                           <div className="text-blue-300">Duelista</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 bg-[#1e0b36] rounded-lg p-2">
-                        <img src="/assets/img/games/valorant/agents/omen.jpg" alt="Omen" className="w-8 h-8 rounded-full" />
+                        <Image src="/assets/img/games/valorant/agents/omen.jpg" alt="Omen" width={32} height={32} className="rounded-full" />
                         <div className="text-xs">
                           <div className="text-white font-semibold">Omen</div>
                           <div className="text-green-300">Controlador</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 bg-[#1e0b36] rounded-lg p-2">
-                        <img src="/assets/img/games/valorant/agents/sova.jpg" alt="Sova" className="w-8 h-8 rounded-full" />
+                        <Image src="/assets/img/games/valorant/agents/sova.jpg" alt="Sova" width={32} height={32} className="rounded-full" />
                         <div className="text-xs">
                           <div className="text-white font-semibold">Sova</div>
                           <div className="text-yellow-300">Iniciador</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 bg-[#1e0b36] rounded-lg p-2">
-                        <img src="/assets/img/games/valorant/agents/cypher.jpg" alt="Cypher" className="w-8 h-8 rounded-full" />
+                        <Image src="/assets/img/games/valorant/agents/cypher.jpg" alt="Cypher" width={32} height={32} className="rounded-full" />
                         <div className="text-xs">
                           <div className="text-white font-semibold">Cypher</div>
                           <div className="text-cyan-300">Sentinela</div>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 bg-[#1e0b36] rounded-lg p-2">
-                        <img src="/assets/img/games/valorant/agents/skye.jpg" alt="Skye" className="w-8 h-8 rounded-full" />
+                        <Image src="/assets/img/games/valorant/agents/skye.jpg" alt="Skye" width={32} height={32} className="rounded-full" />
                         <div className="text-xs">
                           <div className="text-white font-semibold">Skye</div>
                           <div className="text-yellow-300">Iniciador</div>
@@ -841,7 +842,7 @@ export default function ValorantGuidePage() {
               <div className="bg-gradient-to-r from-green-600/20 to-cyan-600/20 rounded-xl p-6 border border-green-500/30">
                 <h3 className="text-xl font-bold text-green-300 mb-4 flex items-center gap-2">
                   <i className="fas fa-shield"></i>
-                  Composición Defensiva - "Control & Retake"
+                  Composición Defensiva - &quot;Control & Retake&quot;
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>

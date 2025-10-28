@@ -1,5 +1,5 @@
 import { Notification, NotificationPreferences, NotificationService } from '../types/notification.types';
-import { NOTIFICATION_SOUNDS, NOTIFICATION_DEFAULTS } from '../constants/notification-constants';
+import { NOTIFICATION_SOUNDS, NOTIFICATION_DEFAULTS, DEFAULT_NOTIFICATION_PREFERENCES } from '../constants/notification-constants';
 
 class NotificationServiceImpl implements NotificationService {
   private subscribers: Set<(notification: Notification) => void> = new Set();
@@ -35,8 +35,8 @@ class NotificationServiceImpl implements NotificationService {
         try {
           const notification: Notification = JSON.parse(event.data);
           this.handleIncomingNotification(notification);
-        } catch (error) {
-          console.error('Error parsing notification:', error);
+        } catch (err) {
+          console.error('Error parsing notification:', err);
         }
       };
 
@@ -73,8 +73,8 @@ class NotificationServiceImpl implements NotificationService {
     this.subscribers.forEach(callback => {
       try {
         callback(notification);
-      } catch (error) {
-        console.error('Error in notification callback:', error);
+      } catch (err) {
+        console.error('Error in notification callback:', err);
       }
     });
 
@@ -119,13 +119,13 @@ class NotificationServiceImpl implements NotificationService {
     try {
       // Verificar si estamos en el navegador
       if (typeof window === 'undefined') {
-        return {};
+        return DEFAULT_NOTIFICATION_PREFERENCES;
       }
       const stored = localStorage.getItem('aethra-notification-preferences');
-      return stored ? JSON.parse(stored) : {};
-    } catch (error) {
-      console.error('Error loading notification preferences:', error);
-      return {};
+      return stored ? JSON.parse(stored) : DEFAULT_NOTIFICATION_PREFERENCES;
+    } catch (err) {
+      console.error('Error loading notification preferences:', err);
+      return DEFAULT_NOTIFICATION_PREFERENCES;
     }
   }
 
@@ -169,8 +169,8 @@ class NotificationServiceImpl implements NotificationService {
       if (!this.isDevelopment && this.ws && this.ws.readyState === WebSocket.OPEN) {
         this.ws.send(JSON.stringify({ type: 'mark-read', id }));
       }
-    } catch (error) {
-      console.error('Error marking notification as read:', error);
+    } catch (err) {
+      console.error('Error marking notification as read:', err);
     }
   }
 
@@ -179,8 +179,8 @@ class NotificationServiceImpl implements NotificationService {
       if (!this.isDevelopment && this.ws && this.ws.readyState === WebSocket.OPEN) {
         this.ws.send(JSON.stringify({ type: 'mark-all-read' }));
       }
-    } catch (error) {
-      console.error('Error marking all notifications as read:', error);
+    } catch (err) {
+      console.error('Error marking all notifications as read:', err);
     }
   }
 
@@ -189,8 +189,8 @@ class NotificationServiceImpl implements NotificationService {
       if (!this.isDevelopment && this.ws && this.ws.readyState === WebSocket.OPEN) {
         this.ws.send(JSON.stringify({ type: 'delete', id }));
       }
-    } catch (error) {
-      console.error('Error deleting notification:', error);
+    } catch (err) {
+      console.error('Error deleting notification:', err);
     }
   }
 
@@ -199,8 +199,8 @@ class NotificationServiceImpl implements NotificationService {
       if (!this.isDevelopment && this.ws && this.ws.readyState === WebSocket.OPEN) {
         this.ws.send(JSON.stringify({ type: 'clear-all' }));
       }
-    } catch (error) {
-      console.error('Error clearing all notifications:', error);
+    } catch (err) {
+      console.error('Error clearing all notifications:', err);
     }
   }
 
@@ -217,8 +217,8 @@ class NotificationServiceImpl implements NotificationService {
       const current = this.getStoredPreferences();
       const updated = { ...current, ...preferences };
       localStorage.setItem('aethra-notification-preferences', JSON.stringify(updated));
-    } catch (error) {
-      console.error('Error updating notification preferences:', error);
+    } catch (err) {
+      console.error('Error updating notification preferences:', err);
     }
   }
 
