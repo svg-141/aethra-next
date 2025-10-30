@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useAuth } from '../../../context/AuthContext';
-// import { useThemeContext } from '../../../context/ThemeContext'; // Removed unused import
+
 
 export default function ProfileSettingsPage() {
   const { user, isAuthenticated } = useAuth();
-  // const { currentTheme } = useThemeContext(); // Removed unused variable
+  
 
   const [formData, setFormData] = useState({
     username: user?.username || '',

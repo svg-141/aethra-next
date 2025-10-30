@@ -37,7 +37,7 @@ export const SAMPLE_USER: User = {
       showOnlineStatus: true
     },
     gaming: {
-      favoriteGames: ['Valorant', 'CS2', 'League of Legends'],
+      favoriteGames: ['Valorant', 'Starcraft 2'],
       defaultGame: 'Valorant',
       autoSync: true
     }

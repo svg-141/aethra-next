@@ -58,18 +58,6 @@ export const GAME_FILTER_OPTIONS: FilterOption[] = [
     count: 15
   },
   {
-    label: 'CS2',
-    value: 'cs2',
-    icon: 'fas fa-crosshairs',
-    count: 12
-  },
-  {
-    label: 'League of Legends',
-    value: 'lol',
-    icon: 'fas fa-chess',
-    count: 18
-  },
-  {
     label: 'StarCraft 2',
     value: 'sc2',
     icon: 'fas fa-chess-board',

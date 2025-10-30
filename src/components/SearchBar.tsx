@@ -50,21 +50,7 @@ function SearchBar() {
     default: 'bg-gray-500/20 border-gray-500/30',
   }), []);
 
-  // // Formatear tiempo relativo - moved to component level for better performance
-  // const formatTimeAgo = (date: Date) => { // Removed unused function
-  //   const now = new Date();
-  //   const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
-
-  //   if (diffInMinutes < 1) return 'Ahora';
-  //   if (diffInMinutes < 60) return `hace ${diffInMinutes}m`;
-
-  //   const diffInHours = Math.floor(diffInMinutes / 60);
-  //   if (diffInHours < 24) return `hace ${diffInHours}h`;
-
-  //   const diffInDays = Math.floor(diffInHours / 24);
-  //   return `hace ${diffInDays}d`;
-  // };
-
+  
   // Optimized result click handler
   const handleResultClick = useCallback((result: SearchResult) => {
     window.location.href = result.url;
@@ -145,7 +131,7 @@ function SearchBar() {
           <div className="mb-4">
             <label className="text-xs theme-text-secondary mb-2 block">Juegos</label>
             <div className="flex flex-wrap gap-2">
-              {['Valorant', 'LoL', 'Dota 2', 'CS:GO', 'Fortnite'].map(game => (
+              {['Valorant', 'Starcraft 2'].map(game => (
                 <button
                   key={game}
                   onClick={() => {

@@ -252,11 +252,7 @@ export class ChatService {
   private static getWelcomeMessage(gameKey: string): string {
     const welcomeMessages = {
       valorant: '¡Hola! Soy Aethra, tu asistente estratégico para Valorant. Puedo ayudarte con composiciones de equipo, estrategias de mapas, análisis de agentes y el meta actual. ¿En qué puedo ayudarte?',
-      lol: '¡Hola! Soy Aethra, tu guía para League of Legends. Te ayudo con builds de campeones, estrategias de líneas, análisis del meta y consejos para subir de elo. ¿Qué quieres saber?',
-      dota2: '¡Hola! Soy Aethra, especialista en Dota 2. Puedo asesorarte sobre héroes, builds, estrategias de teamfight y análisis del meta profesional. ¿En qué te puedo ayudar?',
-      cs2: '¡Hola! Soy Aethra, tu entrenador para CS2. Te ayudo con estrategias de mapas, positioning, economía, configuraciones y técnicas de aim. ¿Qué necesitas mejorar?',
       starcraft2: '¡Hola! Soy Aethra, tu analista para StarCraft 2. Puedo ayudarte con build orders, timings, micro/macro, análisis de replays y estrategias por raza. ¿Qué quieres dominar?',
-      overwatch2: '¡Hola! Soy Aethra, tu coach para Overwatch 2. Te ayudo con composiciones de equipo, posicionamiento, análisis de héroes y estrategias de mapas. ¿En qué podemos trabajar?',
     };
 
     return welcomeMessages[gameKey as keyof typeof welcomeMessages] || 
@@ -298,16 +294,8 @@ export class ChatService {
     // Respuestas contextuales por juego
     if (gameKey === 'valorant') {
       return this.getValorantResponse(messageLower, hasDiscussedBefore);
-    } else if (gameKey === 'lol') {
-      return this.getLoLResponse(messageLower, hasDiscussedBefore);
-    } else if (gameKey === 'dota2') {
-      return this.getDota2Response(messageLower, hasDiscussedBefore);
-    } else if (gameKey === 'cs2') {
-      return this.getCS2Response(messageLower, hasDiscussedBefore);
     } else if (gameKey === 'starcraft2') {
       return this.getStarCraft2Response(messageLower, hasDiscussedBefore);
-    } else if (gameKey === 'overwatch2') {
-      return this.getOverwatch2Response(messageLower, hasDiscussedBefore);
     }
 
     return this.getGenericResponse(messageLower);
@@ -336,73 +324,6 @@ export class ChatService {
     return '¡Excelente pregunta sobre Valorant! El juego se basa en trabajo en equipo y uso inteligente de habilidades. ¿Te interesa algún aspecto específico como agentes, mapas, o estrategias?';
   }
 
-  // Respuestas específicas para League of Legends
-  private static getLoLResponse(message: string, hasDiscussedBefore: (topic: string) => boolean): string {
-    if (/\b(campe[óo]n|champion|build)\b/i.test(message)) {
-      return 'Los campeones más fuertes en el patch actual: Mid - Yasuo, Zed, Ahri; Jungle - Graves, Lee Sin, Kha\'Zix; ADC - Jinx, Caitlyn, Kai\'Sa. Para builds, prioriza items de poder de spike temprano y adapta según el enemy team comp.';
-    }
-    
-    if (/\b(yasuo|mid|midlane)\b/i.test(message)) {
-      return 'Contra Yasuo: usa campeones con CC hard como Malzahar, Annie, o Lissandra. Evita trades largos, pokea cuando no tenga shield pasivo, y pide ganks cuando pushee. Build Zhonya\'s early si eres mago.';
-    }
-    
-    if (/\b(adc|bot|botlane)\b/i.test(message)) {
-      return 'Para ADC en season actual: Kraken Slayer + IE para carries crit, Galeforce para movilidad, o Crown contra assassins. Prioriza farm, positioning en teamfights, y koordina con tu support para trades en lane.';
-    }
-    
-    if (/\b(elo|rank|ranked|subir)\b/i.test(message)) {
-      return hasDiscussedBefore('elo')
-        ? 'Recuerda lo que hablamos sobre fundamentals: farm, vision, y no morir innecesariamente. ¿Hay algún aspecto específico donde sientes que necesitas más ayuda?'
-        : 'Para subir de elo: 1) Focus en farm (7+ CS/min), 2) Mejora tu vision game, 3) No mueras sin razón, 4) Aprende a jugar desde atrás, 5) Mantén actitud positiva y mute tóxicos.';
-    }
-    
-    return 'LoL es un juego de estrategia y mecánica. El conocimiento del juego es tan importante como la ejecución. ¿Hay alguna posición o aspecto específico en el que quieras mejorar?';
-  }
-
-  // Respuestas específicas para Dota 2
-  private static getDota2Response(message: string, hasDiscussedBefore: (topic: string) => boolean): string {
-    if (/\b(h[eé]roe|hero|meta)\b/i.test(message)) {
-      return 'Meta actual de Dota 2: Carries fuertes - Anti-Mage, Phantom Assassin, Juggernaut; Mids - Invoker, Storm Spirit, Shadow Fiend; Supports - Crystal Maiden, Lion, Rubick. El meta favorece early fighting y objetivos tempranos.';
-    }
-    
-    if (/\b(invoker|build)\b/i.test(message)) {
-      return 'Build recomendado para Invoker: Start con Quas-Wex para survivability y utility. Items core: Phase Boots → Urn → Midas → Aghanim\'s. Late game: Octarine, BKB, Refresher. Practice combos en demo mode.';
-    }
-    
-    if (/\b(farming|farm|l[íi]nea|lane)\b/i.test(message)) {
-      return 'Para farming eficiente: mantén equilibrio entre last hits y denies, usa habilidades para farm cuando sea seguro, stackea camps neutrals, y rota entre lane y jungle. Target: 50+ LH a los 10 min como carry.';
-    }
-    
-    if (/\b(teamfight|fight)\b/i.test(message)) {
-      return 'En teamfights de Dota: positioning es crucial, usa BKB en el timing correcto, focus targets prioritarios (supports primero), koordina disables con tu team, y mantén vision con wards durante el fight.';
-    }
-    
-    return 'Dota 2 es increíblemente complejo y rewarding. Cada decisión importa, desde item builds hasta positioning. ¿Hay algún héroe o concepto específico que quieras dominar?';
-  }
-
-  // Respuestas específicas para CS2
-  private static getCS2Response(message: string, hasDiscussedBefore: (topic: string) => boolean): string {
-    if (/\b(awp|dust2|sniper)\b/i.test(message)) {
-      return 'AWP en Dust2: posiciones clave son A Long, Mid Doors, y B Site. Siempre ten escape route planificado, usa shoulder peeking, y koordina con tu team para trades. Practice quick scoping en aim maps.';
-    }
-    
-    if (/\b(eco|econom[íi]a|money)\b/i.test(message)) {
-      return 'Gestión económica en CS2: Force buy solo con $3000+, save si el team no tiene money, considera glass cannon buys en eco rounds, y siempre piensa en el round siguiente. Communication es key para eco coordination.';
-    }
-    
-    if (/\b(aim|precisi[óo]n|punteria)\b/i.test(message)) {
-      return hasDiscussedBefore('aim')
-        ? 'Como discutimos, el aim consistency viene con practice diaria. ¿Has probado los aim maps que recomendé? ¿Hay algún aspecto específico del aim donde struggles?'
-        : 'Para mejorar aim: 1) Warm up 15-20min en aim maps, 2) Encuentra tu sensibilidad ideal y NO la cambies, 3) Mantén crosshair a head level, 4) Practice counter-strafing, 5) Usa aim trainers como Aim Lab.';
-    }
-    
-    if (/\b(comunicaci[óo]n|team|callouts)\b/i.test(message)) {
-      return 'Comunicación efectiva en CS2: da callouts claros y concisos, reporta HP damage, koordina flashes y smokes, mantén moral positiva, y no over-communicate durante clutches.';
-    }
-    
-    return 'CS2 combina mecánica precisa con estrategia táctica. La consistency y teamwork son fundamentales para el éxito. ¿En qué aspecto específico quieres mejorar tu juego?';
-  }
-
   // Respuestas específicas para StarCraft 2
   private static getStarCraft2Response(message: string, hasDiscussedBefore: (topic: string) => boolean): string {
     if (/\b(build|terran|zerg|protoss)\b/i.test(message)) {
@@ -422,27 +343,6 @@ export class ChatService {
     }
     
     return 'StarCraft 2 es puro strategy y execution. La práctica constante de fundamentals te llevará lejos. ¿Hay alguna raza o aspecto específico que quieras masterear?';
-  }
-
-  // Respuestas específicas para Overwatch 2
-  private static getOverwatch2Response(message: string, hasDiscussedBefore: (topic: string) => boolean): string {
-    if (/\b(composici[óo]n|team|comp|meta)\b/i.test(message)) {
-      return 'Composiciones meta en OW2: Tank - Reinhardt, Orisa, Winston; DPS - Genji, Tracer, Soldier; Support - Ana, Mercy, Lucio. Adapta según map type: dive para control points, bunker para payload.';
-    }
-    
-    if (/\b(mercy|support|heal)\b/i.test(message)) {
-      return 'Tips para Mercy: prioriza tanks en teamfights, usa damage boost en DPS durante poke, Guardian Angel para mobility, y position behind cover. Super Jump para escape vertical cuando sea necesario.';
-    }
-    
-    if (/\b(genji|dps|counter)\b/i.test(message)) {
-      return 'Countering Genji: usa Moira, Symmetra, o Winston para easy targeting, Brigitte para stun combo, o Ana para sleep dart. Stay grouped y focus fire cuando dive tu backline.';
-    }
-    
-    if (/\b(map|strategy|objetivo)\b/i.test(message)) {
-      return 'Map strategy en OW2: Control - fight en high ground, Escort - grupo detrás del payload, Hybrid - adapt per phase. Siempre contest objectives y use cover effectively.';
-    }
-    
-    return 'Overwatch 2 se trata de teamwork y adaptación. Cada rol tiene su propósito en el team. ¿Hay algún rol o héroe específico que quieras perfeccionar?';
   }
 
   // Respuesta genérica

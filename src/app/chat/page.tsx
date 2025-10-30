@@ -7,27 +7,27 @@ import { ChatService } from '../../features/chat/services/chatService';
 import { useAuth } from '../../context/AuthContext';
 
 export default function ChatPage() {
-  // Estado para el juego seleccionado
+  
   const [selectedGame, setSelectedGame] = useState(GAMES[0].key);
   const activeGame = getGameByKey(selectedGame) || GAMES[0];
 
-  // Estado para mensajes y input controlado
+  
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [chatStats, setChatStats] = useState({ totalMessages: 0, responseTime: 0 });
 
-  // Ref para scroll automático
+  
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
 
-  // Hook de notificaciones
+  
   const { addNotification } = useNotifications();
   
-  // Hook de autenticación
+  
   const { user, isAuthenticated } = useAuth();
 
   const initializeChat = useCallback(async () => {
@@ -61,12 +61,12 @@ export default function ChatPage() {
     }
   }, [isAuthenticated, user, selectedGame, addNotification]);
 
-  // Inicializar chat al cargar o cambiar juego
+  
   useEffect(() => {
     initializeChat();
   }, [initializeChat]);
 
-  // Actualizar estadísticas del chat
+  
   useEffect(() => {
     const stats = ChatService.getChatStats();
     setChatStats({
@@ -76,7 +76,7 @@ export default function ChatPage() {
   }, [messages]);
 
 
-  // Manejo de envío de mensaje
+  
   const handleSend = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!input.trim() || isLoading) return;
@@ -86,7 +86,7 @@ export default function ChatPage() {
     setIsLoading(true);
     
     try {
-      // Agregar mensaje del usuario inmediatamente
+      
       const userMessage: ChatMessageType = {
         id: Date.now().toString(),
         type: 'user',
@@ -97,7 +97,7 @@ export default function ChatPage() {
       
       setMessages(prev => [...prev, userMessage]);
       
-      // Verificar autenticación
+
       if (!isAuthenticated || !user) {
         addNotification({
           type: 'error',
@@ -108,11 +108,11 @@ export default function ChatPage() {
         return;
       }
       
-      // Enviar mensaje al servicio de chat
+      
       const response = await ChatService.sendMessage(messageContent, selectedGame, sessionId || undefined, user.id);
       
       if (response.success) {
-        // Convertir contenido de string a JSX si es necesario
+        
         const aiMessage: ChatMessageType = {
           ...response.message,
           content: typeof response.message.content === 'string' 
@@ -122,7 +122,7 @@ export default function ChatPage() {
         
         setMessages(prev => [...prev, aiMessage]);
         
-        // Notificación de respuesta exitosa
+        
         addNotification({
           type: 'success',
           priority: 'low',
@@ -130,7 +130,7 @@ export default function ChatPage() {
           message: `Respondido en ${response.message.metadata?.responseTime}ms`,
         });
       } else {
-        // Error en la respuesta
+        
         addNotification({
           type: 'error',
           priority: 'high',
@@ -140,7 +140,7 @@ export default function ChatPage() {
       }
       
     } catch {
-      // Error inesperado
+      
       addNotification({
         type: 'error',
         priority: 'high',
@@ -152,14 +152,14 @@ export default function ChatPage() {
     }
   };
 
-  // Cambiar de juego y reiniciar chat
+  
   const handleSelectGame = async (key: string) => {
     const game = getGameByKey(key);
     if (!game || key === selectedGame) return;
     
     setSelectedGame(key);
     
-    // Verificar autenticación
+    
     if (!isAuthenticated || !user) {
       addNotification({
         type: 'error',
@@ -170,12 +170,12 @@ export default function ChatPage() {
       return;
     }
     
-    // Limpiar sesión anterior si existe
+    
     if (sessionId) {
       ChatService.clearSession(sessionId, user.id);
     }
     
-    // Crear nueva sesión para el nuevo juego
+    
     const newSessionId = ChatService.createSession(key, user.id);
     const session = ChatService.getOrCreateSession(key, newSessionId, user.id);
     
@@ -185,7 +185,7 @@ export default function ChatPage() {
       content: typeof msg.content === 'string' ? <p dangerouslySetInnerHTML={{ __html: msg.content }} /> : msg.content
     })));
     
-    // Notificación de cambio de juego
+    
     addNotification({
       type: 'info',
       priority: 'low',
@@ -194,7 +194,7 @@ export default function ChatPage() {
     });
   };
 
-  // Función para limpiar chat actual
+  
   const handleClearChat = () => {
     if (!isAuthenticated || !user) {
       addNotification({
@@ -226,7 +226,7 @@ export default function ChatPage() {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center">
             <div className="w-12 h-12 rounded-full flex items-center justify-center border-2 mr-4" style={{ background: 'var(--gradient-primary)', borderColor: 'var(--color-primary)', opacity: '0.8' }}>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
@@ -377,21 +377,13 @@ export default function ChatPage() {
                   {
                     id: 1,
                     author: 'GamerPro123',
-                    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+                    avatar: '/assets/img/default-avatar.png',
                     content: 'Aethra me ayudó mucho con las estrategias de Valorant. Las respuestas son muy precisas y útiles.',
                     time: 'hace 1 día',
                     likes: 5,
                     section: 'chat-feedback',
                   },
-                  {
-                    id: 2,
-                    author: 'LoLPlayer',
-                    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-                    content: 'Excelente asistente para League of Legends. ¿Podrían agregar más información sobre el meta de la jungla?',
-                    time: 'hace 3 días',
-                    likes: 3,
-                    section: 'chat-feedback',
-                  },
+
                 ]}
                 initialVotes={{ up: 89, down: 2 }}
                 title="¿Cómo te está ayudando Aethra?"

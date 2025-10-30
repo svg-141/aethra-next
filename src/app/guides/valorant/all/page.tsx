@@ -6,7 +6,7 @@ import GuideCard from '../../../../features/games/components/GuideCard';
 import HeroSection from '../../../../features/ui/components/HeroSection';
 
 export default function ValorantGuidesPage() {
-  // const { currentTheme } = useThemeContext(); // Removed unused variable
+  
   const [selectedType, setSelectedType] = useState<string>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('newest');

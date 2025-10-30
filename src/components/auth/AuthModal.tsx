@@ -26,25 +26,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
 
       console.log('Iniciando sesión con Google...');
 
-      // Simulación de OAuth flow
-      // En producción, esto redirigirá a Google OAuth
-      // const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID'; // Removed unused variable
-      // const redirectUri = process.env.NEXT_PUBLIC_REDIRECT_URI || `${window.location.origin}/auth/callback`; // Removed unused variable
 
-      // const _params = new URLSearchParams({ // Removed unused variable
-      //   client_id: clientId,
-      //   redirect_uri: redirectUri,
-      //   response_type: 'code',
-      //   scope: 'openid email profile',
-      //   access_type: 'offline',
-      //   prompt: 'consent',
-      //   state: JSON.stringify({ selectedPlan, mode }),
-      // });
-
-      // Comentado para desarrollo - descomentar en producción
-      // window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
-
-      // Simulación temporal
       setTimeout(() => {
         alert(`Autenticación con Google simulada\nPlan seleccionado: ${selectedPlan}\nModo: ${mode}`);
         setIsLoading(false);
@@ -67,7 +49,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = 'login' }: Au
     const name = formData.get('name') as string;
 
     try {
-      // Aquí se implementará la autenticación real
+
       console.log('Autenticación por email:', { email, password, name, selectedPlan, mode });
 
       setTimeout(() => {

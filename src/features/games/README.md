@@ -4,12 +4,10 @@ Este feature maneja toda la funcionalidad relacionada con los juegos soportados 
 
 ## Juegos Soportados
 
-El proyecto se enfoca exclusivamente en 4 juegos competitivos:
+El proyecto se enfoca exclusivamente en 2 juegos competitivos:
 
 1. **Valorant** - FPS táctico 5v5
 2. **StarCraft 2** - RTS legendario
-3. **CS2** - FPS competitivo por excelencia
-4. **League of Legends** - MOBA masivo
 
 ## Estructura
 

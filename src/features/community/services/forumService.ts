@@ -50,33 +50,6 @@ const sampleUsers: { [key: string]: Author } = {
     joinDate: new Date('2023-01-15'),
     badges: ['Experto en Valorant', 'Miembro Veterano']
   },
-  'user2': {
-    id: 'user2',
-    name: 'LoLPlayer',
-    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-    level: 8,
-    reputation: 680,
-    joinDate: new Date('2023-06-10'),
-    badges: ['Analista LoL']
-  },
-  'user3': {
-    id: 'user3',
-    name: 'DotaNewbie',
-    avatar: 'https://randomuser.me/api/portraits/men/67.jpg',
-    level: 3,
-    reputation: 150,
-    joinDate: new Date('2024-01-20'),
-    badges: ['Novato']
-  },
-  'user4': {
-    id: 'user4',
-    name: 'CS2Player',
-    avatar: 'https://randomuser.me/api/portraits/women/23.jpg',
-    level: 12,
-    reputation: 980,
-    joinDate: new Date('2023-03-05'),
-    badges: ['Experto CS2', 'Contributor']
-  },
   'currentUser': {
     id: 'currentUser',
     name: 'Usuario123',
@@ -508,60 +481,6 @@ export class ForumService {
         isLocked: false,
         isDeleted: false,
         likedBy: ['user2', 'user3'],
-        replies: []
-      },
-      {
-        id: (nextPostId++).toString(),
-        title: 'Problemas con el rendimiento en League of Legends',
-        content: 'Últimamente he tenido muchos FPS drops durante las teamfights. Mi PC debería poder manejarlo sin problemas, pero cuando hay muchos efectos visuales el juego se pone muy lento. ¿Alguien más ha experimentado esto? ¿Tienen alguna solución?',
-        author: sampleUsers['user2'],
-        category: 'help',
-        tags: ['League of Legends', 'Rendimiento', 'FPS', 'Técnico'],
-        likes: 7,
-        comments: 12,
-        views: 156,
-        createdAt: new Date(Date.now() - 5 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 5 * 60 * 60 * 1000),
-        isPinned: false,
-        isLocked: false,
-        isDeleted: false,
-        likedBy: ['user1'],
-        replies: []
-      },
-      {
-        id: (nextPostId++).toString(),
-        title: 'Guía completa para principiantes en Dota 2',
-        content: 'Soy completamente nuevo en Dota 2 y me siento abrumado por la cantidad de héroes y mecánicas. ¿Alguien puede recomendarme héroes fáciles para empezar y algunos recursos para aprender los fundamentos? También me gustaría saber sobre el meta actual.',
-        author: sampleUsers['user3'],
-        category: 'guide',
-        tags: ['Dota 2', 'Principiantes', 'Héroes', 'Guía'],
-        likes: 23,
-        comments: 15,
-        views: 445,
-        createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 24 * 60 * 60 * 1000),
-        isPinned: true,
-        isLocked: false,
-        isDeleted: false,
-        likedBy: ['user1', 'user2', 'user4'],
-        replies: []
-      },
-      {
-        id: (nextPostId++).toString(),
-        title: 'Mejores configuraciones para CS2 en 2024',
-        content: '¿Cuáles son las mejores configuraciones de sensibilidad, resolución y crosshair para CS2? Quiero optimizar mi rendimiento y he visto que hay muchas opciones diferentes. También me interesa saber sobre los settings de video para maximizar los FPS.',
-        author: sampleUsers['user4'],
-        category: 'strategy',
-        tags: ['CS2', 'Configuración', 'Settings', 'Rendimiento'],
-        likes: 18,
-        comments: 9,
-        views: 189,
-        createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-        isPinned: false,
-        isLocked: false,
-        isDeleted: false,
-        likedBy: ['user1', 'user3'],
         replies: []
       }
     ];

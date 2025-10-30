@@ -35,37 +35,17 @@ describe('ChatService', () => {
       expect(typeof response.message.metadata!.responseTime).toBe('number');
     });
 
-    it('should handle different game contexts', async () => {
-      const lolSessionId = ChatService.createSession('lol');
-      const cs2SessionId = ChatService.createSession('cs2');
 
-      const lolResponse = await ChatService.sendMessage(
-        'mejores campeones',
-        'lol',
-        lolSessionId
-      );
-
-      const cs2Response = await ChatService.sendMessage(
-        'configuración aim',
-        'cs2',
-        cs2SessionId
-      );
-
-      expect(lolResponse.success).toBe(true);
-      expect(cs2Response.success).toBe(true);
-      expect(lolResponse.message.game).toBe('lol');
-      expect(cs2Response.message.game).toBe('cs2');
-    });
   });
 
   describe('getSessionHistory', () => {
     it('should retrieve session history', () => {
-      const sessionId = ChatService.createSession('dota2');
+      const sessionId = ChatService.createSession('valorant');
       const session = ChatService.getSessionHistory(sessionId);
 
       expect(session).toBeDefined();
       expect(session!.sessionId).toBe(sessionId);
-      expect(session!.gameKey).toBe('dota2');
+      expect(session!.gameKey).toBe('valorant');
       expect(session!.createdAt).toBeInstanceOf(Date);
       expect(session!.lastActivity).toBeInstanceOf(Date);
     });
@@ -92,7 +72,7 @@ describe('ChatService', () => {
     it('should return chat statistics', () => {
       // Create a few sessions
       ChatService.createSession('valorant');
-      ChatService.createSession('lol');
+
       ChatService.createSession('valorant');
 
       const stats = ChatService.getChatStats();
@@ -111,32 +91,14 @@ describe('ChatService', () => {
   });
 
   describe('searchChatHistory', () => {
-    it('should find messages by content', async () => {
-      const sessionId = ChatService.createSession('overwatch2');
-      
-      // Send a message with specific content
-      await ChatService.sendMessage(
-        'mejor composición para teamfight',
-        'overwatch2',
-        sessionId
-      );
 
-      const results = ChatService.searchChatHistory('composición');
-
-      expect(results.length).toBeGreaterThan(0);
-      const foundMessage = results.find(msg => 
-        typeof msg.content === 'string' && 
-        msg.content.toLowerCase().includes('composición')
-      );
-      expect(foundMessage).toBeDefined();
-    });
 
     it('should filter by game when specified', async () => {
       const valorantSession = ChatService.createSession('valorant');
-      const lolSession = ChatService.createSession('lol');
+      const starcraft2Session = ChatService.createSession('starcraft2');
 
       await ChatService.sendMessage('estrategia', 'valorant', valorantSession);
-      await ChatService.sendMessage('estrategia', 'lol', lolSession);
+      await ChatService.sendMessage('estrategia', 'starcraft2', starcraft2Session);
 
       const valorantResults = ChatService.searchChatHistory('estrategia', 'valorant');
       const allResults = ChatService.searchChatHistory('estrategia');
@@ -170,22 +132,6 @@ describe('ChatService', () => {
       expect(hasValorantTerms).toBe(true);
     });
 
-    it('should maintain conversation context', async () => {
-      const sessionId = ChatService.createSession('lol');
-      
-      // First message about champions
-      await ChatService.sendMessage('mejores campeones mid', 'lol', sessionId);
-      
-      // Second message that could reference previous context
-      const response = await ChatService.sendMessage('y para counter yasuo?', 'lol', sessionId);
 
-      expect(response.success).toBe(true);
-      expect(typeof response.message.content).toBe('string');
-      
-      // Should contain LoL-specific counter advice
-      const content = response.message.content as string;
-      const hasCounterAdvice = /malzahar|lissandra|cc|control/i.test(content);
-      expect(hasCounterAdvice).toBe(true);
-    });
   });
 });

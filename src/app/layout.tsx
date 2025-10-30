@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   title: "Aethra - Tu Asistente Gaming IA",
   description: "Plataforma de inteligencia artificial especializada en gaming, estrategias y análisis de juegos",
   authors: [{ name: "Aethra Team" }],
-  keywords: ["gaming", "AI", "esports", "estrategias", "valorant", "league of legends", "cs2", "dota2"],
+  keywords: ["gaming", "AI", "esports", "estrategias", "valorant", "starcraft2"],
   robots: "index, follow",
   openGraph: {
     title: "Aethra - Tu Asistente Gaming IA",

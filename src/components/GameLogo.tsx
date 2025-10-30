@@ -4,7 +4,7 @@ import React from 'react';
 import { GAME_ASCII_LOGOS } from '@/features/games/constants/games-constants';
 
 export type GameLogoSize = 'icon' | 'small' | 'medium' | 'large';
-export type GameKey = 'valorant' | 'starcraft2' | 'cs2' | 'lol';
+export type GameKey = 'valorant' | 'starcraft2';
 
 interface GameLogoProps {
   game: GameKey;

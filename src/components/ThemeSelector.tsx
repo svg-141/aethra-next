@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, memo } from 'react'; // Removed unused useMemo import
+import { useState, useCallback, memo, useMemo } from 'react';
 import { useThemeContext } from '../context/ThemeContext';
 import { Theme } from '../context/ThemeContext';
 import { useTooltips } from '../features/tooltips';

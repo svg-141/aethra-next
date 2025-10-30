@@ -17,10 +17,10 @@ export default function CommunityPage() {
   const [hasMore, setHasMore] = useState(false);
   const [total, setTotal] = useState(0);
   
-  // Hook de notificaciones
+
   const { addNotification } = useNotifications();
   
-  // Hook de autenticación
+
   const { user, isAuthenticated } = useAuth();
 
   const loadPosts = useCallback(async () => {
@@ -50,7 +50,7 @@ export default function CommunityPage() {
     }
   }, [activeCategory, filters, addNotification]);
 
-  // Cargar posts al inicio y cuando cambien los filtros
+
   useEffect(() => {
     loadPosts();
   }, [loadPosts]);
@@ -77,7 +77,7 @@ export default function CommunityPage() {
       }, user.id);
       
       setShowPostForm(false);
-      await loadPosts(); // Recargar posts
+
       
       addNotification({
         type: 'success',

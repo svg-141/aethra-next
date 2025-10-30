@@ -174,13 +174,11 @@ export default function ProfilePage() {
                     <div className="text-right">
                       <div className="text-sm theme-text-primary">
                         {game === 'Valorant' && 'Diamond 2'}
-                        {game === 'CS2' && 'MG2'}
-                        {game === 'League of Legends' && 'Platinum 1'}
+
                       </div>
                       <div className="text-xs theme-text-secondary">
                         {game === 'Valorant' && '72.3% WR'}
-                        {game === 'CS2' && '58.9% WR'}
-                        {game === 'League of Legends' && '65.8% WR'}
+
                       </div>
                     </div>
                   </div>

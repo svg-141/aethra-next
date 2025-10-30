@@ -9,21 +9,6 @@ const CHAT_ASCII_LOGOS = {
     compact: `\\/AL`,
     icon: `\\/`
   },
-  lol: {
-    display: `||     _   _
-||    / \\ / \\
-||___ \\_/ \\_/`,
-    compact: `LoL`,
-    icon: `LL`
-  },
-  cs2: {
-    display: ` __   __
-//   / /
-||   \\_\\_
-\\\\_____//`,
-    compact: `CS:2`,
-    icon: `CS`
-  },
   starcraft2: {
     display: ` ___  _____  //
 / __)/     //||
@@ -37,8 +22,6 @@ const CHAT_ASCII_LOGOS = {
 // Iconos ASCII para el chat (compatibilidad)
 const CHAT_ASCII_ICONS = {
   valorant: CHAT_ASCII_LOGOS.valorant.display,
-  lol: CHAT_ASCII_LOGOS.lol.display,
-  cs2: CHAT_ASCII_LOGOS.cs2.display,
   starcraft2: CHAT_ASCII_LOGOS.starcraft2.display,
 };
 
@@ -59,40 +42,6 @@ export const GAMES: Game[] = [
       'Estrategias para el mapa Ascent',
     ],
     tip: 'En Valorant, usar las habilidades de Viper para dividir el sitio en Icebox puede dar ventaja táctica a tu equipo.'
-  },
-  {
-    key: 'lol',
-    name: 'League of Legends',
-    category: 'moba',
-    gradient: 'from-purple-900/40 via-fuchsia-800/30 to-purple-900/40',
-    accentColor: 'purple',
-    emoji: '⚔',
-    asciiIcon: CHAT_ASCII_ICONS.lol,
-    description: 'MOBA 5v5 con más de 150 campeones',
-    examples: [
-      '¿Qué campeones están fuertes en el parche actual?',
-      '¿Cómo jugar contra Yasuo en mid?',
-      'Mejores builds para ADC',
-      'Consejos para subir de elo en soloQ',
-    ],
-    tip: 'En LoL, controlar la visión y los objetivos neutrales es clave para ganar partidas cerradas.'
-  },
-  {
-    key: 'cs2',
-    name: 'Counter-Strike 2',
-    category: 'fps',
-    gradient: 'from-orange-900/40 via-amber-800/30 to-orange-900/40',
-    accentColor: 'orange',
-    emoji: '╳',
-    asciiIcon: CHAT_ASCII_ICONS.cs2,
-    description: 'FPS táctico de terroristas vs contra-terroristas',
-    examples: [
-      'Mejores posiciones para AWP en Dust2',
-      'Estrategias de eco round',
-      'Consejos para mejorar el aim',
-      'Comunicación efectiva en equipo',
-    ],
-    tip: 'En CS2, la economía del equipo y la coordinación en las rotaciones son fundamentales.'
   },
   {
     key: 'starcraft2',

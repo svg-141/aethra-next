@@ -87,19 +87,6 @@ export const COMMUNITY_RULES = [
 ];
 
 export const POST_TAGS = [
-  'League of Legends',
   'Valorant',
-  'CS2',
-  'Dota 2',
-  'Overwatch',
-  'Fortnite',
-  'Apex Legends',
-  'Rocket League',
-  'FIFA',
-  'Call of Duty',
-  'Minecraft',
-  'GTA V',
-  'Rust',
-  'ARK',
-  'Terraria'
+  'Starcraft 2'
 ]; 
