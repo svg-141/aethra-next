@@ -5,6 +5,7 @@ import NotificationBell from './NotificationBell';
 import SearchBar from './SearchBar';
 import ThemeSelector from './ThemeSelector';
 import { useAuth } from '../context/AuthContext';
+import { encryptUrlPath } from '../security/url-encryption';
 
 interface NavbarProps {
   active?: string;
@@ -34,7 +35,7 @@ function Navbar({ active }: NavbarProps) {
   return (
     <nav className="fixed top-0 w-full z-50 theme-navbar backdrop-blur-lg border-b theme-border transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center gap-4">
-        <Link href="/" className="text-theme-primary text-xl sm:text-2xl font-extrabold tracking-wide glow-text flex items-center gap-3 hover:scale-105 transition-transform flex-shrink-0">
+        <Link href={encryptUrlPath("/")} className="text-theme-primary text-xl sm:text-2xl font-extrabold tracking-wide glow-text flex items-center gap-3 hover:scale-105 transition-transform flex-shrink-0">
           <Image 
             src="/assets/logo.png" 
             alt="Aethra Logo" 
@@ -53,166 +54,167 @@ function Navbar({ active }: NavbarProps) {
         
         {/* Desktop Navigation */}
         <ul className="hidden lg:flex items-center gap-2 xl:gap-4 text-sm font-medium text-theme-secondary flex-shrink-0">
-          <li><Link href="/" className={`nav-link transition-all hover:scale-105 px-3 py-2 rounded animate-theme-hover ${active === 'home' ? 'text-theme-primary bg-theme-surface-hover' : 'hover:text-theme-primary'}`}>Inicio</Link></li>
-          <li><Link href="/chat" className={`nav-link transition-all hover:scale-105 px-3 py-2 rounded animate-theme-hover ${active === 'chat' ? 'text-theme-primary bg-theme-surface-hover' : 'hover:text-theme-primary'}`}>Funciones</Link></li>
-          <li><Link href="/games" className={`nav-link transition-all hover:scale-105 px-3 py-2 rounded animate-theme-hover ${active === 'games' ? 'text-theme-primary bg-theme-surface-hover' : 'hover:text-theme-primary'}`}>Guías</Link></li>
-          <li><Link href="/community" className={`nav-link transition-all hover:scale-105 px-3 py-2 rounded animate-theme-hover ${active === 'community' ? 'text-theme-primary bg-theme-surface-hover' : 'hover:text-theme-primary'}`}>Comunidad</Link></li>
-          <li><Link href="/profile" className={`nav-link transition-all hover:scale-105 px-3 py-2 rounded animate-theme-hover ${active === 'profile' ? 'text-theme-primary bg-theme-surface-hover' : 'hover:text-theme-primary'}`}>Mi perfil</Link></li>
-        </ul>
-        
-        {/* Mobile menu button */}
-        <button 
-          onClick={toggleMobileMenu}
-          className="lg:hidden theme-button p-2 animate-theme-hover"
-          aria-label="Toggle mobile menu"
-        >
-          <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-lg icon-theme`}></i>
-        </button>
-        <div className="hidden lg:flex items-center gap-3 xl:gap-4 flex-shrink-0">
-          <ThemeSelector />
-          <NotificationBell />
-          {isAuthenticated && user ? (
-            <div className="relative">
-              <button 
-                onClick={toggleUserMenu}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg animate-theme-hover transition-all theme-surface border theme-border"
-              >
-                <Image 
-                  src={user.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${user.username}`}
-                  alt={user.displayName}
-                  width={24}
-                  height={24}
-                  className="w-6 h-6 rounded-full border theme-border" 
-                />
-                <span className="hidden xl:inline text-sm theme-text-primary font-medium">
-                  {user.displayName}
-                </span>
-                <div className="flex items-center gap-1">
-                  <span className="text-xs theme-badge theme-badge-primary">
-                    Nv.{user.level}
-                  </span>
-                  <i className={`fas fa-chevron-${showUserMenu ? 'up' : 'down'} text-xs theme-text-secondary`}></i>
-                </div>
-              </button>
-              
-              {/* User Menu Dropdown */}
-              {showUserMenu && (
-                <div className="absolute right-0 top-full mt-2 w-64 rounded-xl theme-card border theme-border animate-fade-in z-50">
-                  <div className="p-4">
-                    {/* User Info Header */}
-                    <div className="flex items-center gap-3 pb-3 border-b theme-border">
-                      <Image 
-                        src={user.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${user.username}`} 
-                        alt={user.displayName} 
-                        width={40}
-                        height={40}
-                        className="w-10 h-10 rounded-full border-2 theme-border-primary" 
-                      />
-                      <div className="flex-1">
-                        <div className="font-medium theme-text-primary">{user.displayName}</div>
-                        <div className="text-sm theme-text-secondary">@{user.username}</div>
-                        <div className="flex items-center gap-2 mt-1">
+                  <li><Link href={encryptUrlPath("/")} className={`theme-nav-item ${active === 'home' ? 'active' : ''}`}>Inicio</Link></li>
+                  <li><Link href={encryptUrlPath("/chat")} className={`theme-nav-item ${active === 'chat' ? 'active' : ''}`}>Funciones</Link></li>
+                  <li><Link href={encryptUrlPath("/games")} className={`theme-nav-item ${active === 'games' ? 'active' : ''}`}>Guías</Link></li>
+                  <li><Link href={encryptUrlPath("/community")} className={`theme-nav-item ${active === 'community' ? 'active' : ''}`}>Comunidad</Link></li>
+                  <li><Link href={encryptUrlPath("/profile")} className={`theme-nav-item ${active === 'profile' ? 'active' : ''}`}>Mi perfil</Link></li>
+                </ul>
+                
+                {/* Mobile menu button */}
+                <button 
+                  onClick={toggleMobileMenu}
+                  className="lg:hidden theme-button p-2 animate-theme-hover"
+                  aria-label="Toggle mobile menu"
+                >
+                  <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-lg icon-theme`}></i>
+                </button>
+                <div className="hidden lg:flex items-center gap-3 xl:gap-4 flex-shrink-0">
+                  <ThemeSelector />
+                  <NotificationBell />
+                  {isAuthenticated && user ? (
+                    <div className="relative">
+                      <button 
+                        onClick={toggleUserMenu}
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg animate-theme-hover transition-all theme-surface border theme-border"
+                      >
+                        <Image 
+                          src={user.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${user.username}`}
+                          alt={user.displayName}
+                          width={24}
+                          height={24}
+                          className="w-6 h-6 rounded-full border theme-border" 
+                        />
+                        <span className="hidden xl:inline text-sm theme-text-primary font-medium">
+                          {user.displayName}
+                        </span>
+                        <div className="flex items-center gap-1">
                           <span className="text-xs theme-badge theme-badge-primary">
-                            Nivel {user.level}
+                            Nv.{user.level}
                           </span>
-                          <span className="text-xs theme-badge theme-badge-warning">
-                            {user.reputation} pts
-                          </span>
+                          <i className={`fas fa-chevron-${showUserMenu ? 'up' : 'down'} text-xs theme-text-secondary`}></i>
                         </div>
-                      </div>
-                    </div>
-                    
-                    {/* Menu Items */}
-                    <div className="py-3 space-y-1">
-                      <Link 
-                        href="/profile" 
-                        onClick={() => setShowUserMenu(false)}
-                        className="flex items-center gap-3 px-3 py-2 rounded-lg theme-text-secondary hover:theme-text-primary transition-colors animate-theme-hover"
-                      >
-                        <i className="fas fa-user icon-theme"></i>
-                        <span>Mi Perfil</span>
-                      </Link>
-                      <Link 
-                        href="/profile/settings" 
-                        onClick={() => setShowUserMenu(false)}
-                        className="flex items-center gap-3 px-3 py-2 rounded-lg theme-text-secondary hover:theme-text-primary transition-colors animate-theme-hover"
-                      >
-                        <i className="fas fa-cog icon-theme"></i>
-                        <span>Configuración</span>
-                      </Link>
-                      {user.role === 'admin' && (
-                        <Link 
-                          href="/admin" 
-                          onClick={() => setShowUserMenu(false)}
-                          className="flex items-center gap-3 px-3 py-2 rounded-lg theme-text-secondary hover:theme-text-primary transition-colors animate-theme-hover"
-                        >
-                          <i className="fas fa-shield-alt icon-warning"></i>
-                          <span>Administración</span>
-                        </Link>
+                      </button>
+                      
+                      {/* User Menu Dropdown */}
+                      {showUserMenu && (
+                        <div className="absolute right-0 top-full mt-2 w-64 rounded-xl theme-card border theme-border animate-fade-in z-50">
+                          <div className="p-4">
+                            {/* User Info Header */}
+                            <div className="flex items-center gap-3 pb-3 border-b theme-border">
+                              <Image 
+                                src={user.avatar || `https://api.dicebear.com/7.x/initials/svg?seed=${user.username}`} 
+                                alt={user.displayName} 
+                                width={40}
+                                height={40}
+                                className="w-10 h-10 rounded-full border-2 theme-border-primary" 
+                              />
+                              <div className="flex-1">
+                                <div className="font-medium theme-text-primary">{user.displayName}</div>
+                                <div className="text-sm theme-text-secondary">@{user.username}</div>
+                                <div className="flex items-center gap-2 mt-1">
+                                  <span className="text-xs theme-badge theme-badge-primary">
+                                    Nivel {user.level}
+                                  </span>
+                                  <span className="text-xs theme-badge theme-badge-warning">
+                                    {user.reputation} pts
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            {/* Menu Items */}
+                            <div className="py-3 space-y-1">
+                              <Link 
+                                href={encryptUrlPath("/profile")} 
+                                onClick={() => setShowUserMenu(false)}
+                                className="flex items-center gap-3 px-3 py-2 rounded-lg theme-text-secondary hover:theme-text-primary transition-colors animate-theme-hover"
+                              >
+                                <i className="fas fa-user icon-theme"></i>
+                                <span>Mi Perfil</span>
+                              </Link>
+                              <Link 
+                                href={encryptUrlPath("/profile/settings")} 
+                                onClick={() => setShowUserMenu(false)}
+                                className="flex items-center gap-3 px-3 py-2 rounded-lg theme-text-secondary hover:theme-text-primary transition-colors animate-theme-hover"
+                              >
+                                <i className="fas fa-cog icon-theme"></i>
+                                <span>Configuración</span>
+                              </Link>
+                              {user.role === 'admin' && (
+                                <Link 
+                                  href={encryptUrlPath("/admin")} 
+                                  onClick={() => setShowUserMenu(false)}
+                                  className="flex items-center gap-3 px-3 py-2 rounded-lg theme-text-secondary hover:theme-text-primary transition-colors animate-theme-hover"
+                                >
+                                  <i className="fas fa-shield-alt icon-warning"></i>
+                                  <span>Administración</span>
+                                </Link>
+                              )}
+                            </div>
+                            
+                            {/* Logout Button */}
+                            <div className="pt-3 border-t theme-border">
+                              <button 
+                                onClick={handleLogout}
+                                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg theme-text-secondary hover:theme-text-primary transition-colors animate-theme-hover"
+                              >
+                                <i className="fas fa-sign-out-alt icon-error"></i>
+                                <span>Cerrar Sesión</span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       )}
                     </div>
+                  ) : (
+                    <Link 
+                      href={encryptUrlPath("/login")} 
+                      className="theme-button flex items-center gap-2"
+                    >
+                      <span className="hidden xl:inline text-sm">Iniciar Sesión</span>
+                      <i className="fas fa-sign-in-alt"></i>
+                    </Link>
+                  )}
+                </div>
+              </div>
+              
+              {/* Mobile menu */}
+              {isMobileMenuOpen && (
+                <div className="lg:hidden absolute top-full left-0 right-0 theme-bg-surface backdrop-blur-lg border-b theme-border animate-slide-down">
+                  <div className="px-4 py-4 space-y-4">
+                    {/* Mobile Search */}
+                    <div data-tooltip="search">
+                      <SearchBar />
+                    </div>
                     
-                    {/* Logout Button */}
-                    <div className="pt-3 border-t theme-border">
-                      <button 
-                        onClick={handleLogout}
-                        className="w-full flex items-center gap-3 px-3 py-2 rounded-lg theme-text-secondary hover:theme-text-primary transition-colors animate-theme-hover"
-                      >
-                        <i className="fas fa-sign-out-alt icon-error"></i>
-                        <span>Cerrar Sesión</span>
+                    {/* Mobile Navigation */}
+                    <nav className="space-y-2">
+                      <Link href={encryptUrlPath("/")} onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'home' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Inicio</Link>
+                      <Link href={encryptUrlPath("/chat")} onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'chat' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Funciones</Link>
+                      <Link href={encryptUrlPath("/games")} onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'games' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Guías</Link>
+                      <Link href={encryptUrlPath("/community")} onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'community' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Comunidad</Link>
+                      <Link href={encryptUrlPath("/profile")} onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'profile' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Mi perfil</Link>
+                    </nav>
+                    
+                    {/* Mobile Actions */}
+                    <div className="flex items-center justify-between pt-4 border-t theme-border">
+                      <div className="flex items-center gap-4">
+                        <ThemeSelector />
+                        <NotificationBell />
+                      </div>
+                      <button id="mobile-user-menu" className="theme-button flex items-center gap-2 px-3 py-2 rounded">
+                        <span className="text-sm">Cerrar sesión</span>
+                        <i className="fas fa-sign-out-alt icon-theme"></i>
                       </button>
                     </div>
                   </div>
                 </div>
               )}
-            </div>
-          ) : (
-            <Link 
-              href="/login" 
-              className="theme-button flex items-center gap-2 px-3 py-2 rounded animate-theme-hover"
-            >
-              <span className="hidden xl:inline text-sm">Iniciar Sesión</span>
-              <i className="fas fa-sign-in-alt icon-theme"></i>
-            </Link>
-          )}
-        </div>
-      </div>
-      
-      {/* Mobile menu */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 theme-bg-surface backdrop-blur-lg border-b theme-border animate-slide-down">
-          <div className="px-4 py-4 space-y-4">
-            {/* Mobile Search */}
-            <div data-tooltip="search">
-              <SearchBar />
-            </div>
-            
-            {/* Mobile Navigation */}
-            <nav className="space-y-2">
-              <Link href="/" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'home' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Inicio</Link>
-              <Link href="/chat" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'chat' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Funciones</Link>
-              <Link href="/games" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'games' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Guías</Link>
-              <Link href="/community" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'community' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Comunidad</Link>
-              <Link href="/profile" onClick={closeMobileMenu} className={`block px-4 py-3 rounded-lg transition-all ${active === 'profile' ? 'theme-text-primary theme-bg-primary-hover' : 'theme-text-secondary hover:theme-text-primary'}`}>Mi perfil</Link>
+        
             </nav>
-            
-            {/* Mobile Actions */}
-            <div className="flex items-center justify-between pt-4 border-t theme-border">
-              <div className="flex items-center gap-4">
-                <ThemeSelector />
-                <NotificationBell />
-              </div>
-              <button id="mobile-user-menu" className="theme-button flex items-center gap-2 px-3 py-2 rounded">
-                <span className="text-sm">Cerrar sesión</span>
-                <i className="fas fa-sign-out-alt icon-theme"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-    </nav>
-  );
-}
-
-export default memo(Navbar); 
+          );
+        }
+        
+        export default memo(Navbar);
+         

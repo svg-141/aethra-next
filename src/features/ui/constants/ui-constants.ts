@@ -1,15 +1,48 @@
 import { FilterOption } from '../types/ui.types';
 
 export const SAMPLE_HERO_DATA = {
-  image: '/assets/banners/valorant-banner.jpg',
-  title: 'Domina el Gaming Competitivo',
-  subtitle: 'Aprende estrategias avanzadas, conecta con jugadores profesionales y mejora tu rendimiento en los mejores juegos competitivos.',
-  badge: 'Nuevo',
-  badgeColor: 'bg-green-500/20 text-green-300 border-green-500/30',
-  actionLabel: 'Comenzar Ahora',
-  actionIcon: 'fas fa-play',
-  gradient: 'from-purple-900/40 via-pink-900/30 to-purple-900/40'
+  image: '/assets/img/dashboard.png',
+  title: 'Aethra: Tu Plataforma Definitiva para el Gaming Competitivo',
+  subtitle: 'Descubre el poder de la IA, únete a foros vibrantes, personaliza tu perfil y domina cada juego con guías exclusivas.',
+  badge: 'Innovación y Comunidad',
+  badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
+  actionLabel: 'Empezar Ahora',
+  actionIcon: 'fas fa-rocket',
+  gradient: 'from-blue-900/40 via-purple-900/30 to-blue-900/40'
 };
+
+export const LANDING_PAGE_FEATURES = [
+  {
+    icon: 'fas fa-robot',
+    title: 'Integración de IA Avanzada',
+    description: 'Potencia tu estrategia con análisis de juego impulsados por inteligencia artificial y recomendaciones personalizadas.',
+  },
+  {
+    icon: 'fas fa-comments',
+    title: 'Foros Interactivos y Comunidad',
+    description: 'Conecta con una comunidad vibrante. Participa en discusiones, comparte conocimientos y encuentra compañeros de equipo.',
+  },
+  {
+    icon: 'fas fa-user-circle',
+    title: 'Perfiles Personalizables',
+    description: 'Crea tu perfil único, muestra tus logros, estadísticas y personaliza tu experiencia en la plataforma.',
+  },
+  {
+    icon: 'fas fa-paint-brush',
+    title: 'Personalización Dinámica',
+    description: 'Adapta la interfaz a tu gusto con nuestras herramientas de personalización de diseño, fondos y temas.',
+  },
+  {
+    icon: 'fas fa-book-open',
+    title: 'Guías Detalladas',
+    description: 'Aprende de los mejores con guías exhaustivas creadas por expertos en cada juego.',
+  },
+  {
+    icon: 'fas fa-chart-line',
+    title: 'Análisis de Partidas',
+    description: 'Sube tus partidas y recibe análisis detallados para mejorar tu rendimiento.',
+  },
+];
 
 export const SAMPLE_FILTER_OPTIONS: FilterOption[] = [
   {
@@ -246,4 +279,5 @@ export const DEFAULT_UI_CONFIG = {
   borderRadius: 'lg',
   animationSpeed: 'normal',
   showAnimations: true
-}; 
+};
+ 

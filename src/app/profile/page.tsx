@@ -60,16 +60,16 @@ export default function ProfilePage() {
   };
 
   return (
-    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen" style={{ background: 'var(--gradient-background)' }}>
+    <section className="theme-section pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen">
       <div className="max-w-6xl mx-auto">
         {/* Header del perfil */}
-        <div className="card-profile p-8 mb-8">
+        <div className="theme-card p-8 mb-8">
           <div className="flex items-center gap-6">
-            <Image src={SAMPLE_USER.avatar} alt={SAMPLE_USER.name} width={96} height={96} className="w-24 h-24 rounded-full border-4" style={{ borderColor: 'var(--color-primary)' }} />
+            <Image src={SAMPLE_USER.avatar} alt={SAMPLE_USER.name} width={96} height={96} className="w-24 h-24 rounded-full border-4 border-theme" />
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
                 <h1 className="text-3xl font-bold theme-text-primary glow-text">{SAMPLE_USER.name}</h1>
-                <span className="theme-badge px-3 py-1 text-sm rounded-full" style={{ background: 'var(--gradient-primary)' }}>
+                <span className="theme-badge">
                   Nivel {SAMPLE_USER.level}
                 </span>
                 {SAMPLE_USER.isVerified && (
@@ -105,50 +105,30 @@ export default function ProfilePage() {
         <div className="flex items-center gap-1 theme-card rounded-xl p-1 mb-8">
           <button
             onClick={() => setActiveTab('overview')}
-            className={`theme-button flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-              activeTab === 'overview'
-                ? 'theme-text-primary'
-                : 'theme-text-secondary hover:theme-text-primary'
-            }`}
-            style={activeTab === 'overview' ? { background: 'var(--gradient-primary)' } : {}}
+            className={`theme-nav-item flex-1 ${activeTab === 'overview' ? 'active' : ''}`}
           >
-            <i className="fas fa-chart-bar icon-theme mr-2"></i>
+            <i className="fas fa-chart-bar mr-2"></i>
             Estadísticas
           </button>
           <button
             onClick={() => setActiveTab('achievements')}
-            className={`theme-button flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-              activeTab === 'achievements'
-                ? 'theme-text-primary'
-                : 'theme-text-secondary hover:theme-text-primary'
-            }`}
-            style={activeTab === 'achievements' ? { background: 'var(--gradient-primary)' } : {}}
+            className={`theme-nav-item flex-1 ${activeTab === 'achievements' ? 'active' : ''}`}
           >
-            <i className="fas fa-trophy icon-theme mr-2"></i>
+            <i className="fas fa-trophy mr-2"></i>
             Logros
           </button>
           <button
             onClick={() => setActiveTab('connections')}
-            className={`theme-button flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-              activeTab === 'connections'
-                ? 'theme-text-primary'
-                : 'theme-text-secondary hover:theme-text-primary'
-            }`}
-            style={activeTab === 'connections' ? { background: 'var(--gradient-primary)' } : {}}
+            className={`theme-nav-item flex-1 ${activeTab === 'connections' ? 'active' : ''}`}
           >
-            <i className="fas fa-link icon-theme mr-2"></i>
+            <i className="fas fa-link mr-2"></i>
             Conexiones
           </button>
           <button
             onClick={() => setActiveTab('subscription')}
-            className={`theme-button flex-1 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
-              activeTab === 'subscription'
-                ? 'theme-text-primary'
-                : 'theme-text-secondary hover:theme-text-primary'
-            }`}
-            style={activeTab === 'subscription' ? { background: 'var(--gradient-primary)' } : {}}
+            className={`theme-nav-item flex-1 ${activeTab === 'subscription' ? 'active' : ''}`}
           >
-            <i className="fas fa-crown icon-theme mr-2"></i>
+            <i className="fas fa-crown mr-2"></i>
             Suscripción
           </button>
         </div>

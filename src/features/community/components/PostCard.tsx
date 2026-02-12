@@ -30,7 +30,7 @@ export default function PostCard({ post, onLike, onComment, onShare }: PostCardP
     <div className="cuadro rounded-2xl p-6 mb-6 animate-theme-hover">
       <div className="flex items-start">
         <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center border-2 overflow-hidden mr-4" style={{ background: 'var(--gradient-primary)', borderColor: 'var(--color-primary)', opacity: '0.8' }}>
-          <img src={post.author.avatar} alt={`Avatar de ${post.author.name}`} className="w-full h-full object-cover" />
+          <img src={post.author.avatar} alt={`Avatar de ${post.author.name}`} className="w-full h-full object-cover image-fade" />
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">

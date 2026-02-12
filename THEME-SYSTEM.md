@@ -102,8 +102,24 @@ import { getThemeClasses } from '../utils/theme';
   <h1 className="theme-text-primary">Título</h1>
   <p className="theme-text-secondary">Descripción</p>
   <button className="theme-button">Acción</button>
+  <button className="theme-button-secondary">Acción Secundaria</button>
+  <button className="theme-button-danger">Acción Peligro</button>
+  <button className="theme-button-primary">Acción Primaria</button>
 </div>
+<span className="theme-badge">Badge Normal</span>
+<span className="theme-badge-success">Badge Éxito</span>
+<span className="theme-badge-warning">Badge Advertencia</span>
 ```
+
+### Componentes de Administración
+- ✅ `AdminLayout` - Layout base para el panel de administración con navegación lateral temática.
+- ✅ `AdminDashboardPage` - Página principal del panel de administración.
+- ✅ `AdminUsersPage` - Placeholder para la gestión de usuarios.
+- ✅ `AdminForumsPage` - Placeholder para la gestión de foros.
+- ✅ `AdminReviewsPage` - Placeholder para la gestión de reseñas.
+- ✅ `AdminGamesPage` - Placeholder para la gestión de juegos.
+- ✅ `AdminSubscriptionsPage` - Placeholder para la gestión de suscripciones.
+- ✅ `AdminSecurityPage` - Placeholder para la configuración de seguridad.
 
 ### Variables CSS Personalizadas
 ```css

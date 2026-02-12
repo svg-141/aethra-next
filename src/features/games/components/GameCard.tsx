@@ -35,12 +35,12 @@ export default function GameCard({ game, onClick, onFavorite, onShare, details }
         {/* Badges */}
         <div className="position-absolute top-0 end-0 m-3 d-flex gap-2">
           {game.isNew && (
-            <span className="px-2 py-1 text-green-300 text-xs rounded-full" style={{ background: 'rgba(34, 197, 94, 0.2)' }}>
+            <span className="theme-badge-success">
               🆕 Nuevo
             </span>
           )}
           {game.isPopular && (
-            <span className="px-2 py-1 text-yellow-300 text-xs rounded-full" style={{ background: 'rgba(251, 191, 36, 0.2)' }}>
+            <span className="theme-badge-warning">
               🔥 Popular
             </span>
           )}
@@ -117,14 +117,14 @@ export default function GameCard({ game, onClick, onFavorite, onShare, details }
         <div className="d-flex justify-content-center gap-2 mt-auto">
           <button
             onClick={handleFavorite}
-            className="px-2 py-1 text-red-400 border border-red-400 rounded hover:bg-red-400 hover:text-white transition-all animate-theme-hover text-sm"
+            className="theme-button-danger px-2 py-1 text-sm"
             title="Agregar a favoritos"
           >
             <i className="fas fa-heart"></i>
           </button>
           <button
             onClick={handleShare}
-            className="px-2 py-1 text-theme-primary border rounded transition-all animate-theme-hover text-sm" style={{ borderColor: 'var(--color-primary)' }}
+            className="theme-button-primary px-2 py-1 text-sm"
             title="Compartir"
           >
             <i className="fas fa-share"></i>
