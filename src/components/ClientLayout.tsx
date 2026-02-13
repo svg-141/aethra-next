@@ -6,24 +6,39 @@ import Navbar from './Navbar';
 import { NotificationManager } from '../features/notifications';
 import ProtectedRoute from '../components/auth/ProtectedRoute';
 import Script from 'next/script';
+import { decryptUrlPath } from '../security/url-encryption';
 
 function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   
   // Memoize active page calculation for performance
   const active = useMemo(() => {
-    if (pathname === '/') return 'home';
-    if (pathname.startsWith('/chat')) return 'chat';
-    if (pathname.startsWith('/games') || pathname.startsWith('/guide/')) return 'games';
-    if (pathname.startsWith('/comunity')) return 'comunity';
-    if (pathname.startsWith('/profile')) return 'profile';
+    // Determine the actual path (decrypt if necessary)
+    let effectivePath = pathname;
+    
+    // Check if the path is likely encrypted (doesn't match known prefixes)
+    if (pathname !== '/' && !pathname.startsWith('/login') && !pathname.startsWith('/api') && !pathname.startsWith('/_next')) {
+       const decrypted = decryptUrlPath(pathname);
+       if (decrypted && decrypted !== pathname) {
+         effectivePath = decrypted;
+       }
+    }
+
+    if (effectivePath === '/') return 'home';
+    if (effectivePath.startsWith('/chat')) return 'chat';
+    if (effectivePath.startsWith('/games') || effectivePath.startsWith('/guide/')) return 'games';
+    if (effectivePath.startsWith('/community')) return 'community';
+    if (effectivePath.startsWith('/profile')) return 'profile';
     return '';
   }, [pathname]);
 
   // Páginas que no requieren autenticación
   const publicRoutes = useMemo(() => [
     '/',
-    '/login'
+    '/login',
+    '/games',
+    '/community',
+    '/chat'
   ], []);
 
   const requiresAuth = !publicRoutes.includes(pathname);

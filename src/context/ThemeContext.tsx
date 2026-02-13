@@ -290,9 +290,57 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       
       // Batch all DOM updates
       requestAnimationFrame(() => {
+        // Helper to generate shades
+        const generateShades = (hex: string, name: string) => {
+          // Parse hex
+          let r = 0, g = 0, b = 0;
+          if (hex.length === 4) {
+            r = parseInt(hex[1] + hex[1], 16);
+            g = parseInt(hex[2] + hex[2], 16);
+            b = parseInt(hex[3] + hex[3], 16);
+          } else if (hex.length === 7) {
+            r = parseInt(hex.slice(1, 3), 16);
+            g = parseInt(hex.slice(3, 5), 16);
+            b = parseInt(hex.slice(5, 7), 16);
+          }
+
+          // Mix function
+          const mix = (c: number, t: number, w: number) => Math.round(c * (1 - w) + t * w);
+          const toHex = (n: number) => n.toString(16).padStart(2, '0');
+          const rgbToHex = (r: number, g: number, b: number) => `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+
+          // 50 (lightest) to 900 (darkest)
+          // 500 is base
+          const shades: Record<string, string> = {};
+          
+          // Tints (lighter - mixing with white 255)
+          shades['50'] = rgbToHex(mix(r, 255, 0.95), mix(g, 255, 0.95), mix(b, 255, 0.95));
+          shades['100'] = rgbToHex(mix(r, 255, 0.90), mix(g, 255, 0.90), mix(b, 255, 0.90));
+          shades['200'] = rgbToHex(mix(r, 255, 0.75), mix(g, 255, 0.75), mix(b, 255, 0.75));
+          shades['300'] = rgbToHex(mix(r, 255, 0.60), mix(g, 255, 0.60), mix(b, 255, 0.60));
+          shades['400'] = rgbToHex(mix(r, 255, 0.30), mix(g, 255, 0.30), mix(b, 255, 0.30));
+          
+          shades['500'] = hex;
+
+          // Shades (darker - mixing with black 0)
+          shades['600'] = rgbToHex(mix(r, 0, 0.10), mix(g, 0, 0.10), mix(b, 0, 0.10));
+          shades['700'] = rgbToHex(mix(r, 0, 0.25), mix(g, 0, 0.25), mix(b, 0, 0.25));
+          shades['800'] = rgbToHex(mix(r, 0, 0.40), mix(g, 0, 0.40), mix(b, 0, 0.40));
+          shades['900'] = rgbToHex(mix(r, 0, 0.60), mix(g, 0, 0.60), mix(b, 0, 0.60));
+
+          Object.entries(shades).forEach(([key, value]) => {
+            root.style.setProperty(`--color-${name}-${key}`, value);
+          });
+        };
+
         // Apply color variables
         Object.entries(currentTheme.colors).forEach(([key, value]) => {
           root.style.setProperty(`--color-${key}`, value);
+          
+          // Generate shades for main colors
+          if (['primary', 'secondary', 'accent', 'warning', 'error', 'success'].includes(key)) {
+            generateShades(value, key);
+          }
         });
 
         // Apply gradient variables

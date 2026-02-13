@@ -34,7 +34,7 @@ function Navbar({ active }: NavbarProps) {
   }, [logout]);
   return (
     <nav className="fixed top-0 w-full z-50 theme-navbar backdrop-blur-lg border-b theme-border transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center gap-4">
+      <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 py-3 sm:py-4 flex justify-between items-center gap-4">
         <Link href={encryptUrlPath("/")} className="text-theme-primary text-xl sm:text-2xl font-extrabold tracking-wide glow-text flex items-center gap-3 hover:scale-105 transition-transform flex-shrink-0">
           <Image 
             src="/assets/logo.png" 

@@ -220,18 +220,18 @@ export default function ChatPage() {
   };
 
   return (
-    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative min-h-screen" style={{ background: 'var(--gradient-background)' }}>
-      <div className="max-w-6xl mx-auto">
+    <section className="pt-24 pb-4 px-4 sm:px-6 lg:px-8 relative min-h-screen flex flex-col" style={{ background: 'var(--gradient-background)' }}>
+      <div className="w-full max-w-[1920px] mx-auto flex-1 flex flex-col">
         {/* Header del Chat */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4 flex-shrink-0">
           <div className="flex items-center">
-            <div className="w-12 h-12 rounded-full flex items-center justify-center border-2 mr-4" style={{ background: 'var(--gradient-primary)', borderColor: 'var(--color-primary)', opacity: '0.8' }}>
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center border-2 mr-3 md:mr-4" style={{ background: 'var(--gradient-primary)', borderColor: 'var(--color-primary)', opacity: '0.8' }}>
+              <svg className="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-theme-primary">Asistente Estratégico Aethra</h2>
+              <h2 className="text-lg md:text-xl font-bold text-theme-primary">Asistente Estratégico Aethra</h2>
               <div className="flex items-center gap-4">
                 <div className="flex items-center">
                   <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
@@ -275,10 +275,10 @@ export default function ChatPage() {
           </div>
         </div>
 
-        {/* Contenedor principal */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 md:gap-6">
+        {/* Contenedor principal - Layout optimizado */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6 flex-1 min-h-0">
           {/* Columna lateral - Selector de juegos y ejemplos */}
-          <div className="lg:col-span-1 space-y-4 md:space-y-6 order-2 lg:order-1">
+          <div className="lg:col-span-1 space-y-4 overflow-y-auto pr-2 custom-scrollbar order-2 lg:order-1 h-full max-h-[calc(100vh-150px)] lg:max-h-full">
             {/* Selector de juegos */}
             <div className="cuadro rounded-2xl p-3 md:p-4">
               <h3 className="text-xs md:text-sm font-semibold text-theme-primary mb-2 md:mb-3">SELECCIONA TU JUEGO</h3>
@@ -294,7 +294,7 @@ export default function ChatPage() {
                     }`}
                   >
                     <div className="text-2xl md:text-3xl mb-1 md:mb-2">{game.emoji || '🎮'}</div>
-                    <div className="text-xs font-medium mobile-text-sm">{game.name}</div>
+                    <div className="text-xs font-medium mobile-text-sm truncate">{game.name}</div>
                   </button>
                 ))}
               </div>
@@ -324,10 +324,16 @@ export default function ChatPage() {
           </div>
 
           {/* Columna central - Consulta estratégica */}
-          <div className="lg:col-span-3 order-1 lg:order-2">
-            <div className="chat-container h-[calc(100vh-200px)] md:h-[calc(100vh-160px)] lg:h-[calc(100vh-140px)] rounded-xl md:rounded-2xl overflow-hidden flex flex-col">
+          <div className="lg:col-span-3 2xl:col-span-4 order-1 lg:order-2 flex flex-col h-full min-h-[600px]">
+            <div className="chat-container flex-1 rounded-xl md:rounded-2xl overflow-hidden flex flex-col shadow-2xl relative">
               {/* Área de mensajes */}
-              <div className="flex-1 p-3 md:p-4 overflow-y-auto space-y-3 md:space-y-4 scrollbar-morado mobile-padding">
+              <div className="flex-1 p-4 md:p-6 overflow-y-auto space-y-4 scrollbar-morado mobile-padding relative z-10">
+                {messages.length === 0 && (
+                  <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                     <i className="fas fa-robot text-9xl"></i>
+                  </div>
+                )}
+                
                 {messages.map((message) => (
                   <ChatMessage key={message.id} message={message} />
                 ))}
@@ -336,7 +342,7 @@ export default function ChatPage() {
                     message={{
                       id: 'loading',
                       type: 'ia',
-                      content: <span className="italic text-purple-300">Aethra está escribiendo...</span>,
+                      content: <span className="italic text-purple-300">Aethra está analizando...</span>,
                       timestamp: new Date(),
                       game: selectedGame
                     }}
@@ -346,49 +352,28 @@ export default function ChatPage() {
               </div>
               
               {/* Formulario de entrada */}
-              <form onSubmit={handleSend} className="flex items-center gap-2 md:gap-3 p-3 md:p-4 border-t theme-border mobile-padding"
+              <form onSubmit={handleSend} className="flex items-center gap-2 md:gap-3 p-3 md:p-4 border-t theme-border mobile-padding z-20"
                     style={{ backgroundColor: 'var(--color-surface)' }}>
                 <div className="flex-1">
                   <input
                     type="text"
-                    className="w-full theme-input mobile-form-input"
-                    placeholder={`Escribe tu consulta sobre ${activeGame.name}...`}
+                    className="w-full theme-input mobile-form-input py-3 px-4"
+                    placeholder={`Pregúntame sobre estrategias de ${activeGame.name}...`}
                     value={input}
                     onChange={e => setInput(e.target.value)}
                     disabled={isLoading}
+                    autoFocus
                   />
                 </div>
                 <button
                   type="submit"
-                  className="px-4 md:px-6 py-2 md:py-3 theme-button mobile-button disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 md:px-8 py-3 theme-button mobile-button disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all"
                   disabled={isLoading || !input.trim()}
                 >
                   <span className="hidden sm:inline">Enviar</span>
                   <i className="fas fa-paper-plane sm:hidden"></i>
                 </button>
               </form>
-            </div>
-
-            {/* Sección de comentarios */}
-            <div className="mt-8">
-              <CommentSection
-                sectionId="chat-feedback"
-                initialComments={[
-                  {
-                    id: 1,
-                    author: 'GamerPro123',
-                    avatar: '/assets/img/default-avatar.png',
-                    content: 'Aethra me ayudó mucho con las estrategias de Valorant. Las respuestas son muy precisas y útiles.',
-                    time: 'hace 1 día',
-                    likes: 5,
-                    section: 'chat-feedback',
-                  },
-
-                ]}
-                initialVotes={{ up: 89, down: 2 }}
-                title="¿Cómo te está ayudando Aethra?"
-                className="bg-gradient-to-br from-[#1a0933] to-[#2a0845] rounded-2xl p-6 border border-purple-900/60"
-              />
             </div>
           </div>
         </div>

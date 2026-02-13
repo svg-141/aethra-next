@@ -35,7 +35,7 @@ export default function SidebarGuide({ sections, updates, downloadLabel, onDownl
       </ul>
       
       {updates && (
-        <div className="mt-8 pt-6 border-t border-theme">
+        <div className="mt-8 pt-6 border-t theme-border">
           <h3 className="text-lg font-bold text-theme-primary mb-4 flex items-center gap-2">
             <i className="fas fa-history text-theme-primary"></i>
             Actualizaciones
@@ -45,13 +45,13 @@ export default function SidebarGuide({ sections, updates, downloadLabel, onDownl
               <span className="text-theme-primary">Última actualización:</span> {updates.last}
             </p>
             {updates.next && (
-              <p className="text-sm text-gray-400">
+              <p className="text-sm theme-text-secondary">
                 Próxima actualización estimada: {updates.next}
               </p>
             )}
             {updates.version && (
-              <p className="text-sm text-gray-400">
-                <span className="text-purple-300">Versión:</span> {updates.version}
+              <p className="text-sm theme-text-secondary">
+                <span className="text-theme-accent">Versión:</span> {updates.version}
               </p>
             )}
           </div>
@@ -59,7 +59,7 @@ export default function SidebarGuide({ sections, updates, downloadLabel, onDownl
       )}
       
       {downloadLabel && (
-        <div className="mt-8 pt-6 border-t border-theme">
+        <div className="mt-8 pt-6 border-t theme-border">
           <h3 className="text-lg font-bold text-theme-primary mb-4 flex items-center gap-2">
             <i className="fas fa-download text-theme-primary"></i>
             Descargar Guía

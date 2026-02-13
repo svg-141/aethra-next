@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { encryptUrlPath } from '../../../../src/security/url-encryption';
+import { encryptUrlPath } from '../../security/url-encryption';
 
 interface AdminLayoutProps {
   children: ReactNode;
