@@ -246,7 +246,7 @@ const themes: Theme[] = [
 ];
 
 const defaultPreferences: UserPreferences = {
-  theme: 'aethra-purple',
+  theme: 'dark',
   fontSize: 'medium',
   animations: true,
   compactMode: false,
@@ -284,142 +284,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   // Apply theme to DOM with optimization
   useEffect(() => {
     if (isLoading) return;
-
-    const applyTheme = () => {
-      const root = document.documentElement;
-      
-      // Batch all DOM updates
-      requestAnimationFrame(() => {
-        // Helper to generate shades
-        const generateShades = (hex: string, name: string) => {
-          // Parse hex
-          let r = 0, g = 0, b = 0;
-          if (hex.length === 4) {
-            r = parseInt(hex[1] + hex[1], 16);
-            g = parseInt(hex[2] + hex[2], 16);
-            b = parseInt(hex[3] + hex[3], 16);
-          } else if (hex.length === 7) {
-            r = parseInt(hex.slice(1, 3), 16);
-            g = parseInt(hex.slice(3, 5), 16);
-            b = parseInt(hex.slice(5, 7), 16);
-          }
-
-          // Mix function
-          const mix = (c: number, t: number, w: number) => Math.round(c * (1 - w) + t * w);
-          const toHex = (n: number) => n.toString(16).padStart(2, '0');
-          const rgbToHex = (r: number, g: number, b: number) => `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-
-          // 50 (lightest) to 900 (darkest)
-          // 500 is base
-          const shades: Record<string, string> = {};
-          
-          // Tints (lighter - mixing with white 255)
-          shades['50'] = rgbToHex(mix(r, 255, 0.95), mix(g, 255, 0.95), mix(b, 255, 0.95));
-          shades['100'] = rgbToHex(mix(r, 255, 0.90), mix(g, 255, 0.90), mix(b, 255, 0.90));
-          shades['200'] = rgbToHex(mix(r, 255, 0.75), mix(g, 255, 0.75), mix(b, 255, 0.75));
-          shades['300'] = rgbToHex(mix(r, 255, 0.60), mix(g, 255, 0.60), mix(b, 255, 0.60));
-          shades['400'] = rgbToHex(mix(r, 255, 0.30), mix(g, 255, 0.30), mix(b, 255, 0.30));
-          
-          shades['500'] = hex;
-
-          // Shades (darker - mixing with black 0)
-          shades['600'] = rgbToHex(mix(r, 0, 0.10), mix(g, 0, 0.10), mix(b, 0, 0.10));
-          shades['700'] = rgbToHex(mix(r, 0, 0.25), mix(g, 0, 0.25), mix(b, 0, 0.25));
-          shades['800'] = rgbToHex(mix(r, 0, 0.40), mix(g, 0, 0.40), mix(b, 0, 0.40));
-          shades['900'] = rgbToHex(mix(r, 0, 0.60), mix(g, 0, 0.60), mix(b, 0, 0.60));
-
-          Object.entries(shades).forEach(([key, value]) => {
-            root.style.setProperty(`--color-${name}-${key}`, value);
-          });
-        };
-
-        // Apply color variables
-        Object.entries(currentTheme.colors).forEach(([key, value]) => {
-          root.style.setProperty(`--color-${key}`, value);
-          
-          // Generate shades for main colors
-          if (['primary', 'secondary', 'accent', 'warning', 'error', 'success'].includes(key)) {
-            generateShades(value, key);
-          }
-        });
-
-        // Apply gradient variables
-        Object.entries(currentTheme.gradients).forEach(([key, value]) => {
-          root.style.setProperty(`--gradient-${key}`, value);
-        });
-
-        // Apply enhanced theme-specific colors
-        root.style.setProperty('--color-navbar', currentTheme.colors.surface);
-        root.style.setProperty('--color-navbar-text', currentTheme.colors.text);
-        root.style.setProperty('--color-navbar-hover', currentTheme.colors.primary);
-        root.style.setProperty('--color-chat', currentTheme.colors.surface);
-        root.style.setProperty('--color-chat-text', currentTheme.colors.text);
-        root.style.setProperty('--color-chat-border', currentTheme.colors.border);
-        root.style.setProperty('--color-notification', currentTheme.colors.primary);
-        root.style.setProperty('--color-notification-text', currentTheme.colors.text);
-        root.style.setProperty('--color-notification-bg', currentTheme.colors.surface);
-        root.style.setProperty('--color-animation', currentTheme.colors.primary);
-        root.style.setProperty('--color-cuadro', currentTheme.colors.surface);
-        root.style.setProperty('--color-cuadro-border', currentTheme.colors.border);
-        root.style.setProperty('--color-cuadro-text', currentTheme.colors.text);
-
-        // Apply user preferences
-        const fontSizeMap = {
-          small: '14px',
-          medium: '16px',
-          large: '18px',
-        };
-
-        root.style.setProperty('--font-size-base', fontSizeMap[userPreferences.fontSize]);
-        root.style.setProperty('--animation-duration',
-          userPreferences.reducedMotion ? '0.1s' : '0.3s'
-        );
-
-        // Apply high contrast adjustments WITHOUT changing colors
-        if (userPreferences.highContrast) {
-          // Increase contrast by making borders thicker and shadows stronger
-          root.style.setProperty('--border-width', '2px');
-          root.style.setProperty('--shadow-intensity', '1.5');
-          // Brighten text slightly for better readability
-          const textColor = currentTheme.colors.text;
-          root.style.setProperty('--color-text-contrast', textColor);
-          root.style.setProperty('--color-text-secondary-contrast', currentTheme.colors.textSecondary);
-        } else {
-          root.style.setProperty('--border-width', '1px');
-          root.style.setProperty('--shadow-intensity', '1');
-          root.style.setProperty('--color-text-contrast', currentTheme.colors.text);
-          root.style.setProperty('--color-text-secondary-contrast', currentTheme.colors.textSecondary);
-        }
-
-        // Apply class-based preferences
-        const classUpdates = {
-          'high-contrast': userPreferences.highContrast,
-          'compact-mode': userPreferences.compactMode,
-          'no-animations': !userPreferences.animations,
-        };
-
-        Object.entries(classUpdates).forEach(([className, shouldAdd]) => {
-          if (shouldAdd) {
-            root.classList.add(className);
-          } else {
-            root.classList.remove(className);
-          }
-        });
-
-        // Set theme meta for better performance
-        const metaTheme = document.querySelector('meta[name="theme-color"]');
-        if (metaTheme) {
-          metaTheme.setAttribute('content', currentTheme.colors.primary);
-        } else {
-          const meta = document.createElement('meta');
-          meta.name = 'theme-color';
-          meta.content = currentTheme.colors.primary;
-          document.head.appendChild(meta);
-        }
-      });
-    };
-
-    applyTheme();
+    document.documentElement.setAttribute('data-theme', userPreferences.theme === 'light' ? 'light' : 'dark');
   }, [currentTheme, userPreferences, isLoading]);
 
   const setTheme = (themeId: string) => {

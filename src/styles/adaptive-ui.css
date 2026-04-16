@@ -59,7 +59,7 @@ select:focus,
 .theme-input:focus {
   background: var(--color-surface-light) !important;
   border-color: var(--color-primary) !important;
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent) !important;
   outline: none !important;
 }
 
@@ -280,25 +280,25 @@ button,
 }
 
 .alert-primary {
-  background: rgba(139, 92, 246, 0.15) !important;
+  background: color-mix(in srgb, var(--color-primary) 15%, transparent) !important;
   border-color: var(--color-primary) !important;
   color: var(--color-primary-light) !important;
 }
 
 .alert-success {
-  background: rgba(16, 185, 129, 0.15) !important;
+  background: color-mix(in srgb, var(--color-success) 15%, transparent) !important;
   border-color: var(--color-success) !important;
   color: var(--color-success-light) !important;
 }
 
 .alert-warning {
-  background: rgba(245, 158, 11, 0.15) !important;
+  background: color-mix(in srgb, var(--color-warning) 15%, transparent) !important;
   border-color: var(--color-warning) !important;
   color: var(--color-warning-light) !important;
 }
 
 .alert-danger {
-  background: rgba(239, 68, 68, 0.15) !important;
+  background: color-mix(in srgb, var(--color-error) 15%, transparent) !important;
   border-color: var(--color-error) !important;
   color: var(--color-error-light) !important;
 }
@@ -355,7 +355,7 @@ button,
 
 .form-check-input:focus {
   border-color: var(--color-primary) !important;
-  box-shadow: 0 0 0 0.25rem rgba(139, 92, 246, 0.25) !important;
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--color-primary) 25%, transparent) !important;
 }
 
 /* Switch */
@@ -524,4 +524,229 @@ footer {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ===== MÓDULOS DE DISEÑO (FRONTEND CALLS) ===== */
+
+/* 
+  Utiliza estas clases modulares en los componentes React para asegurar 
+  que el diseño sea consistente en toda la plataforma y respete el tema.
+*/
+
+/* Módulo: Contenedor/Tarjeta Principal */
+.module-card {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-surface) 95%, transparent), color-mix(in srgb, var(--color-background) 80%, transparent));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+  border-left: 3px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+  border-radius: 4px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  padding: var(--spacing-md, 1rem);
+  transition: all var(--animation-duration) var(--animation-ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.module-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.module-subcard {
+  background: color-mix(in srgb, var(--color-surface-hover) 30%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+  border-radius: var(--radius-sm, 4px);
+  padding: 1rem;
+}
+
+.module-card-interactive:hover {
+  background: var(--color-surface-hover);
+  border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+  border-left-color: var(--color-primary);
+  transform: translateY(-2px);
+  animation: card-glitch-pulse 1.5s infinite;
+}
+
+.module-card-interactive:hover::before {
+  opacity: 1;
+}
+
+/* Módulo: Textos y Tipografía */
+.module-text-title {
+  color: var(--color-text);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-sm, 0.5rem);
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.module-text-title::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 10%; bottom: 10%;
+  width: 3px;
+  background: var(--gradient-primary);
+}
+
+.module-text-muted {
+  color: var(--color-text-secondary);
+  font-size: 0.9em;
+}
+
+.module-text-highlight {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Módulo: Inputs y Formularios */
+.module-input {
+  width: 100%;
+  background: var(--color-input-bg);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-md, 8px);
+  color: var(--color-text);
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.module-input:focus {
+  border-color: var(--color-primary);
+  background: var(--color-surface-light);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent);
+  outline: none;
+}
+
+/* Módulo: Botones Estandarizados */
+.module-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all var(--animation-duration) var(--animation-ease);
+  border: none;
+  border-radius: 0 !important;
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+.module-btn-primary {
+  background: var(--gradient-primary);
+  color: var(--color-text);
+  border-bottom: 2px solid color-mix(in srgb, var(--color-background) 50%, transparent);
+}
+
+.module-btn-primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.module-btn-outline {
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.module-btn-outline:hover {
+  background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  color: var(--color-primary-light);
+}
+
+/* Módulo: Tablas */
+.module-table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-lg, 12px);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.module-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Módulo: Badges y Etiquetas */
+.module-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+  color: var(--color-primary-light);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 50%, transparent);
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.module-badge-success {
+  background: color-mix(in srgb, var(--color-success) 15%, transparent);
+  color: var(--color-success-light);
+  border-color: color-mix(in srgb, var(--color-success) 30%, transparent);
+}
+
+.module-badge-warning {
+  background: color-mix(in srgb, var(--color-warning) 15%, transparent);
+  color: var(--color-warning-light);
+  border-color: color-mix(in srgb, var(--color-warning) 30%, transparent);
+}
+
+.module-badge-danger {
+  background: color-mix(in srgb, var(--color-error) 15%, transparent);
+  color: var(--color-error-light);
+  border-color: color-mix(in srgb, var(--color-error) 30%, transparent);
+}
+
+/* ===== EFECTOS HOLOGRÁFICOS Y DE UI GAMER ===== */
+
+@keyframes card-glitch-pulse {
+  0% {
+    box-shadow: 0 0 4px color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 12px color-mix(in srgb, var(--color-secondary) 30%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 4px color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+}
+
+.nav-link-hologram {
+  color: var(--color-text-secondary);
+}
+.nav-link-hologram.active,
+.nav-link-hologram:hover {
+  color: var(--color-text);
+}
+
+.nav-link-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--animation-ease);
+}
+
+.nav-link-hologram.active .nav-link-underline,
+.nav-link-hologram:hover .nav-link-underline {
+  transform: scaleX(1);
 }

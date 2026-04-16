@@ -13,7 +13,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "build:analyze": "ANALYZE=true next build",
-    "clean": "rm -rf .next dist coverage"
+    "clean": "npx rimraf .next dist coverage"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.10",

@@ -44,9 +44,18 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
   const requiresAuth = !publicRoutes.includes(pathname);
   
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[var(--color-background)] to-[var(--color-surface)] transition-colors duration-300">
+    <div className="min-h-screen bg-gradient-to-b from-[var(--color-background)] to-[var(--color-surface)] transition-colors duration-300 relative overflow-hidden">
+      {/* Tactical Grid & Scanlines Background */}
+      <div className="fixed inset-0 pointer-events-none z-0" id="aethra-background-effects">
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px)',
+          backgroundSize: '40px 40px'
+        }}></div>
+        <div className="absolute inset-0 bg-repeat scanline-bg"></div>
+      </div>
+
       <Navbar active={active} />
-      <main className="pt-16 sm:pt-20 lg:pt-24 transition-all duration-300">
+      <main className="pt-16 sm:pt-20 lg:pt-24 transition-all duration-300 relative z-10">
         <div className="min-h-[calc(100vh-4rem)] sm:min-h-[calc(100vh-5rem)] lg:min-h-[calc(100vh-6rem)]">
           <ProtectedRoute requireAuth={requiresAuth}>
             {children}

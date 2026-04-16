@@ -18,7 +18,7 @@ const FEATURED_GAMES: Game[] = [
     description: 'A 5v5 character-based tactical shooter where precise gunplay meets unique agent abilities.',
     badge: 'Trending',
     badgeColor: 'bg-red-500',
-    gradient: '239, 68, 68', // Red
+    gradient: '#ff0055, #9d00ff', // Red/Purple Gamer
     accentColor: 'red',
     genre: ['Tactical', 'Shooter'],
     platform: ['PC'],
@@ -37,7 +37,7 @@ const FEATURED_GAMES: Game[] = [
     description: 'The ultimate real-time strategy game. Command three unique races in intergalactic warfare.',
     badge: 'Classic',
     badgeColor: 'bg-blue-500',
-    gradient: '59, 130, 246', // Blue
+    gradient: '#00e5ff, #00ff88', // Cyan/Green
     accentColor: 'blue',
     genre: ['RTS', 'Sci-Fi'],
     platform: ['PC'],
@@ -114,7 +114,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen theme-bg-surface pt-20" style={{ background: 'var(--gradient-background)' }}>
+    <div>
       <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center mb-16">
           <div className="w-full xl:w-5/6">
@@ -141,22 +141,22 @@ export default function HomePage() {
         <section className="mb-20 animate-fade-in-up">
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h2 className="text-3xl font-bold theme-text-primary glow-text-subtle mb-2">Juegos Destacados</h2>
-                    <p className="theme-text-secondary">Explora los títulos más populares de nuestra comunidad</p>
+                    <h2 className="module-text-title text-3xl">Juegos Destacados</h2>
+                    <p className="module-text-muted">Explora los títulos más populares de nuestra comunidad</p>
                 </div>
-                <button className="theme-button-secondary text-sm">Ver todos</button>
+                <button className="module-btn module-btn-outline text-sm">Ver todos</button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
                 {FEATURED_GAMES.map(game => (
                     <GameCard key={game.id} game={game} />
                 ))}
                  {/* Promo Card as 3rd item */}
-                <div className="theme-card p-6 flex flex-col justify-center items-center text-center border-dashed border-2 theme-border-muted hover:theme-border-hover cursor-pointer group">
+                <div className="module-card module-card-interactive p-6 flex flex-col justify-center items-center text-center border-dashed border-2 cursor-pointer group">
                     <div className="w-16 h-16 rounded-full bg-theme-surface-light flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <i className="fas fa-plus text-2xl theme-text-secondary group-hover:text-primary"></i>
+                        <i className="fas fa-plus text-2xl text-gray-500 group-hover:text-purple-500"></i>
                     </div>
-                    <h3 className="text-xl font-bold theme-text-primary mb-2">Explorar más</h3>
-                    <p className="theme-text-secondary text-sm">Descubre cientos de guías y estrategias para otros juegos</p>
+                    <h3 className="module-text-title text-xl">Explorar más</h3>
+                    <p className="module-text-muted text-sm">Descubre cientos de guías y estrategias para otros juegos</p>
                 </div>
             </div>
         </section>
@@ -165,10 +165,10 @@ export default function HomePage() {
         <section className="mb-20">
              <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h2 className="text-3xl font-bold theme-text-primary glow-text-subtle mb-2">Comunidad Activa</h2>
-                    <p className="theme-text-secondary">Últimas discusiones, estrategias y noticias</p>
+                    <h2 className="module-text-title text-3xl">Comunidad Activa</h2>
+                    <p className="module-text-muted">Últimas discusiones, estrategias y noticias</p>
                 </div>
-                 <button className="theme-button-secondary text-sm">Ir al foro</button>
+                 <button className="module-btn module-btn-outline text-sm">Ir al foro</button>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
                 <div className="space-y-4 xl:col-span-2">
@@ -177,27 +177,27 @@ export default function HomePage() {
                     ))}
                 </div>
                 {/* Stats / Info Side */}
-                <div className="theme-card p-8 h-fit sticky top-24">
-                    <h3 className="text-xl font-bold theme-text-primary mb-6">Estadísticas de Aethra</h3>
+                <div className="module-card p-8 h-fit sticky top-24">
+                    <h3 className="module-text-title text-xl mb-6">Estadísticas de Aethra</h3>
                     <div className="grid grid-cols-2 gap-6 mb-8">
                         <div className="text-center p-4 rounded-xl bg-theme-surface-light">
                             <div className="text-3xl font-bold text-primary mb-1">15k+</div>
-                            <div className="text-xs theme-text-secondary">Usuarios Activos</div>
+                            <div className="module-text-muted text-xs">Usuarios Activos</div>
                         </div>
                         <div className="text-center p-4 rounded-xl bg-theme-surface-light">
                             <div className="text-3xl font-bold text-secondary mb-1">5k+</div>
-                            <div className="text-xs theme-text-secondary">Guías Publicadas</div>
+                            <div className="module-text-muted text-xs">Guías Publicadas</div>
                         </div>
                          <div className="text-center p-4 rounded-xl bg-theme-surface-light">
                             <div className="text-3xl font-bold text-accent mb-1">24/7</div>
-                            <div className="text-xs theme-text-secondary">Torneos</div>
+                            <div className="module-text-muted text-xs">Torneos</div>
                         </div>
                          <div className="text-center p-4 rounded-xl bg-theme-surface-light">
                             <div className="text-3xl font-bold text-success mb-1">99%</div>
-                            <div className="text-xs theme-text-secondary">Satisfacción</div>
+                            <div className="module-text-muted text-xs">Satisfacción</div>
                         </div>
                     </div>
-                    <button className="w-full theme-button py-3 text-center">
+                    <button className="module-btn module-btn-primary w-full py-3">
                         Únete a la comunidad
                     </button>
                 </div>

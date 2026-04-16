@@ -11,8 +11,8 @@ export default function SidebarGuide({ sections, updates, downloadLabel, onDownl
   };
 
   return (
-    <div className="cuadro rounded-2xl p-6 sticky-sidebar">
-      <h3 className="text-lg font-bold text-theme-primary mb-4 flex items-center gap-2">
+    <div className="module-card p-6 sticky-sidebar">
+      <h3 className="module-text-title text-lg mb-4 flex items-center gap-2">
         <i className="fas fa-list-ul text-theme-primary"></i>
         Índice
       </h3>
@@ -36,7 +36,7 @@ export default function SidebarGuide({ sections, updates, downloadLabel, onDownl
       
       {updates && (
         <div className="mt-8 pt-6 border-t theme-border">
-          <h3 className="text-lg font-bold text-theme-primary mb-4 flex items-center gap-2">
+          <h3 className="module-text-title text-lg mb-4 flex items-center gap-2">
             <i className="fas fa-history text-theme-primary"></i>
             Actualizaciones
           </h3>
@@ -60,13 +60,13 @@ export default function SidebarGuide({ sections, updates, downloadLabel, onDownl
       
       {downloadLabel && (
         <div className="mt-8 pt-6 border-t theme-border">
-          <h3 className="text-lg font-bold text-theme-primary mb-4 flex items-center gap-2">
+          <h3 className="module-text-title text-lg mb-4 flex items-center gap-2">
             <i className="fas fa-download text-theme-primary"></i>
             Descargar Guía
           </h3>
           <button 
             onClick={handleDownload}
-            className="w-full px-4 py-2 text-theme-primary rounded-lg transition-all flex items-center justify-center gap-2 animate-theme-hover animate-theme-glow" style={{ background: 'var(--gradient-primary)' }}
+            className="module-btn module-btn-primary w-full"
           >
             <i className="fas fa-file-pdf"></i>
             {downloadLabel}

@@ -4,109 +4,41 @@
 
 /* Enhanced CSS Variables for Complete Theming System */
 :root {
-  /* Primary Colors */
-  --color-primary: #8B5CF6;
-  --color-primary-light: #A78BFA;
-  --color-primary-dark: #7C3AED;
-  --color-primary-50: #F5F3FF;
-  --color-primary-100: #EDE9FE;
-  --color-primary-200: #DDD6FE;
-  --color-primary-300: #C4B5FD;
-  --color-primary-400: #A78BFA;
-  --color-primary-500: #8B5CF6;
-  --color-primary-600: #7C3AED;
-  --color-primary-700: #6D28D9;
-  --color-primary-800: #5B21B6;
-  --color-primary-900: #4C1D95;
+  /* ====== LIGHT MODE (GAMER NEON CYAN / GREEN) ====== */
+  --color-primary: #00e5ff;
+  --color-primary-light: #66efff;
+  --color-secondary: #00ff88;
+  --color-accent: #000000;
 
-  /* Secondary Colors */
-  --color-secondary: #EC4899;
-  --color-secondary-light: #F472B6;
-  --color-secondary-dark: #DB2777;
-  --color-secondary-50: #FDF2F8;
-  --color-secondary-100: #FCE7F3;
-  --color-secondary-200: #FBCFE8;
-  --color-secondary-300: #F9A8D4;
-  --color-secondary-400: #F472B6;
-  --color-secondary-500: #EC4899;
-  --color-secondary-600: #DB2777;
-  --color-secondary-700: #BE185D;
-  --color-secondary-800: #9D174D;
-  --color-secondary-900: #831843;
+  --color-background: #f4f4f5;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f0fdfa;
+  --color-surface-light: #e0f2fe;
 
-  /* Accent Colors */
-  --color-accent: #F59E0B;
-  --color-accent-light: #FBBF24;
-  --color-accent-dark: #D97706;
+  --color-text: #09090b;
+  --color-text-secondary: #3f3f46;
+  --color-text-muted: #71717a;
 
-  /* Background Colors */
-  --color-background: #0F0720;
-  --color-background-light: #1A0933;
-  --color-background-dark: #0C051A;
-  --color-surface: #1A0933;
-  --color-surface-light: #2A0845;
-  --color-surface-dark: #140829;
-  --color-surface-hover: #2F0A57;
+  --color-border: #e4e4e7;
+  --color-border-hover: #00e5ff;
+  --color-input-bg: #ffffff;
+  --color-input-border: #d4d4d8;
 
-  /* Text Colors */
-  --color-text: #FFFFFF;
-  --color-text-light: #F8FAFC;
-  --color-text-muted: #E2E8F0;
-  --color-text-secondary: #9CA3AF;
-  --color-text-tertiary: #6B7280;
-  --color-text-disabled: #4B5563;
+  --color-grid: rgba(0, 0, 0, 0.04);
+  --color-success: #00ff88;
+  --color-warning: #ffaa00;
+  --color-error: #ff0033;
+  --color-info: #00e5ff;
 
-  /* Border Colors */
-  --color-border: #374151;
-  --color-border-light: #4B5563;
-  --color-border-muted: #6B7280;
-  --color-border-hover: #8B5CF6;
+  --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  --gradient-background: linear-gradient(to bottom, #f4f4f5, #e4e4e7);
+  --gradient-card: linear-gradient(to bottom right, #ffffff, #f8fafc);
 
-  /* Status Colors */
-  --color-success: #10B981;
-  --color-success-light: #34D399;
-  --color-success-dark: #059669;
-  --color-warning: #F59E0B;
-  --color-warning-light: #FBBF24;
-  --color-warning-dark: #D97706;
-  --color-error: #EF4444;
-  --color-error-light: #F87171;
-  --color-error-dark: #DC2626;
-  --color-info: #3B82F6;
-  --color-info-light: #60A5FA;
-  --color-info-dark: #2563EB;
-
-  /* Game-specific Colors */
-  --color-game-card: #1E0B36;
-  --color-game-card-hover: #2A0845;
-  --color-game-badge: #7C3AED;
-  --color-game-popular: #F59E0B;
-  --color-game-new: #10B981;
-
-  /* Component-specific Colors */
-  --color-navbar: rgba(0, 0, 0, 0.3);
-  --color-navbar-blur: rgba(15, 7, 32, 0.8);
-  --color-card-bg: #1E0B36;
-  --color-card-border: rgba(139, 92, 246, 0.3);
-  --color-input-bg: #1E0B36;
-  --color-input-border: rgba(139, 92, 246, 0.5);
-  --color-button-hover: rgba(139, 92, 246, 0.2);
-
-  /* Gradients */
-  --gradient-primary: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-  --gradient-secondary: linear-gradient(to right, var(--color-primary-600), var(--color-primary-700));
-  --gradient-background: linear-gradient(to bottom, var(--color-background), var(--color-surface));
-  --gradient-card: linear-gradient(to bottom right, var(--color-surface), var(--color-surface-dark));
-  --gradient-hover: linear-gradient(to right, var(--color-primary-light), var(--color-secondary-light));
-  --gradient-hero: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.3), transparent);
-
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(139, 92, 246, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(139, 92, 246, 0.1), 0 2px 4px -1px rgba(139, 92, 246, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(139, 92, 246, 0.1), 0 4px 6px -2px rgba(139, 92, 246, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(139, 92, 246, 0.04);
-  --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.3);
-  --shadow-glow-lg: 0 0 40px rgba(139, 92, 246, 0.4);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 15px color-mix(in srgb, var(--color-primary) 50%, transparent);
+  --shadow-glow-lg: 0 0 30px color-mix(in srgb, var(--color-primary) 60%, transparent);
 
   /* Animation & Transitions */
   --animation-duration: 0.3s;
@@ -152,6 +84,44 @@
   --z-popover: 1060;
   --z-tooltip: 1070;
   --z-toast: 1080;
+}
+
+/* ====== DARK MODE (GAMER NEON RED / PURPLE) ====== */
+[data-theme="dark"], .dark {
+  --color-primary: #ff0055;
+  --color-primary-light: #ff4d88;
+  --color-secondary: #9d00ff;
+  --color-accent: #ffffff;
+
+  --color-background: #0a000a;
+  --color-surface: #140014;
+  --color-surface-hover: #240024;
+  --color-surface-light: #1f001f;
+
+  --color-text: #ffffff;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+
+  --color-border: #3d003d;
+  --color-border-hover: #ff0055;
+  --color-input-bg: #0a000a;
+  --color-input-border: #3d003d;
+
+  --color-grid: rgba(255, 255, 255, 0.03);
+  --color-success: #00ff88;
+  --color-warning: #ffaa00;
+  --color-error: #ff0033;
+  --color-info: #9d00ff;
+
+  --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  --gradient-background: linear-gradient(to bottom, #0a000a, #140014);
+  --gradient-card: linear-gradient(to bottom right, #140014, #1f001f);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 15px color-mix(in srgb, var(--color-primary) 50%, transparent);
+  --shadow-glow-lg: 0 0 30px color-mix(in srgb, var(--color-primary) 60%, transparent);
 }
 
 /* Clases de accesibilidad */
@@ -569,24 +539,6 @@ body {
   background: var(--color-surface);
 }
 
-/* Legacy support */
-.scrollbar-morado::-webkit-scrollbar {
-  width: 8px;
-}
-
-.scrollbar-morado::-webkit-scrollbar-track {
-  background: var(--color-surface);
-  border-radius: var(--radius-sm);
-}
-
-.scrollbar-morado::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-  border-radius: var(--radius-sm);
-}
-
-.scrollbar-morado::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary-light);
-}
 
 /* Enhanced Glow Effects with Theme Variables */
 .glow-text {
@@ -1079,6 +1031,26 @@ body {
   .mobile-hidden {
     display: none !important;
   }
+
+/* ====== AMBIENT LIGHTING (E-SPORTS VIBE) ====== */
+.ambient-glow-1, .ambient-glow-2 {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(150px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+}
+.ambient-glow-1 {
+  top: -20%; left: -10%;
+  width: 50vw; height: 50vw;
+  background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+}
+.ambient-glow-2 {
+  bottom: -20%; right: -10%;
+  width: 40vw; height: 40vw;
+  background: radial-gradient(circle, var(--color-secondary) 0%, transparent 70%);
+}
   
   /* Mobile navigation improvements */
   .mobile-nav-item {

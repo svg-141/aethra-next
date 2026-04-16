@@ -145,35 +145,35 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
     setAiGeneratedContent(true);
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-brain icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-brain text-purple-500"></i>
             Análisis del Meta Actual
           </h4>
-          <p class="theme-text-secondary mb-4">
+          <p class="module-text-muted mb-4">
             Basado en datos recientes y tendencias de jugadores profesionales, este análisis examina el estado actual del meta en ${guide.name}.
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-2">Tendencias Dominantes</h5>
-              <ul class="space-y-2 text-sm theme-text-secondary">
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-2">Tendencias Dominantes</h5>
+              <ul class="space-y-2 text-sm module-text-muted">
                 <li class="flex items-start gap-2">
-                  <i class="fas fa-arrow-up icon-success text-xs mt-1"></i>
+                  <i class="fas fa-arrow-up text-green-500 text-xs mt-1"></i>
                   <span>Estrategias agresivas en aumento</span>
                 </li>
                 <li class="flex items-start gap-2">
-                  <i class="fas fa-arrow-up icon-success text-xs mt-1"></i>
+                  <i class="fas fa-arrow-up text-green-500 text-xs mt-1"></i>
                   <span>Mayor focus en early game</span>
                 </li>
                 <li class="flex items-start gap-2">
-                  <i class="fas fa-arrow-down icon-error text-xs mt-1"></i>
+                  <i class="fas fa-arrow-down text-red-500 text-xs mt-1"></i>
                   <span>Disminución de estrategias defensivas</span>
                 </li>
               </ul>
             </div>
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-2">Predicciones</h5>
-              <p class="text-sm theme-text-secondary">
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-2">Predicciones</h5>
+              <p class="text-sm module-text-muted">
                 Se espera que el meta evolucione hacia un mayor equilibrio entre agresividad y control estratégico en las próximas actualizaciones.
               </p>
             </div>
@@ -186,28 +186,28 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generateKeyStrategies = useCallback((): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-chess icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-chess text-blue-400"></i>
             Estrategias Fundamentales
           </h4>
           <div class="space-y-4">
-            <div class="theme-bg-surface p-4 rounded-lg border-l-4" style="border-color: var(--color-primary)">
-              <h5 class="font-semibold theme-text-primary mb-2">Estrategia Principal</h5>
-              <p class="theme-text-secondary mb-3">
+            <div class="module-subcard border-l-4" style="border-color: var(--color-primary)">
+              <h5 class="module-text-highlight mb-2">Estrategia Principal</h5>
+              <p class="module-text-muted mb-3">
                 Control del ritmo de juego mediante presión constante y rotaciones inteligentes.
               </p>
-              <div class="text-xs theme-text-secondary">
-                <span class="theme-text-primary">Dificultad:</span> ${guide.difficulty === 'beginner' ? 'Principiante' : guide.difficulty === 'intermediate' ? 'Intermedio' : 'Avanzado'}
+              <div class="text-xs module-text-muted">
+                <span class="font-bold text-white">Dificultad:</span> ${guide.difficulty === 'beginner' ? 'Principiante' : guide.difficulty === 'intermediate' ? 'Intermedio' : 'Avanzado'}
               </div>
             </div>
-            <div class="theme-bg-surface p-4 rounded-lg border-l-4" style="border-color: var(--color-secondary)">
-              <h5 class="font-semibold theme-text-primary mb-2">Estrategia Alternativa</h5>
-              <p class="theme-text-secondary mb-3">
+            <div class="module-subcard border-l-4" style="border-color: var(--color-secondary)">
+              <h5 class="module-text-highlight mb-2">Estrategia Alternativa</h5>
+              <p class="module-text-muted mb-3">
                 Enfoque defensivo con counter-attacks precisos en momentos clave.
               </p>
-              <div class="text-xs theme-text-secondary">
-                <span class="theme-text-primary">Situación ideal:</span> Contra equipos agresivos
+              <div class="text-xs module-text-muted">
+                <span class="font-bold text-white">Situación ideal:</span> Contra equipos agresivos
               </div>
             </div>
           </div>
@@ -219,55 +219,55 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generateTeamCompositions = useCallback((): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-users icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-users text-orange-400"></i>
             Composiciones Recomendadas
           </h4>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-3 flex items-center gap-2">
-                <i class="fas fa-fire icon-error"></i>
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-3 flex items-center gap-2">
+                <i class="fas fa-fire text-red-500"></i>
                 Composición Agresiva
               </h5>
-              <p class="theme-text-secondary text-sm mb-3">
+              <p class="module-text-muted text-sm mb-3">
                 Enfoque en presión constante y eliminaciones rápidas.
               </p>
               <div class="space-y-2 text-sm">
                 <div class="flex justify-between">
-                  <span class="theme-text-secondary">Estilo de juego:</span>
-                  <span class="theme-text-primary">Agresivo</span>
+                  <span class="module-text-muted">Estilo de juego:</span>
+                  <span class="font-bold text-white">Agresivo</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="theme-text-secondary">Ritmo:</span>
-                  <span class="theme-text-primary">Rápido</span>
+                  <span class="module-text-muted">Ritmo:</span>
+                  <span class="font-bold text-white">Rápido</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="theme-text-secondary">Dificultad:</span>
-                  <span class="theme-text-primary">Alta</span>
+                  <span class="module-text-muted">Dificultad:</span>
+                  <span class="font-bold text-white">Alta</span>
                 </div>
               </div>
             </div>
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-3 flex items-center gap-2">
-                <i class="fas fa-shield icon-info"></i>
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-3 flex items-center gap-2">
+                <i class="fas fa-shield text-blue-500"></i>
                 Composición Equilibrada
               </h5>
-              <p class="theme-text-secondary text-sm mb-3">
+              <p class="module-text-muted text-sm mb-3">
                 Balance entre agresividad y control estratégico.
               </p>
               <div class="space-y-2 text-sm">
                 <div class="flex justify-between">
-                  <span class="theme-text-secondary">Estilo de juego:</span>
-                  <span class="theme-text-primary">Versátil</span>
+                  <span class="module-text-muted">Estilo de juego:</span>
+                  <span class="font-bold text-white">Versátil</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="theme-text-secondary">Ritmo:</span>
-                  <span class="theme-text-primary">Adaptable</span>
+                  <span class="module-text-muted">Ritmo:</span>
+                  <span class="font-bold text-white">Adaptable</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="theme-text-secondary">Dificultad:</span>
-                  <span class="theme-text-primary">Media</span>
+                  <span class="module-text-muted">Dificultad:</span>
+                  <span class="font-bold text-white">Media</span>
                 </div>
               </div>
             </div>
@@ -280,42 +280,42 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generateCounterStrategies = (): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-shield-alt icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-shield-alt text-green-400"></i>
             Contra-estrategias Efectivas
           </h4>
           <div class="space-y-4">
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-2">Contra Estrategias Agresivas</h5>
-              <ul class="space-y-2 text-sm theme-text-secondary">
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-2">Contra Estrategias Agresivas</h5>
+              <ul class="space-y-2 text-sm module-text-muted">
                 <li class="flex items-start gap-2">
-                  <i class="fas fa-check icon-success text-xs mt-1"></i>
+                  <i class="fas fa-check text-green-500 text-xs mt-1"></i>
                   <span>Posicionamiento defensivo sólido</span>
                 </li>
                 <li class="flex items-start gap-2">
-                  <i class="fas fa-check icon-success text-xs mt-1"></i>
+                  <i class="fas fa-check text-green-500 text-xs mt-1"></i>
                   <span>Trade kills eficientes</span>
                 </li>
                 <li class="flex items-start gap-2">
-                  <i class="fas fa-check icon-success text-xs mt-1"></i>
+                  <i class="fas fa-check text-green-500 text-xs mt-1"></i>
                   <span>Control de recursos clave</span>
                 </li>
               </ul>
             </div>
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-2">Contra Estrategias Defensivas</h5>
-              <ul class="space-y-2 text-sm theme-text-secondary">
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-2">Contra Estrategias Defensivas</h5>
+              <ul class="space-y-2 text-sm module-text-muted">
                 <li class="flex items-start gap-2">
-                  <i class="fas fa-check icon-success text-xs mt-1"></i>
+                  <i class="fas fa-check text-green-500 text-xs mt-1"></i>
                   <span>Presión constante en múltiples frentes</span>
                 </li>
                 <li class="flex items-start gap-2">
-                  <i class="fas fa-check icon-success text-xs mt-1"></i>
+                  <i class="fas fa-check text-green-500 text-xs mt-1"></i>
                   <span>Control de mapa y recursos</span>
                 </li>
                 <li class="flex items-start gap-2">
-                  <i class="fas fa-check icon-success text-xs mt-1"></i>
+                  <i class="fas fa-check text-green-500 text-xs mt-1"></i>
                   <span>Forzar engagements favorables</span>
                 </li>
               </ul>
@@ -329,39 +329,39 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generatePrerequisites = (): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-list-check icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-list-check text-yellow-400"></i>
             Requisitos Previos
           </h4>
           <div class="space-y-4">
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-2">Conocimientos Básicos</h5>
-              <ul class="space-y-2 text-sm theme-text-secondary">
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-2">Conocimientos Básicos</h5>
+              <ul class="space-y-2 text-sm module-text-muted">
                 <li class="flex items-start gap-2">
-                  <i class="fas fa-circle icon-primary text-xs mt-1"></i>
+                  <i class="fas fa-circle text-purple-500 text-xs mt-1"></i>
                   <span>Mecánicas fundamentales del juego</span>
                 </li>
                 <li class="flex items-start gap-2">
-                  <i class="fas fa-circle icon-primary text-xs mt-1"></i>
+                  <i class="fas fa-circle text-purple-500 text-xs mt-1"></i>
                   <span>Conceptos básicos de estrategia</span>
                 </li>
                 <li class="flex items-start gap-2">
-                  <i class="fas fa-circle icon-primary text-xs mt-1"></i>
+                  <i class="fas fa-circle text-purple-500 text-xs mt-1"></i>
                   <span>Familiaridad con la interfaz</span>
                 </li>
               </ul>
             </div>
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-2">Nivel Recomendado</h5>
-              <p class="theme-text-secondary text-sm mb-2">
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-2">Nivel Recomendado</h5>
+              <p class="module-text-muted text-sm mb-2">
                 ${guide.difficulty === 'beginner' ? 'Principiante - No se requiere experiencia previa' :
                   guide.difficulty === 'intermediate' ? 'Intermedio - Se recomienda experiencia básica' :
                   'Avanzado - Requiere conocimiento profundo del juego'}
               </p>
               <div class="flex items-center gap-2 text-xs">
-                <span class="theme-text-secondary">Tiempo estimado:</span>
-                <span class="theme-text-primary">${guide.estimatedTime}</span>
+                <span class="module-text-muted">Tiempo estimado:</span>
+                <span class="font-bold text-white">${guide.estimatedTime}</span>
               </div>
             </div>
           </div>
@@ -373,23 +373,23 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generateStepByStep = (): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-stairs icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-stairs text-pink-500"></i>
             Guía Paso a Paso
           </h4>
           <div class="space-y-4">
             ${[1, 2, 3, 4, 5].map(step => `
-              <div class="theme-bg-surface p-4 rounded-lg border-l-4" style="border-color: var(--color-primary)">
-                <h5 class="font-semibold theme-text-primary mb-2 flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center">${step}</span>
+              <div class="module-subcard border-l-4" style="border-color: var(--color-primary)">
+                <h5 class="module-text-highlight mb-2 flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-full text-white text-xs flex items-center justify-center" style="background: var(--color-primary); color: #fff;">${step}</span>
                   Paso ${step}
                 </h5>
-                <p class="theme-text-secondary text-sm mb-2">
+                <p class="module-text-muted text-sm mb-2">
                   Descripción detallada del paso ${step} con instrucciones específicas y consideraciones importantes.
                 </p>
-                <div class="text-xs theme-text-secondary">
-                  <span class="theme-text-primary">Tip:</span> Consejo útil para este paso específico.
+                <div class="text-xs module-text-muted">
+                  <span class="font-bold text-white">Tip:</span> Consejo útil para este paso específico.
                 </div>
               </div>
             `).join('')}
@@ -402,23 +402,23 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generatePracticeTips = (): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-target icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-bullseye text-red-500"></i>
             Consejos de Práctica
           </h4>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-2">Práctica Diaria</h5>
-              <ul class="space-y-2 text-sm theme-text-secondary">
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-2">Práctica Diaria</h5>
+              <ul class="space-y-2 text-sm module-text-muted">
                 <li>• Dedica 15-30 minutos diarios</li>
                 <li>• Enfócate en una mecánica específica</li>
                 <li>• Registra tu progreso</li>
               </ul>
             </div>
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-2">Evaluación</h5>
-              <ul class="space-y-2 text-sm theme-text-secondary">
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-2">Evaluación</h5>
+              <ul class="space-y-2 text-sm module-text-muted">
                 <li>• Revisa replays de tus partidas</li>
                 <li>• Identifica áreas de mejora</li>
                 <li>• Compara con jugadores expertos</li>
@@ -433,28 +433,28 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generateCommonMistakes = (): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-exclamation-triangle icon-warning"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-exclamation-triangle text-yellow-500"></i>
             Errores Comunes a Evitar
           </h4>
           <div class="space-y-4">
-            <div class="theme-bg-surface p-4 rounded-lg border-l-4" style="border-color: var(--color-error)">
-              <h5 class="font-semibold theme-text-primary mb-2">Error #1: Falta de Paciencia</h5>
-              <p class="theme-text-secondary text-sm mb-2">
+            <div class="module-subcard border-l-4" style="border-color: var(--color-error)">
+              <h5 class="module-text-highlight mb-2">Error #1: Falta de Paciencia</h5>
+              <p class="module-text-muted text-sm mb-2">
                 Muchos jugadores se impacientan y toman decisiones apresuradas.
               </p>
-              <div class="text-xs theme-text-secondary">
-                <span class="theme-text-primary">Solución:</span> Mantén la calma y evalúa cada situación.
+              <div class="text-xs module-text-muted">
+                <span class="font-bold text-white">Solución:</span> Mantén la calma y evalúa cada situación.
               </div>
             </div>
-            <div class="theme-bg-surface p-4 rounded-lg border-l-4" style="border-color: var(--color-error)">
-              <h5 class="font-semibold theme-text-primary mb-2">Error #2: Ignorar el Mapa</h5>
-              <p class="theme-text-secondary text-sm mb-2">
+            <div class="module-subcard border-l-4" style="border-color: var(--color-error)">
+              <h5 class="module-text-highlight mb-2">Error #2: Ignorar el Mapa</h5>
+              <p class="module-text-muted text-sm mb-2">
                 No prestar atención a la información del mapa y posiciones enemigas.
               </p>
-              <div class="text-xs theme-text-secondary">
-                <span class="theme-text-primary">Solución:</span> Desarrolla consciencia espacial constante.
+              <div class="text-xs module-text-muted">
+                <span class="font-bold text-white">Solución:</span> Desarrolla consciencia espacial constante.
               </div>
             </div>
           </div>
@@ -466,12 +466,12 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generateBuildOrder = (): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-hammer icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-hammer text-gray-400"></i>
             Orden de Construcción Detallado
           </h4>
-          <div class="theme-bg-surface p-4 rounded-lg">
+          <div class="module-subcard">
             <div class="space-y-3">
               ${[
                 { time: '0:00', action: 'Inicio de partida', detail: 'Configuración inicial' },
@@ -480,11 +480,11 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
                 { time: '2:00', action: 'Unidades de combate', detail: 'Primera oleada' },
                 { time: '3:00', action: 'Tecnología avanzada', detail: 'Upgrades clave' }
               ].map((item, index) => `
-                <div class="flex items-center gap-4 p-2 hover:theme-bg-hover rounded transition-colors">
-                  <div class="w-16 text-xs theme-text-primary font-mono">${item.time}</div>
+                <div class="flex items-center gap-4 p-2 hover:bg-white/5 rounded transition-colors">
+                  <div class="w-16 text-xs font-bold text-white font-mono">${item.time}</div>
                   <div class="flex-1">
-                    <div class="font-medium theme-text-primary">${item.action}</div>
-                    <div class="text-xs theme-text-secondary">${item.detail}</div>
+                    <div class="font-medium text-white">${item.action}</div>
+                    <div class="text-xs module-text-muted">${item.detail}</div>
                   </div>
                 </div>
               `).join('')}
@@ -498,35 +498,35 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generateTimings = (): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-clock icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-clock text-teal-400"></i>
             Timings Críticos
           </h4>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-3">Early Game (0-5 min)</h5>
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-3">Early Game (0-5 min)</h5>
               <div class="space-y-2 text-sm">
                 <div class="flex justify-between">
-                  <span class="theme-text-secondary">Primer objetivo:</span>
-                  <span class="theme-text-primary">2:30</span>
+                  <span class="module-text-muted">Primer objetivo:</span>
+                  <span class="font-bold text-white">2:30</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="theme-text-secondary">Power spike:</span>
-                  <span class="theme-text-primary">4:00</span>
+                  <span class="module-text-muted">Power spike:</span>
+                  <span class="font-bold text-white">4:00</span>
                 </div>
               </div>
             </div>
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-3">Mid Game (5-15 min)</h5>
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-3">Mid Game (5-15 min)</h5>
               <div class="space-y-2 text-sm">
                 <div class="flex justify-between">
-                  <span class="theme-text-secondary">Transición:</span>
-                  <span class="theme-text-primary">8:00</span>
+                  <span class="module-text-muted">Transición:</span>
+                  <span class="font-bold text-white">8:00</span>
                 </div>
                 <div class="flex justify-between">
-                  <span class="theme-text-secondary">Peak power:</span>
-                  <span class="theme-text-primary">12:00</span>
+                  <span class="module-text-muted">Peak power:</span>
+                  <span class="font-bold text-white">12:00</span>
                 </div>
               </div>
             </div>
@@ -539,28 +539,28 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generateVariations = (): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-code-branch icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-code-branch text-purple-400"></i>
             Variaciones y Adaptaciones
           </h4>
           <div class="space-y-4">
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-2">Variación Agresiva</h5>
-              <p class="theme-text-secondary text-sm mb-2">
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-2">Variación Agresiva</h5>
+              <p class="module-text-muted text-sm mb-2">
                 Enfoque más agresivo para presión temprana.
               </p>
-              <div class="text-xs theme-text-secondary">
-                <span class="theme-text-primary">Cuándo usar:</span> Contra oponentes defensivos
+              <div class="text-xs module-text-muted">
+                <span class="font-bold text-white">Cuándo usar:</span> Contra oponentes defensivos
               </div>
             </div>
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-2">Variación Económica</h5>
-              <p class="theme-text-secondary text-sm mb-2">
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-2">Variación Económica</h5>
+              <p class="module-text-muted text-sm mb-2">
                 Prioriza el desarrollo económico a largo plazo.
               </p>
-              <div class="text-xs theme-text-secondary">
-                <span class="theme-text-primary">Cuándo usar:</span> En mapas grandes o contra rushes
+              <div class="text-xs module-text-muted">
+                <span class="font-bold text-white">Cuándo usar:</span> En mapas grandes o contra rushes
               </div>
             </div>
           </div>
@@ -572,23 +572,23 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generateCounters = (): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-exchange-alt icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-exchange-alt text-yellow-500"></i>
             Counters y Adaptaciones
           </h4>
           <div class="space-y-4">
-            <div class="theme-bg-surface p-4 rounded-lg border-l-4" style="border-color: var(--color-error)">
-              <h5 class="font-semibold theme-text-primary mb-2">Débil contra</h5>
-              <ul class="space-y-1 text-sm theme-text-secondary">
+            <div class="module-subcard border-l-4" style="border-color: var(--color-error)">
+              <h5 class="module-text-highlight mb-2">Débil contra</h5>
+              <ul class="space-y-1 text-sm module-text-muted">
                 <li>• Estrategias de rush temprano</li>
                 <li>• Presión económica intensa</li>
                 <li>• Counter-builds específicos</li>
               </ul>
             </div>
-            <div class="theme-bg-surface p-4 rounded-lg border-l-4" style="border-color: var(--color-success)">
-              <h5 class="font-semibold theme-text-primary mb-2">Fuerte contra</h5>
-              <ul class="space-y-1 text-sm theme-text-secondary">
+            <div class="module-subcard border-l-4" style="border-color: var(--color-success)">
+              <h5 class="module-text-highlight mb-2">Fuerte contra</h5>
+              <ul class="space-y-1 text-sm module-text-muted">
                 <li>• Builds económicos lentos</li>
                 <li>• Estrategias defensivas</li>
                 <li>• Composiciones desequilibradas</li>
@@ -603,21 +603,21 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generateDetailedContent = useCallback((): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-info-circle icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-info-circle text-blue-500"></i>
             Información Detallada
           </h4>
-          <div class="theme-bg-surface p-4 rounded-lg">
-            <p class="theme-text-secondary mb-4">
+          <div class="module-subcard">
+            <p class="module-text-muted mb-4">
               Esta guía proporciona una visión completa y detallada de ${guide.name},
               incluyendo estrategias avanzadas, análisis del meta actual y consejos específicos
               para mejorar tu rendimiento.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <h5 class="font-semibold theme-text-primary mb-2">Características Clave</h5>
-                <ul class="space-y-1 text-sm theme-text-secondary">
+                <h5 class="module-text-highlight mb-2">Características Clave</h5>
+                <ul class="space-y-1 text-sm module-text-muted">
                   <li>• Análisis profundo del meta</li>
                   <li>• Estrategias paso a paso</li>
                   <li>• Consejos de pros</li>
@@ -625,8 +625,8 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
                 </ul>
               </div>
               <div>
-                <h5 class="font-semibold theme-text-primary mb-2">Beneficios</h5>
-                <ul class="space-y-1 text-sm theme-text-secondary">
+                <h5 class="module-text-highlight mb-2">Beneficios</h5>
+                <ul class="space-y-1 text-sm module-text-muted">
                   <li>• Mejora rápida de habilidades</li>
                   <li>• Comprensión del juego</li>
                   <li>• Ventaja competitiva</li>
@@ -643,30 +643,30 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
   const generateTips = (): string => {
     return `
       <div class="space-y-6">
-        <div class="theme-card p-6">
-          <h4 class="text-lg font-bold theme-text-primary mb-4 flex items-center gap-2">
-            <i class="fas fa-lightbulb icon-primary"></i>
+        <div class="module-card">
+          <h4 class="module-text-title text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-lightbulb text-yellow-300"></i>
             Consejos y Trucos
           </h4>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-2 flex items-center gap-2">
-                <i class="fas fa-star icon-warning text-sm"></i>
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-2 flex items-center gap-2">
+                <i class="fas fa-star text-yellow-500 text-sm"></i>
                 Consejos Básicos
               </h5>
-              <ul class="space-y-2 text-sm theme-text-secondary">
+              <ul class="space-y-2 text-sm module-text-muted">
                 <li>• Practica regularmente</li>
                 <li>• Mantén la calma bajo presión</li>
                 <li>• Aprende de tus errores</li>
                 <li>• Observa a jugadores expertos</li>
               </ul>
             </div>
-            <div class="theme-bg-surface p-4 rounded-lg">
-              <h5 class="font-semibold theme-text-primary mb-2 flex items-center gap-2">
-                <i class="fas fa-crown icon-warning text-sm"></i>
+            <div class="module-subcard">
+              <h5 class="module-text-highlight mb-2 flex items-center gap-2">
+                <i class="fas fa-crown text-yellow-500 text-sm"></i>
                 Consejos Avanzados
               </h5>
-              <ul class="space-y-2 text-sm theme-text-secondary">
+              <ul class="space-y-2 text-sm module-text-muted">
                 <li>• Adapta tu estrategia al oponente</li>
                 <li>• Domina los timings críticos</li>
                 <li>• Desarrolla múltiples estilos</li>
@@ -751,36 +751,22 @@ export default function CompleteGuideView({ guide, onClose, onDownload, onRate }
                 <div className="flex items-center gap-4 mt-1">
                   <span className="text-sm theme-text-secondary">por {guide.author}</span>
                   <span
-                    className="text-xs px-2 py-1 rounded-full"
-                    style={{
-                      backgroundColor: guide.difficulty === 'beginner' ? 'var(--color-success)' :
-                                     guide.difficulty === 'intermediate' ? 'var(--color-warning)' : 'var(--color-error)',
-                      opacity: '0.2',
-                      color: guide.difficulty === 'beginner' ? 'var(--color-success)' :
-                             guide.difficulty === 'intermediate' ? 'var(--color-warning)' : 'var(--color-error)'
-                    }}
+                    className={`module-badge ${
+                      guide.difficulty === 'beginner' ? 'module-badge-success' :
+                      guide.difficulty === 'intermediate' ? 'module-badge-warning' : 'module-badge-danger'
+                    }`}
                   >
                     {guide.difficulty === 'beginner' ? 'Principiante' :
                      guide.difficulty === 'intermediate' ? 'Intermedio' : 'Avanzado'}
                   </span>
                   <span
-                    className="text-xs px-2 py-1 rounded-full"
-                    style={{
-                      backgroundColor: 'var(--color-primary)',
-                      opacity: '0.2',
-                      color: 'var(--color-primary)'
-                    }}
+                    className="module-badge"
                   >
                     {guide.type}
                   </span>
                   {aiGeneratedContent && (
                     <span
-                      className="text-xs px-2 py-1 rounded-full flex items-center gap-1"
-                      style={{
-                        backgroundColor: 'var(--color-info)',
-                        opacity: '0.2',
-                        color: 'var(--color-info)'
-                      }}
+                      className="module-badge module-badge-warning flex items-center gap-1"
                     >
                       <i className="fas fa-brain text-xs"></i>
                       IA Enhanced

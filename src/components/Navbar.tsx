@@ -53,13 +53,38 @@ function Navbar({ active }: NavbarProps) {
         </div>
         
         {/* Desktop Navigation */}
-        <ul className="hidden lg:flex items-center gap-2 xl:gap-4 text-sm font-medium text-theme-secondary flex-shrink-0">
-                  <li><Link href={encryptUrlPath("/")} className={`theme-nav-item ${active === 'home' ? 'active' : ''}`}>Inicio</Link></li>
-                  <li><Link href={encryptUrlPath("/chat")} className={`theme-nav-item ${active === 'chat' ? 'active' : ''}`}>Funciones</Link></li>
-                  <li><Link href={encryptUrlPath("/games")} className={`theme-nav-item ${active === 'games' ? 'active' : ''}`}>Guías</Link></li>
-                  <li><Link href={encryptUrlPath("/community")} className={`theme-nav-item ${active === 'community' ? 'active' : ''}`}>Comunidad</Link></li>
-                  <li><Link href={encryptUrlPath("/profile")} className={`theme-nav-item ${active === 'profile' ? 'active' : ''}`}>Mi perfil</Link></li>
-                </ul>
+        <ul className="hidden lg:flex items-center gap-6 xl:gap-8 flex-shrink-0 mt-1">
+          <li>
+            <Link href={encryptUrlPath("/")} className={`group relative py-4 text-sm font-bold uppercase tracking-widest transition-colors nav-link-hologram ${active === 'home' ? 'active' : ''}`}>
+              Inicio
+              <span className="nav-link-underline"></span>
+            </Link>
+          </li>
+          <li>
+            <Link href={encryptUrlPath("/chat")} className={`group relative py-4 text-sm font-bold uppercase tracking-widest transition-colors nav-link-hologram ${active === 'chat' ? 'active' : ''}`}>
+              Funciones
+              <span className="nav-link-underline"></span>
+            </Link>
+          </li>
+          <li>
+            <Link href={encryptUrlPath("/games")} className={`group relative py-4 text-sm font-bold uppercase tracking-widest transition-colors nav-link-hologram ${active === 'games' ? 'active' : ''}`}>
+              Guías
+              <span className="nav-link-underline"></span>
+            </Link>
+          </li>
+          <li>
+            <Link href={encryptUrlPath("/community")} className={`group relative py-4 text-sm font-bold uppercase tracking-widest transition-colors nav-link-hologram ${active === 'community' ? 'active' : ''}`}>
+              Comunidad
+              <span className="nav-link-underline"></span>
+            </Link>
+          </li>
+          <li>
+            <Link href={encryptUrlPath("/profile")} className={`group relative py-4 text-sm font-bold uppercase tracking-widest transition-colors nav-link-hologram ${active === 'profile' ? 'active' : ''}`}>
+              Mi perfil
+              <span className="nav-link-underline"></span>
+            </Link>
+          </li>
+        </ul>
                 
                 {/* Mobile menu button */}
                 <button 

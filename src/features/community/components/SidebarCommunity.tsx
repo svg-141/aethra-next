@@ -21,26 +21,26 @@ export default function SidebarCommunity({
   return (
     <div className="space-y-6">
       {/* Estadísticas de la comunidad */}
-      <div className="theme-card p-6">
-        <h3 className="text-lg font-bold text-theme-primary mb-4 flex items-center">
+      <div className="module-card p-6">
+        <h3 className="module-text-title text-lg mb-4 flex items-center">
           <i className="fas fa-chart-bar mr-2 icon-primary"></i>
           Estadísticas
         </h3>
         <div className="grid grid-cols-2 gap-4 text-center">
-          <div className="theme-section-hover rounded-lg p-3">
-            <div className="text-2xl font-bold text-theme-primary">{SAMPLE_COMMUNITY_STATS.totalPosts}</div>
-            <div className="text-xs text-theme-secondary">Posts</div>
+          <div className="module-card module-card-interactive p-3">
+            <div className="text-2xl font-bold module-text-highlight">{SAMPLE_COMMUNITY_STATS.totalPosts}</div>
+            <div className="text-xs module-text-muted">Posts</div>
           </div>
-          <div className="theme-section-hover rounded-lg p-3">
-            <div className="text-2xl font-bold text-theme-primary">{SAMPLE_COMMUNITY_STATS.activeUsers}</div>
-            <div className="text-xs text-theme-secondary">Usuarios activos</div>
+          <div className="module-card module-card-interactive p-3">
+            <div className="text-2xl font-bold module-text-highlight">{SAMPLE_COMMUNITY_STATS.activeUsers}</div>
+            <div className="text-xs module-text-muted">Usuarios activos</div>
           </div>
         </div>
       </div>
 
       {/* Ordenar por */}
-      <div className="theme-card p-6">
-        <h3 className="text-lg font-bold text-theme-primary mb-4 flex items-center">
+      <div className="module-card p-6">
+        <h3 className="module-text-title text-lg mb-4 flex items-center">
           <i className="fas fa-sort-amount-down mr-2 icon-primary"></i>
           Ordenar por
         </h3>
@@ -53,10 +53,10 @@ export default function SidebarCommunity({
             <button
               key={option.value}
               onClick={() => handleSortChange(option.value as 'newest' | 'popular' | 'most-commented')}
-              className={`w-full flex items-center px-3 py-2 text-sm rounded-lg transition-all ${
+              className={`w-full flex items-center px-4 py-2 text-sm rounded-lg transition-all font-semibold ${
                 filters.sortBy === option.value
-                  ? 'theme-button'
-                  : 'text-theme-secondary hover:text-theme-primary hover:bg-theme-hover'
+                  ? 'bg-purple-600 text-white'
+                  : 'module-text-muted hover:bg-white/5 hover:text-purple-400'
               }`}
             >
               <span className="mr-2">{option.icon}</span>
@@ -67,8 +67,8 @@ export default function SidebarCommunity({
       </div>
 
       {/* Categorías */}
-      <div className="theme-card p-6">
-        <h3 className="text-lg font-bold text-theme-primary mb-4 flex items-center">
+      <div className="module-card p-6">
+        <h3 className="module-text-title text-lg mb-4 flex items-center">
           <i className="fas fa-tags mr-2 icon-primary"></i>
           Categorías
         </h3>
@@ -76,10 +76,10 @@ export default function SidebarCommunity({
           <li>
             <button
               onClick={() => handleCategoryClick(null)}
-              className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-all ${
+              className={`w-full flex items-center justify-between px-4 py-2 text-sm rounded-lg transition-all font-semibold ${
                 !activeCategory
-                  ? 'theme-button'
-                  : 'text-theme-secondary hover:text-theme-primary hover:bg-theme-hover'
+                  ? 'bg-purple-600 text-white'
+                  : 'module-text-muted hover:bg-white/5 hover:text-purple-400'
               }`}
             >
               <span className="flex items-center">
@@ -92,17 +92,17 @@ export default function SidebarCommunity({
             <li key={cat.key}>
               <button
                 onClick={() => handleCategoryClick(cat.key)}
-                className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg transition-all ${
+                className={`w-full flex items-center justify-between px-4 py-2 text-sm rounded-lg transition-all font-semibold ${
                   activeCategory === cat.key
-                    ? 'theme-button'
-                    : 'text-theme-secondary hover:text-theme-primary hover:bg-theme-hover'
+                    ? 'bg-purple-600 text-white'
+                    : 'module-text-muted hover:bg-white/5 hover:text-purple-400'
                 }`}
               >
                 <span className="flex items-center">
                   <span className="mr-2">{cat.icon}</span>
                   {cat.label}
                 </span>
-                <span className="text-xs theme-badge">
+                <span className="module-badge">
                   {cat.count}
                 </span>
               </button>
@@ -112,12 +112,12 @@ export default function SidebarCommunity({
       </div>
 
       {/* Reglas de la comunidad */}
-      <div className="theme-card p-6">
-        <h3 className="text-lg font-bold text-theme-primary mb-4 flex items-center">
+      <div className="module-card p-6">
+        <h3 className="module-text-title text-lg mb-4 flex items-center">
           <i className="fas fa-gavel mr-2 icon-primary"></i>
           Reglas
         </h3>
-        <ol className="text-sm text-theme-secondary space-y-2 list-decimal list-inside">
+        <ol className="text-sm module-text-muted space-y-2 list-decimal list-inside">
           {COMMUNITY_RULES.map((rule, i) => (
             <li key={i} className="leading-relaxed">{rule}</li>
           ))}

@@ -52,40 +52,8 @@ export default function GuideCard({ guide, onView, onDownload, onRate }: GuideCa
     }
   }, [auth.user, guide.id, isDownloading, canAccess, onDownload]);
 
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'beginner': return { bg: 'rgba(var(--color-success-rgb), 0.15)', text: 'var(--color-success)', border: 'rgba(var(--color-success-rgb), 0.3)' };
-      case 'intermediate': return { bg: 'rgba(var(--color-warning-rgb), 0.15)', text: 'var(--color-warning)', border: 'rgba(var(--color-warning-rgb), 0.3)' };
-      case 'advanced': return { bg: 'rgba(var(--color-error-rgb), 0.15)', text: 'var(--color-error)', border: 'rgba(var(--color-error-rgb), 0.3)' };
-      default: return { bg: 'rgba(var(--color-primary-rgb), 0.15)', text: 'var(--color-primary)', border: 'rgba(var(--color-primary-rgb), 0.3)' };
-    }
-  };
-
-  const difficultyColors = getDifficultyColor(guide.difficulty);
-
   return (
-    <div
-      className="guide-card-new"
-      style={{
-        backgroundColor: 'var(--color-surface)',
-        borderRadius: '16px',
-        overflow: 'hidden',
-        border: '1px solid var(--color-border)',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'relative',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease'
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-4px)';
-        e.currentTarget.style.boxShadow = '0 12px 24px rgba(0, 0, 0, 0.3)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = 'none';
-      }}
-    >
+    <div className="module-card module-card-interactive flex flex-col relative h-full overflow-hidden p-0">
       {/* Gradient Header */}
       <div style={{
         position: 'relative',
@@ -308,41 +276,15 @@ export default function GuideCard({ guide, onView, onDownload, onRate }: GuideCa
           gap: '6px',
           marginTop: 'auto'
         }}>
-          <span style={{
-            padding: '4px 10px',
-            borderRadius: '6px',
-            fontSize: '11px',
-            fontWeight: '600',
-            background: difficultyColors.bg,
-            color: difficultyColors.text,
-            border: `1px solid ${difficultyColors.border}`
-          }}>
+          <span className={`module-badge ${guide.difficulty === 'beginner' ? 'module-badge-success' : guide.difficulty === 'intermediate' ? 'module-badge-warning' : 'module-badge-danger'}`}>
             {guide.difficulty === 'beginner' ? 'Principiante' :
              guide.difficulty === 'intermediate' ? 'Intermedio' : 'Avanzado'}
           </span>
-          <span style={{
-            padding: '4px 10px',
-            borderRadius: '6px',
-            fontSize: '11px',
-            fontWeight: '600',
-            background: 'var(--color-primary)',
-            opacity: '0.2',
-            color: 'var(--color-primary)',
-            border: '1px solid var(--color-primary)'
-          }}>
+          <span className="module-badge">
             {guide.type}
           </span>
           {guide.estimatedTime && (
-            <span style={{
-              padding: '4px 10px',
-              borderRadius: '6px',
-              fontSize: '11px',
-              fontWeight: '600',
-              background: 'var(--color-secondary)',
-              opacity: '0.2',
-              color: 'var(--color-secondary)',
-              border: '1px solid var(--color-secondary)'
-            }}>
+            <span className="module-badge">
               ⏱️ {guide.estimatedTime}
             </span>
           )}
@@ -359,20 +301,7 @@ export default function GuideCard({ guide, onView, onDownload, onRate }: GuideCa
           {canAccess ? (
             <button
               onClick={handleView}
-              style={{
-                flex: 1,
-                padding: '10px 16px',
-                borderRadius: '8px',
-                fontSize: '13px',
-                fontWeight: '600',
-                background: 'var(--gradient-primary)',
-                color: '#fff',
-                border: 'none',
-                cursor: 'pointer',
-                transition: 'opacity 0.2s'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
-              onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+              className="module-btn module-btn-primary flex-1 text-sm"
             >
               Ver Guía
             </button>

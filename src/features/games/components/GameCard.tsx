@@ -28,7 +28,7 @@ export default function GameCard({ game, onClick, onFavorite, onShare, details }
 
   return (
     <div
-      className="cuadro h-100 cursor-pointer animate-theme-hover rounded-3 p-4"
+      className="module-card module-card-interactive h-100 cursor-pointer p-4"
       onClick={handleClick}
     >
       <div className="text-center position-relative">
@@ -64,24 +64,24 @@ export default function GameCard({ game, onClick, onFavorite, onShare, details }
           </div>
         </div>
         
-        <h3 className="h4 text-theme-primary fw-bold mb-3 glow-text">{game.name}</h3>
+        <h3 className="module-text-title h4 mb-3 glow-text">{game.name}</h3>
         
         <div className="d-flex justify-content-center gap-2 mb-3 flex-wrap">
-          <span className="px-2 py-1 text-theme-primary text-xs rounded-full" style={{ background: 'var(--color-surface-light)' }}>
+          <span className="px-2 py-1 module-text-highlight text-xs rounded-full" style={{ background: 'var(--color-surface-light)' }}>
             {game.type.toUpperCase()}
           </span>
           {game.badge && (
-            <span className={`px-2 py-1 text-theme-primary text-xs rounded-full ${game.badgeColor || ''}`} style={{ background: 'var(--color-surface-hover)' }}>
+            <span className={`px-2 py-1 text-white text-xs rounded-full ${game.badgeColor || ''}`} style={{ background: 'var(--color-surface-hover)' }}>
               {game.badge}
             </span>
           )}
         </div>
         
-        <p className="text-theme-secondary small mb-4">{game.description}</p>
+        <p className="module-text-muted small mb-4">{game.description}</p>
         
         {/* Game details */}
         <div className="mb-4">
-          <div className="d-flex justify-content-center gap-3 mb-2 text-theme-secondary small">
+          <div className="d-flex justify-content-center gap-3 mb-2 module-text-muted small">
             <span className="d-flex align-items-center gap-1">
               <i className="fas fa-star text-warning"></i>
               {game.rating}
@@ -92,7 +92,7 @@ export default function GameCard({ game, onClick, onFavorite, onShare, details }
             </span>
           </div>
           
-          <div className="d-flex justify-content-center gap-3 text-theme-secondary small">
+          <div className="d-flex justify-content-center gap-3 module-text-muted small">
             <span className="d-flex align-items-center gap-1">
               <i className="fas fa-calendar"></i>
               {new Date(game.releaseDate).getFullYear()}
@@ -107,7 +107,7 @@ export default function GameCard({ game, onClick, onFavorite, onShare, details }
         {/* Genres */}
         <div className="d-flex flex-wrap gap-1 justify-content-center mb-4">
           {game.genre.slice(0, 3).map((genre, index) => (
-            <span key={index} className="px-2 py-1 text-theme-secondary text-xs rounded-full" style={{ background: 'var(--color-surface)' }}>
+            <span key={index} className="px-2 py-1 module-text-muted text-xs rounded-full" style={{ background: 'var(--color-surface)' }}>
               {genre}
             </span>
           ))}
@@ -117,14 +117,14 @@ export default function GameCard({ game, onClick, onFavorite, onShare, details }
         <div className="d-flex justify-content-center gap-2 mt-auto">
           <button
             onClick={handleFavorite}
-            className="theme-button-danger px-2 py-1 text-sm"
+            className="module-btn module-btn-outline px-2 py-1 text-sm"
             title="Agregar a favoritos"
           >
             <i className="fas fa-heart"></i>
           </button>
           <button
             onClick={handleShare}
-            className="theme-button-primary px-2 py-1 text-sm"
+            className="module-btn module-btn-primary px-2 py-1 text-sm"
             title="Compartir"
           >
             <i className="fas fa-share"></i>

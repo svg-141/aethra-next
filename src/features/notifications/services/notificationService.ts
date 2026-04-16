@@ -7,11 +7,12 @@ class NotificationServiceImpl implements NotificationService {
   private reconnectAttempts = 0;
   private maxReconnectAttempts = 5;
   private reconnectDelay = 1000;
-  private isDevelopment = typeof window !== 'undefined' && window.location.hostname === 'localhost';
+  private isDevelopment = process.env.NODE_ENV === 'development';
+  private isClient = typeof window !== 'undefined';
 
   constructor() {
-    // Solo inicializar WebSocket en producción
-    if (!this.isDevelopment) {
+    // Solo inicializar WebSocket en producción y exclusivamente en el entorno del navegador
+    if (this.isClient && !this.isDevelopment) {
       this.initializeWebSocket();
     }
     this.loadPreferences();
